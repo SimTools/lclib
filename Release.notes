@@ -12,6 +12,12 @@ lclib-97a-3.4 14-October-1998  by A.Miyamoto
 (1) Implement minar  changes to run lclib with JSF
     So far confirmed to run well on Redhat5.1 and HI-UX
 
+(2) Compiler option of BL for HIUX compiler is removed, to match 
+    KEKCC standard.  Accordingly, block data is not loaded by EXTERNAL
+    statement.  Instead, block data is defined as subroutine and
+    when initializing of common block is needed, call to the
+    block data subroutine is inserted.
+
 *************************************************
 lclib-97a-3.2 27-Jul-1998  by A.Miyamoto
 *************************************************
