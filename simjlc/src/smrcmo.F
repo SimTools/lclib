@@ -118,10 +118,13 @@ C... Deflaection angle is in the range, -90 to 90 degree
          DEFA=DATAN((-YPVOT+CTYC -(-XPVOT+CTXC)*TAN(PHIA))/
      >             (-XPVOT+CTXC +(-YPVOT+CTYC)*TAN(PHIA)))
          IF( DEFA*CDCT(3) .LT. 0.0) THEN
+            IF( ABS(CDCT(3)) .LT. 2.0) THEN
             PRINT *,'Error in SMRCMO .. Deflection angle',
-     >       ' and track charge is inconsistent.'
+     >       ' and track charge is inconsistent. ',
+     >       ' though track momentum is > 500MeV'
             PRINT *,' Layer=',IL,' DEF-Angle=',DEFA,
      >               ' Kappa=',CDCT(3)
+            ENDIF
             IRET=-3
             RETURN
           ENDIF
