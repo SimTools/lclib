@@ -7,6 +7,30 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-98a-4 30-March-1999  by A.Miyamoto
+*************************************************
+(1) Subroutines, UTRKMO, UTRKAO, UTRKIO are created in util/fortlib.
+    These are same as UTRKMV, UTRKAV, and UTRKIV, respectively, except
+    packing order of elements of error matrix matches the error matrix
+    created by QuickSimulator, simjlc.
+
+(2) Several subroutines in simjlc/src are modified so as to
+   a) create a smeared VTX;Track_Parameter, and used it created
+      the CDC-VTX combined track parameter, Production:CDC_VTX;Track_Parameter
+      in the subroutine SMRCVT.  To turn on this function, 
+      NERRVX parameter in the detector parameter file, param/detect6.com
+      for example, should be equal 3.
+      Note that the making of the VTX track parameter and that of the VTX space
+      points is independant.  Thus a deviation of the VTX hit point from
+      the exact one does not reflected to the VTX track parameter.
+   b) VTX region can be devided in to parts, the one for the VTX and 
+      the other for the Inner Tracker.   The configuration of Inner
+      Tracker can be specified similar to that of VTX.  The number 
+      of Inner Tracker layer is given by NSMPVX+1-NUMVTX.  See
+      a file, simjlc/param/detect6.com for example.
+
+
+*************************************************
 lclib-98a-3 15-Feburary-1999  by A.Miyamoto
 *************************************************
 (1) gen/tauola/tauola.F
