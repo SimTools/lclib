@@ -30,7 +30,7 @@ OBJM   = mablkd.o maclos.o macvrs.o madef.o madump.o magete.o \
 	 maxget.o maxloc.o maxopn.o maxput.o maxrst.o maxslc.o \
 	 maxstp.o maxvrf.o 
 
-ALLOBJ = $(OBJS) $(OBJF) $(OBJM) prmain.o
+ALLOBJ = $(OBJS) $(OBJF) $(OBJM)
 SHROBJ = $(OBJS) $(OBJF) $(OBJM) 
 
 LIBNAME	   = LCFULL
