@@ -17,12 +17,15 @@ C       CALL ATNXIT ( 1, GOTATN, IRET )
 CMSP        call get_processor_id ( iproc )
 #ifdef HIUXF77
        call jmlatn( gotatn )
+#endif
+#ifndef HIUXF77
 #elif MACHTEN_PPC
 #else
        CALL GETPID(iproc)
        if ( iproc .lt. 0 ) then
          iii = signal(2,gotatn,-1)
        end if
+#endif
 #endif
 C
        END

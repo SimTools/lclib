@@ -29,7 +29,7 @@ comtest :: comtest.o $(LIBCOM) $(LIBCLI)
 	f77 -o comtest comtest.o $(LIBCOM) $(LIBCLI) -lU77
 
 clean::
-	rm $(OBJS)
+	rm -f $(OBJS)
 
 # end of Makefile
 
