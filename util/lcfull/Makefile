@@ -2,7 +2,7 @@ all:
 	(cd src ; xmkmf ; make)
 
 install:
-	(cd src ; xmkmf ; make install)
+	(cd src ; xmkmf ; make install ; make  )
 
 clean:
 	(cd src ; make clean)

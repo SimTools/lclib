@@ -44,3 +44,5 @@ InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
 #endif
 NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
 InstallLibrary($(LIBNAME),$(INSTALLDIR))
+
+AllTarget(prmain.o)
