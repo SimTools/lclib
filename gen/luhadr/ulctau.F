@@ -28,13 +28,12 @@ C--
 C--
 C  Constants
 C--
+#ifndef HIUXF77
       EXTERNAL         LUDATA
+#endif
 C
 C ======< Entry Point >=============================================
 C
-#ifdef HIUXF77
-      CALL LUDATA
-#endif
 C--
 C  Get Compressed ID.
 C--

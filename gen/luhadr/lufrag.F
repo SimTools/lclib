@@ -70,7 +70,9 @@ C--
 C--
 C  Constants
 C--
+#ifndef HIUXF77
       EXTERNAL         LUDATA
+#endif
 C--
 C  Pointer from /LUJETS/ to OUTLST.
 C     IDHIST ( i ) : Address in OUTLST for particles in /LUJETS/
@@ -80,9 +82,6 @@ C--
 C
 C ======< Entry Point >=============================================
 C
-#ifdef HIUXF77
-      CALL LUDATA
-#endif
 C--
 C  Reset #particles in /LUJETS/.
 C--

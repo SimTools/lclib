@@ -29,8 +29,9 @@ C ---------------------------------------------- C
 C
 C COMMON ( BLOCK DATA )
 C
+#ifndef HIUXF77
       EXTERNAL         LUDATA
-
+#endif
 C VARIABLES
 C
       CHARACTER*16 PGNAME, GNNAME
@@ -43,10 +44,6 @@ C
 C
 C MAIN
 C
-#ifdef HIUXF77
-      CALL LUDATA
-#endif
-
       CALL FULENV ( IENV )
       IF ( IENV .NE. 1 ) RETURN
 C
