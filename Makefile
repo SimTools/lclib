@@ -4,6 +4,7 @@ install:
 	(cd gen    ; make install)
 	(cd simjlc ; make install)
 	(cd util   ; make install)
+	(cd example ; make install )
 
 clean:
 	(cd gen    ; make clean)
