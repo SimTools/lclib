@@ -37,7 +37,7 @@ ANALLIB   = -Wl,-L$(LCLIB) -lLCFULL -lGENUTIL -lLUND73 -lTAUOLA \
 	    -Wl,-L$(HBOOK_LIB) -lpacklib $(MYLDOPT)
 
 #ifdef HPArchitecture
-MYLDOPT = -lvec -lU77 -Wl,-a,archive
+MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
 #endif
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2
