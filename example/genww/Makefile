@@ -11,58 +11,52 @@
 #               8-Dec-1997  To Run on HI-UX
 #              24-Dec-1998  To use with cernlib/98a
 
-#define LCLIB_TMPL "../../config/lclib.tmpl"
-#include LCLIB_TMPL
+include $(LCLIBROOT)/config/Makefile.lclib
 
-LCDIR  = ../..
-LCLIB  = $(LCDIR)/lib
-HBOOK_LIB = $(CERN_ROOT)/lib
-CERNLIBOPT = 
+LCLIB   = $(LCLIBROOT)/lib
+CERNLIB = $(CERN_ROOT)/lib
 
-INCPATH = -I./ \
-	  -I$(LCDIR)/util/lcfull/src \
-	  -I$(LCDIR)/util/com \
-	  -I$(LCDIR)/util/cli \
-	  -I$(LCDIR)/util/tbs/src
+INCPATH = -I$(LCLIBROOT)/include
 
-MAIN  = $(LCDIR)/util/lcfull/src/prmain.o
+MAIN  = $(LCLIBROOT)/util/lcfull/src/prmain.o
 
-ANALOBJ   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
+OBJS   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
 	    coupla.o boost0.o bs51cm.o bshget.o 
 
 CERNLIBOPT = `cernlib packlib jetset74 mathlib`
 
-ANALLIB   =  -Wl,-L$(LCLIB) -lLCFULL -lLUHADR -lGENUTIL -lTAUOLA \
+LIBS   =  -Wl,-L$(LCLIB) -lLCFULL -lLUHADR -lGENUTIL -lTAUOLA \
 	    -lHELASV204 -lBASESV5.1 -lSIMJLC -lFORTLIB  -lCOM -lCLI \
 	    -lTBS -lLCFULL -lGENUTIL  \
 	    -lHPKTOHBK -lFORTLIB -lCOM -lCLI \
-	    -Wl,-L$(HBOOK_LIB) $(CERNLIBOPT) \
-	    $(MYLDOPT)
+	    -Wl,-L$(CERNLIB) $(CERNLIBOPT)
 
-#ifdef HPArchitecture
+ifeq ($(LCLIBROOT),hpux)
 MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
-#endif
-#ifdef hitachiArchitecture
-MYLDOPT = -lmsl2
-#ifdef F90FORTRAN
-# MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
-MYLDOPT = -lmsl2_90 -L/lib/pa1.1 -lm
-HBOOK_LIB = $(CERN_ROOT)/lib
-# CERNLIBOPT = -Wl,-a,archive 
-#endif
-#endif
+endif
+
+CLEANFILES += *.bak BASES.WW.TBS wwanal.ex dis.wwanl ft.01
+#
+# ##########################################################
+#
 
 
-all :: anal
+all : anal
 
-anal   : $(ANALOBJ) 
-	 $(FC) $(MAIN) $(ANALOBJ) $(FFLAGS) $(ANALLIB) -o wwanal.ex 
+ifeq ($(PYTHIA_VERSION),6)
+anal   : $(OBJS)  $(MAIN)
+	 @echo "**************"
+	 @echo Example for PYTHIA Version 6 is not supported yet
+	 @echo See comments in HowToInstall at the top directory
+else
+anal   : $(OBJS)  $(MAIN)
+	 $(FC) $(MAIN) $(OBJS) $(FFLAGS) $(LIBS) -o wwanal.ex 
+endif
 
-clean ::
-	rm -f *.o core *~
-	rm -f Makefile Makefile.bak BASES.WW.TBS wwanal.ex dis.wwanl ft.01
+$(MAIN): ../../util/lcfull/src/prmain.F
+	(cd ../../util/lcfull/src ; make prmain.o )
 
-help  ::
+help  :
 	@echo "This is a Makefile to create e+e- ->W+W- generator."
 	@echo "Following commands are recognized. Read Readme file for more details."
 	@echo "    make anal      ; create spring/simulator/analysis job"
@@ -70,7 +64,6 @@ help  ::
 	@echo "    make           ; get this help "
 	@echo "                                       A.Miyamoto  29-Sep-1994"
 
-
-
+include $(LCLIBROOT)/config/Makefile.defaults
 
 
