@@ -1,0 +1,7 @@
+#!/bin/csh -f
+# Used to create lib directory for automatic installation.
+if ( !(-d lib) ) then
+	mkdir lib
+endif
+
+exit
