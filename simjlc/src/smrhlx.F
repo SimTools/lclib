@@ -41,6 +41,8 @@ C*                                Add type defs of RANN, otherwise don't
 C*                                work in HIUX
 C*     5/14/99  A.Miyamoto        A bug to calculate NHITs of curled up 
 C*                                was fixed
+C*     5/26/99  A.Miyamoto        Use SMRHLM instead of SMRHLE to include
+C*                                the effect of multiple-scattering
 C*
 C***********************************************************************
  
@@ -64,7 +66,20 @@ C--
       EXTERNAL     RANN
       DATA EPSL  / 0.1 /
       DATA NCALL / 0 /
-
+C
+C .. MODSMR : 
+C    Flag to specify how to smear helix parameter.
+C     = 0 ; Use SMRHLE ( measurement error only )
+C     = 1 ; Use SMRHLE with MODE=1
+C           i.e, include measurement error and Multiple scattering
+C                by exact formula
+      DATA MODSMR /1/ 
+C
+C ..  XRAD
+C     Thickness per cm in unit of radiation length
+C     Value given here is for CO2/C4H10 90/10 % ( from JLC-I report ) 
+      REAL*4 XRAD
+      DATA XRAD/0.000055/
 C
 C========< Entry Point >================================================
 C
@@ -179,17 +194,27 @@ C--
 C--
 C  Calculate inverse error matrix and smear helix parameters.
 C--
-      IF ( NHIT.GE.NSMPTK ) THEN
-         CALL UVCOPY(10,SGBS,SGB)
-         CALL UVCOPY(18,DADB1S,DADB1)
-         CALL UVCOPY( 8,DADB2S,DADB2)
+      IF( MODSMR .EQ. 0 ) THEN
+        IF ( NHIT.GE.NSMPTK ) THEN
+           CALL UVCOPY(10,SGBS,SGB)
+           CALL UVCOPY(18,DADB1S,DADB1)
+           CALL UVCOPY( 8,DADB2S,DADB2)
+        ELSE
+           CALL SMRHLE(NHIT,DSMPTK,SIGRF,SIGZE,SGB,DADB1,DADB2,IRT)
+           IF ( IRT.LT.0 ) THEN
+              IRET = - 2
+              RETURN
+           ENDIF
+        ENDIF
+C
       ELSE
-         CALL SMRHLE(NHIT,DSMPTK,SIGRF,SIGZE,SGB,DADB1,DADB2,IRT)
+         CALL SMRHLM(NHIT,DSMPTK,SIGRF,SIGZE,XRAD,HLSMR,MODSMR,
+     >                SGB,DADB1,DADB2,IRT)
          IF ( IRT.LT.0 ) THEN
-            IRET = - 2
-            RETURN
+             IRET = - 2
+             RETURN
          ENDIF
-      ENDIF
+      ENDIF 
 C--
 C  Calculate error matrix.
 C--

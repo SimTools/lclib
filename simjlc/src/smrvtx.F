@@ -71,6 +71,7 @@ C
 C--
 C  Reset return flag.
 C--
+
       IRET = 0
       IF ( NSMPVX.LT.0 ) RETURN
 C--
@@ -90,7 +91,6 @@ C--
          YPR = RPLIST(10,IPT)
          ZPR = RPLIST(11,IPT)
          RPR = SQRT(XPR*XPR+YPR*YPR)
-cc         print *,' RPR and RCYVX(NSMPVX)=',RPR,RCYVX(NSMPVX)
          IF ( RPR.GT.RCYVX(NSMPVX) )             GO TO 1000
 C--
 C  Calculate R of the decay point.
@@ -121,7 +121,6 @@ C--
 C  If unstable, check if decay point inside the measuring layer.
 C  If yes, skip this particle.
 C--
-ccc            print *,' LYR=',LYR,' RCYVX(LYR)=',RCYVX(LYR)
 
             IF ( RDK.LT.RCYVX(LYR) )             GO TO 1000
 C--
@@ -134,11 +133,8 @@ C  Get hit point. If no intersection, go to next layer.
 C--
             RCY(1) = 1.E-2
             RCY(2) = RCYVX(LYR)
-cc            print *,' RCY =',RCY(1),RCY(2),
-cc     .  'zcyvx=',zcyvx(1,lyr),zcyvx(2,lyr)
             CALL UHLXCY(RCY,ZCYVX(1,LYR),EPSL,
      .                  RHELIX(1,IPT),PHI,XV,IRT)
-cc            print *,' Search intersection .. IRT=',IRT
             IF ( IRT.NE.1 )                      GO TO 100
 C--
 C  If LYR is a measuring layer, save this hit.

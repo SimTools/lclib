@@ -29,6 +29,8 @@ C*     Calls the following routines;
 C* (Updaterecord)
 C*     29/3/99   A.Miyamoto       Original version, duplicating SMRHLX
 C*      9/4/99   A.Miyamoto       Does not move the pivot.
+C*     26/5/99  A.Miyamoto        Use SMRHLM instead of SMRHLE to include
+C*                                the effect of multiple-scattering
 C*
 C***********************************************************************
  
@@ -51,7 +53,15 @@ C--
       EXTERNAL     RANN
       DATA EPSL  / 0.1 /
       DATA NCALL / 0 /
-
+C
+C .. MODSMR : 
+C    Flag to specify how to smear helix parameter.
+C     = 0 ; Use SMRHLE ( measurement error only )
+C     = 1 ; Use SMRHLE with MODE=1
+C           i.e, include measurement error and Multiple scattering
+C                by exact formula
+      DATA MODSMR /1/ 
+C
 C
 C========< Entry Point >================================================
 C
@@ -145,7 +155,7 @@ C--
 C--
 C  Reject tracks with insufficient # hits.
 C--
-      NHIT = (R2-R1-0.1)/DSMPVT
+      NHIT = (R2-R1+0.1)/DSMPVT +1
       IF ( NHIT.LT.NSMPCV ) RETURN
 C--
 C  Move the pivot from the production point to the 1-st
@@ -166,17 +176,29 @@ C      ENDIF
 C--
 C  Calculate inverse error matrix and smear helix parameters.
 C--
-      IF ( NHIT.GE.NSMPVT ) THEN
-         CALL UVCOPY(10,SGBS,SGB)
-         CALL UVCOPY(18,DADB1S,DADB1)
-         CALL UVCOPY( 8,DADB2S,DADB2)
-      ELSE
+      IF( MODSMR .EQ. 0 ) THEN
+        IF ( NHIT.GE.NSMPVT ) THEN
+           CALL UVCOPY(10,SGBS,SGB)
+          CALL UVCOPY(18,DADB1S,DADB1)
+          CALL UVCOPY( 8,DADB2S,DADB2)
+        ELSE
          CALL SMRHLE(NHIT,DSMPVT,SIGRFV,SIGZEV,SGB,DADB1,DADB2,IRT)
          IF ( IRT.LT.0 ) THEN
             IRET = - 2
             RETURN
+          ENDIF
+        ENDIF
+C
+C
+      ELSE
+         CALL SMRHLM(NHIT,DSMPVT,SIGRF,SIGZE,VTXDEN,HLSMR,MODSMR,
+     >                SGB,DADB1,DADB2,IRT)
+         IF ( IRT.LT.0 ) THEN
+             IRET = - 2
+             RETURN
          ENDIF
-      ENDIF
+      ENDIF 
+
 C--
 C  Calculate error matrix.
 C--

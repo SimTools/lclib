@@ -31,7 +31,7 @@ C*                           hit points for Inner Tracker
 C*
 C*      
 C*  
-      PARAMETER      ( MXxVXL = 10 )
+      PARAMETER      ( MXxVXL = 22 )
       COMMON /SMRVGO/ NSMPVX, DPHIVX, DZEEVX, RCYVX(0:MXxVXL),
      .                ZCYVX(2,0:MXxVXL), RDLVX(0:MXxVXL),
      .                NERRVX, ERRVX(5), NUMVTX
