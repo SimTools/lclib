@@ -61,7 +61,7 @@ C--
             RLTKBF( 4) = RTKBNK(4,ITK)
             RLTKBF( 5) = RTKBNK(8,ITK)
             RLTKBF( 8) = ITKBNK(57,ITK)
-            RLTKBF( 9) = SIGN(1,RTKBNK(13,ITK))
+            RLTKBF( 9) = SIGN(1.E0,RTKBNK(13,ITK))
             RLTKBF(10) = ITYP
             RLTKBF(11) = ISRC
             RLTKBF(12) = 1
@@ -83,7 +83,7 @@ C--
             RLTKBF( 3) = RTKBNK(3,ITK)
             RLTKBF( 4) = RTKBNK(4,ITK)
             RLTKBF( 8) = ITKBNK(57,ITK)
-            RLTKBF( 9) = SIGN(1,RTKBNK(13,ITK))
+            RLTKBF( 9) = SIGN(1.E0,RTKBNK(13,ITK))
             RLTKBF(10) = ITYP
             RLTKBF(11) = ISRC
             RLTKBF(12) = 1
@@ -107,7 +107,7 @@ C--
             RLTKBF( 3) = RTKBNK(3,ITK)
             RLTKBF( 4) = RTKBNK(4,ITK)
             RLTKBF( 8) = ITKBNK(57,ITK)
-            RLTKBF( 9) = SIGN(1,RTKBNK(13,ITK))
+            RLTKBF( 9) = SIGN(1.E0,RTKBNK(13,ITK))
             RLTKBF(10) = ITYP
             RLTKBF(11) = ISRC
             RLTKBF(12) = 1

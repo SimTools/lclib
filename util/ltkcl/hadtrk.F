@@ -167,7 +167,7 @@ C>>>
          DO 3000 JTK = 1, NTKCEL
             ITK  = ITKCEL(JTK)
 C--
-            ICHG       = SIGN(1,RTKBNK(13,ITK))
+            ICHG       = SIGN(1.E0,RTKBNK(13,ITK))
             ITYP       = 4
             ISRC       = 1
 C--
@@ -273,7 +273,7 @@ C>>>
          DO 6000 JTK = 1, NTKCEL
             ITK  = ITKCEL(JTK)
 C--
-            ICHG = SIGN(1,RTKBNK(13,ITK))
+            ICHG = SIGN(1.E0,RTKBNK(13,ITK))
             ITYP = 5
             ISRC = 1
 C--
