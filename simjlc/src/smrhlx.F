@@ -178,26 +178,6 @@ C--
          ENDIF
       ENDIF
 C--
-      DO 10 I = 1, 5
-         SGB(I) = SGB(I)*RANN(ISEED)
-10    CONTINUE
-C--
-      DO 200 I = 1, 3
-         DEV = 0
-         DO 20 J = 1, 3
-            DEV = DEV + DADB1(I,J)*SGB(J)
-20       CONTINUE
-         HLSMR(I) = HLSMR(I) + DEV
-200   CONTINUE
-C--
-      DO 300 I = 1, 2
-         DEV = 0
-         DO 30 J = 1, 2
-            DEV = DEV + DADB2(I,J)*SGB(J+3)
-30       CONTINUE
-         HLSMR(I+3) = HLSMR(I+3) + DEV
-300   CONTINUE
-C--
 C  Calculate error matrix.
 C--
       CALL UVZERO(30,ERROR)
@@ -223,6 +203,27 @@ C--
 50       CONTINUE
 500   CONTINUE
       CALL UVCOPY(30,ERROR(1),HLSMR(9))
+
+C--
+      DO 10 I = 1, 5
+         SGB(I) = SGB(I)*RANN(ISEED)
+10    CONTINUE
+C--
+      DO 200 I = 1, 3
+         DEV = 0
+         DO 20 J = 1, 3
+            DEV = DEV + DADB1(I,J)*SGB(J)
+20       CONTINUE
+         HLSMR(I) = HLSMR(I) + DEV
+200   CONTINUE
+C--
+      DO 300 I = 1, 2
+         DEV = 0
+         DO 30 J = 1, 2
+            DEV = DEV + DADB2(I,J)*SGB(J+3)
+30       CONTINUE
+         HLSMR(I+3) = HLSMR(I+3) + DEV
+300   CONTINUE
 C--
 C  Set other information.
 C--
