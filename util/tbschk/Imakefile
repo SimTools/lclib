@@ -61,19 +61,19 @@ OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
 
 #ifdef hitachiArchitecture
 INCPATH = -I../tbs/src
-LCHOME  = /proj.hi/phys/lclib/pro
+LCHOME  = ../..
 LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lcurses
 #else
 #ifdef HPArchitecture
 INCPATH = -I/jlc/local/include -I../tbs/src
-LCHOME = /proj/phys/lclib/pro
+LCHOME = ../..
 JLCLIB = /jlc/local/lib
 LDFLAG = -Wl,-L$(LCHOME)/lib -lFORTLIB \
 	-Wl,-L$(JLCLIB) -lncurses -lU77
 CFLAGS = -Ae -O $(INCPATH) -DTBSCHK
 #else
 INCPATH = -I../tbs/src
-LCHOME  = /proj/phys/lclib/pro
+LCHOME  = ../..
 LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lncurses
 #endif
 #endif
