@@ -15,11 +15,16 @@ C*   HLXVTX(*) : VTX Track parameter
 C*   HLXCDC(*) : CDC Track parameter
 C* (Output)
 C*   HLXCDC(*) : CDC track parameter ( pivot is moved)
-C*   IRET      : =-1 when failed to move pivot.  othersize 0
+C*   IRET      : =-1 when failed to move pivot.  
+C*   IRET      : =-2 when CDC track does not reach VTX inner most layer.
+C*              If IRET is not zero, CDC helix parameter is not changed.
 C* (Relation)
 C*   Called by SMRCVT
 C* (Updaterecord)
 C*     4/06/99  A.Miyamoto  Firs version is created
+C*     4/08/99  A.Miyamoto  Skip when particle does not reach VTX layer
+C*                          Fix a bug in finding the intersection of
+C*                          of low momentum track.
 C*
 C***********************************************************************
  
@@ -80,15 +85,21 @@ C---
       CVY = HLXVTX(7)
       DIFY = (CVX*CTYC - CVY*CTXC)
       DIFX = (CVX*CTXC + CVY*CTYC)
-      DO 200 il=nlast, nfirst, -1
+      DO 200 il=nfirst, nlast
          CVR=RCYVX(IL)
          COSTH=( (CTCR+CTR)*(CTCR-CTR) + CVR*CVR) 
      .           / ( 2*CTCR*CVR ) 
+
+         IF( ABS(COSTH) .GT. 1.0 ) THEN
+            IRET=-2
+            RETURN
+         ENDIF
+
          THX  = ACOS(COSTH)
 C... Sign of THX is ambiguous.  Take the one in the direction
 C... same as VTX track parameter
-         DIF1 = (DIFY+DIFX*TAN(THX))/(DIFX-DIFY*TAN(THX))
-         DIF2 = (DIFY-DIFX*TAN(THX))/(DIFX+DIFY*TAN(THX))
+         DIF1 = ATAN2(DIFY+DIFX*TAN(THX),DIFX-DIFY*TAN(THX))
+         DIF2 = ATAN2(DIFY-DIFX*TAN(THX),DIFX+DIFY*TAN(THX))
          IF( ABS(DIF2) < ABS(DIF1) ) THX = -THX
 
          THPIV=ATAN2( CTXC*TAN(THX)+CTYC, 
