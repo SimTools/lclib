@@ -2,15 +2,11 @@ C *INCLUDE  UDSRCH
 C      IMPLICIT REAL*8 (A-H,O-Z)
 C      DO 100 I = 1, 100
 C        X = 0.01*FLOAT(I)
-#ifdef CC
-   X = 0.5
-#endif 
+CX    X = 0.5
 C      CALL EPROBX(X,11, XBEAM)
 C
 C       PRINT *,' X=',X,' XBEAM =',XBEAM
-#ifdef 100
-  CONTINUE
-#endif 
+C 100  CONTINUE
 C      STOP
 C      END
 C**********************************************************************

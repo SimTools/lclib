@@ -25,18 +25,14 @@ C
       INTEGER * 4      N, K
       REAL * 4         P
 C
-#ifdef 63
-  COMMON /LUDATE/  MSTE (  40 ), PARE ( 80 )
-#endif 
+C63  COMMON /LUDATE/  MSTE (  40 ), PARE ( 80 )
       COMMON/LUDAT1/   MSTU(200),PARU(200),MSTJ(200),PARJ(200)
       COMMON/RNDMNB/RNJ
       COMMON /LUSEED/  ISEED
       COMMON /LUCNTL/  SAVELU
       LOGICAL * 4      SAVELU
 C
-#ifdef MSP
 CMSP =EXPAND 'T#TP.COM.FORT(COMODE)'
-#endif 
 #ifdef UNIX
 #include "comode.inc"
 #endif 
@@ -47,7 +43,7 @@ C
       DATA   LUQUES    / 'Pythia - Execution Parameters' /
       CHARACTER * 40   LUNAME ( 4 ), FRAME, BEAM, TARGET
       DATA   LUNAME    / 'E_CM','PRINT_FLAG',
-     #                   'SEED', 'SAVE_PYHTIA'/
+     >                   'SEED', 'SAVE_PYHTIA'/
 C
 C VARIABLES
 C
@@ -151,12 +147,8 @@ C
 
       INTEGER * 4      N, K
       REAL * 4         P
-#ifdef 63
-  COMMON  / LUDAT3 /   DPAR ( 20 ), IDB ( 120 ), CBR ( 400 ),
-#endif 
-#ifdef 63
- #                     KDP (1600 )
-#endif 
+C63  COMMON  / LUDAT3 /   DPAR ( 20 ), IDB ( 120 ), CBR ( 400 ),
+C63 #                     KDP (1600 )
       COMMON/LUDAT3/MDCY(500,3),MDME(2000,2),BRAT(2000),KFDP(2000,5)
       COMMON  / LUCNTL /   SAVELU
       LOGICAL * 4      SAVELU
@@ -207,7 +199,7 @@ C    7   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
 C    8   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
 C    9   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
      2   70*0,
-     #   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     >   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
      1  11,   0, 111,   0,   0,   0,   0,   0,   0,   0,
      2  13,   0, 113,   0,   0,   0,   0,   0,   0,   0,
      .  70*0,
@@ -329,13 +321,9 @@ C VARIABLES
 C
       INTEGER * 4      I, J
       INTEGER * 4      NELEM
-#ifdef TTKN
-INTEGER * 4      HEADER ( 20 )
-#endif 
+CTTKN  INTEGER * 4      HEADER ( 20 )
       INTEGER * 4      HEADER (100 )
-#ifdef TAYM
-      REAL * 4         PTLIST ( 20 )
-#endif 
+CTAYM      REAL * 4         PTLIST ( 20 )
       INTEGER * 4      NSPAR, NPARTN
       INTEGER * 4      KS, KH, KF
       INTEGER * 4      IDATE, ITIME
@@ -469,7 +457,7 @@ C       PRINT *,' J, JOR=',J,JOR,' JDAU=',JDAU,' PTLIST=',PTLIST(13,J)
 2020  CONTINUE
 
       CALL TBMPT(1,'Generator:Particle_List', NELEM, 20, 
-     #   NE, NWRDS, PTLIST, IRET )
+     >   NE, NWRDS, PTLIST, IRET )
 C
 C     ------------------------
 C        Fill 'Parton_List'
@@ -480,9 +468,9 @@ C     ------------------------
         KF = K(I,2)
         KH = K(I,3)
         IF ( ( (KS.EQ.11 .OR. KS.EQ.12) .AND.
-     #         ( (ABS(KF).GE.1 .AND. ABS(KF).LE.8) .OR.
-     #           (KF .EQ. 21                     ) ) ) .OR.
-     #       ( KF .EQ. 22 .AND. KH .EQ. 0 ) ) THEN
+     >         ( (ABS(KF).GE.1 .AND. ABS(KF).LE.8) .OR.
+     >           (KF .EQ. 21                     ) ) ) .OR.
+     >       ( KF .EQ. 22 .AND. KH .EQ. 0 ) ) THEN
           NPRTN = NPRTN + 1
 	  NE(NPRTN) = NPRTN
 	  NWRDS(NPRTN) = 20
@@ -572,9 +560,7 @@ C-
 #ifdef CC
     IF ( K(I,2) .LT. 100 ) THEN
 #endif 
-#ifdef 63
-      IF ( IDB ( K(I,2) ) .LE. 0 ) THEN
-#endif 
+C63      IF ( IDB ( K(I,2) ) .LE. 0 ) THEN
           IF ( MDCY(LUCOMP(K(I,2)),2) .LE. 0 ) THEN
             NSPAR = NSPAR + 1
           END IF
@@ -592,15 +578,11 @@ C-
         KH = K (I,3)
 C       IF ( KS .GE. 15) GOTO 20
 C       IF ( KS .LE. 12) GOTO 20
-#ifdef CC
-    IF ( KH .EQ. 0 .AND. KF .LE. 600 ) THEN
-#endif 
-#ifdef CCC
-   IF ( KH .EQ. 0 ) THEN
-#endif 
+CCC    IF ( KH .EQ. 0 .AND. KF .LE. 600 ) THEN
+CCC   IF ( KH .EQ. 0 ) THEN
         IF ( (KS.EQ.11 .OR. KS.EQ.12) .AND.
-     #      ((ABS(KF).GE.1 .AND. ABS(KF).LE.8) .OR.
-     #        KF.EQ.21)) THEN
+     >      ((ABS(KF).GE.1 .AND. ABS(KF).LE.8) .OR.
+     >        KF.EQ.21)) THEN
           NPARTN = NPARTN + 1
           IF( NPARTN.GT.90 ) THEN
             IF( IERR.EQ.0 ) THEN
@@ -653,19 +635,11 @@ C COMMON
 C
       COMMON / LUJETS /    N, K(4000,5), P(4000,5), V(4000,5)
       COMMON/LUDAT1/   MSTU(200),PARU(200),MSTJ(200),PARJ(200)
-#ifdef 63
-  COMMON / LUDAT2 /    KTYP ( 120 ), PMAS ( 120 ), PWID ( 60 ),
-#endif 
-#ifdef 63
- #                     KFR ( 80 ), CFR ( 40 )
-#endif 
+C63   COMMON / LUDAT2 /    KTYP ( 120 ), PMAS ( 120 ), PWID ( 60 ),
+C63  #                     KFR ( 80 ), CFR ( 40 )
       COMMON/LUDAT2/KCHG(500,3),PMAS(500,4),PARF(2000),VCKM(4,4)
-#ifdef 63
-  COMMON / LUDAT3 /    DPAR ( 20 ), IDB ( 120 ), CBR ( 400 ),
-#endif 
-#ifdef 63
- #                     KDP (1600 )
-#endif 
+C63   COMMON / LUDAT3 /    DPAR ( 20 ), IDB ( 120 ), CBR ( 400 ),
+C63  #                     KDP (1600 )
       COMMON/LUDAT3/MDCY(500,3),MDME(2000,2),BRAT(2000),KFDP(2000,5)
       COMMON / LUDATE /    MSTE (  40 ), PARE ( 80 )
       COMMON /LUSEED/  ISEED
@@ -797,12 +771,8 @@ C COMMON ( BLOCK DATA )
 C
       EXTERNAL         LUDATA
       EXTERNAL         PYDATA
-#ifdef EX
-   XTERNAL         LUEDAT
-#endif 
-#ifdef EX
-  EXTERNAL         LUHDAT
-#endif 
+CEX   XTERNAL         LUEDAT
+CEX   EXTERNAL         LUHDAT
 C
 C VARIABLES
 C
@@ -883,9 +853,7 @@ C
 C
 C MAIN
 C
-#ifdef CCC
- IF ( BATCH ) CALL LUEEVT ( 10, 0.0 )
-#endif 
+CCCC  IF ( BATCH ) CALL LUEEVT ( 10, 0.0 )
 C
       CALL PYSTAT(1)
 C
@@ -946,13 +914,13 @@ C
          OPEN ( UNIT=1, FILE=DSN, FORM='UNFORMATTED',
 #endif 
 #ifdef MSP
-     #         STATUS='OLD', ACTION='READ', ERR=99 )
+     >         STATUS='OLD', ACTION='READ', ERR=99 )
 #endif 
 #ifdef UNIX
           OPEN ( UNIT=1, FILE=DSN, FORM='UNFORMATTED',
 #endif 
 #ifdef UNIX
-     #         STATUS='OLD', ERR=99 )
+     >         STATUS='OLD', ERR=99 )
 #endif 
           CALL RLUSET( 1, 0 )
           CLOSE ( UNIT = 1 )
@@ -1005,7 +973,7 @@ C
       OPEN ( UNIT=1, FILE=DSN, FORM='UNFORMATTED',
 #endif 
 #ifdef MSP
-     #       STATUS='UNKNOWN', ACTION='WRITE', ERR=99 )
+     >       STATUS='UNKNOWN', ACTION='WRITE', ERR=99 )
 #endif 
 #ifdef UNIX
        DSN= 'PYTHIA.SEED'
@@ -1014,7 +982,7 @@ C
        OPEN ( UNIT=1, FILE=DSN, FORM='UNFORMATTED',
 #endif 
 #ifdef UNIX
-     #       ERR=99 )
+     >       ERR=99 )
 #endif 
       CALL RLUGET( 1, 0 )
       CLOSE ( UNIT = 1 )

@@ -34,9 +34,7 @@ C
 C FUNCTIONS
 C
       EXTERNAL      SPGPAR
-#ifdef XX
-     EXTERNAL      SPJBIN
-#endif 
+CXX      EXTERNAL      SPJBIN
       EXTERNAL      SPRNIN
       EXTERNAL      SPJBTM
       EXTERNAL      SPCALL
@@ -59,15 +57,11 @@ C (2) Define Initialization entry.
 C ----------------------------------------------------------------------
 C
       CALL EXTSUB ( ENTDIA(NPROG), SPGPAR )
-#ifdef XX
-     ENTBRU(NPROG) = 0
-#endif 
+CXX      ENTBRU(NPROG) = 0
       CALL EXTSUB ( ENTBRU(NPROG), SPRNIN )
       ENTERU(NPROG) = 0
       ENTINI(NPROG) = 0
-#ifdef XX
-      CALL EXTSUB ( ENTINI(NPROG), SPJBIN )
-#endif 
+CXX      CALL EXTSUB ( ENTINI(NPROG), SPJBIN )
       CALL EXTSUB ( ENTTER(NPROG), SPJBTM )
 C
 C-----------------------------------------------------------------------
@@ -88,12 +82,12 @@ C
  
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'SPRING:Parton_List'
+     >   'SPRING:Parton_List'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
  
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'SPRING:Header'
+     >   'SPRING:Header'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
 C
 C-----------------------------------------------------------------------

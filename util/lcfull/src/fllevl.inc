@@ -10,7 +10,7 @@ C
       INTEGER * 4      MAXLVL
       PARAMETER        ( MAXLVL = 64 )
       COMMON /FLLEVL/  EXELVL(MAXLVL), DBGLVL(MAXLVL),
-     #                 DBGRNG(2,MAXLVL)
+     >                 DBGRNG(2,MAXLVL)
       INTEGER * 4      EXELVL, DBGLVL
       INTEGER * 4      DBGRNG
 C

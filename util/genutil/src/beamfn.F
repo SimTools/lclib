@@ -54,14 +54,10 @@ C         IF( EPSM .LE. 1.D-10) THEN
 C     EXPY = DEXP(-Y)
 C     EPINV = 1.D0/EPSM
 C     IF( IFL .EQ. 0 ) WRITE(6,9000)
-#ifdef 9000
-FORMAT(/1H1,/1H ,12X,'Eps',14X,'y',13X,'N1',14X,'X',14X,'H',
-#endif 
+C 9000 FORMAT(/1H1,/1H ,12X,'Eps',14X,'y',13X,'N1',14X,'X',14X,'H',
 C    .                 10X,'EPINV',11X,'EXPY',10X,'BEAMFN')
 C     WRITE(6,9100) EPS,Y,N1,X,H,EPINV,EXPY,BEAMFN
-#ifdef 9100
-FORMAT(1X,F15.4,7G15.4)
-#endif 
+C9100 FORMAT(1X,F15.4,7G15.4)
 C     IFL = 1
       RETURN
       END

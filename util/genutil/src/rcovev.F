@@ -444,13 +444,9 @@ C         RDAT20(13,IE) = HTMP(1,NPD+9)
 C         RDAT20(12,IE) = HTMP(2,NPD+9)
 C         DO 610 ID = 5,8
 C          RDAT20(ID,IE) = RTMP(ID+NPD)
-#ifdef 10
-      CONTINUE
-#endif 
+C 10      CONTINUE
 C         NPD = NPD + KWDAT(IE)
-#ifdef 00
-    CONTINUE
-#endif 
+C 00    CONTINUE
 C       CALL TBMPT(1,BANK1,NOELM,20,NEDAT, NWDAT,RDAT20,IR)
 C       CALL TBDELB(2,BANK1,IR)
 C     ELSE

@@ -45,7 +45,7 @@ C
 100   CONTINUE
       CALL HDEF1 ( 'TYPE', 'I*4 ', 9, 1.0, 1.0, 'DATA_TYPE@' )
       CALL HDEF1 ( 'URHD', 'I*4 ', 16, 1.0, 1.0,
-     #                'UNIVERSAL_RECORD_HEADER@' )
+     .                'UNIVERSAL_RECORD_HEADER@' )
       CALL HDEF1 ( 'DATE', 'I*4 ', 2, 1.0, 1.0, 'ANALYSIS_DATE@' )
       CALL HDEF1 ( 'TIME', 'I*4 ', 2, 1.0, 1.0, 'ANALYSIS_TIME@' )
 C     RETURN
@@ -96,7 +96,7 @@ C
       END IF
  
       CALL TBGET ( 2, 'Begin_Run:Universal_Record_Header', 1, NWRD,
-     #                 IUHEAD, IRET )
+     .                 IUHEAD, IRET )
       IF ( IRET .EQ. 1 ) THEN
          IPNTR = HPNTR ( 'URHD', 'HIST' )
          DO 330 I = 1, 16

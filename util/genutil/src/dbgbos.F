@@ -38,9 +38,7 @@ C            (10) : =       Phi(min)  radian
 C            (11) : =       Phi(max)  radian
 C
 C
-#ifdef C
-   COMMON /SSWORK/ NOELM(500), GENTRK(20), DETINF(50)
-#endif 
+C    COMMON /SSWORK/ NOELM(500), GENTRK(20), DETINF(50)
 C
       REAL*8   PK(0:3) , PH(0:3), PF(0:3, 4 )
 C
@@ -82,15 +80,9 @@ C ---------------------------------------------------------------------
 C
       IPART = 1
       IF( IFIX(DBGDAT(1)+0.1) .EQ. 2 ) IPART = 2
-#ifdef C
-   IF( IFIX(DBGDAT(1)+0.1) .EQ. 0 ) THEN
-#endif 
-#ifdef C
-     IF( RAN(ISEED) .GT. 0.5 ) IPART = 2
-#endif 
-#ifdef C
-   ENDIF
-#endif 
+C    IF( IFIX(DBGDAT(1)+0.1) .EQ. 0 ) THEN
+C     IF( RAN(ISEED) .GT. 0.5 ) IPART = 2
+C   ENDIF
       AMB0  = DBGDAT(2*IPART)
       WMB0  = DBGDAT(2*IPART+1)
       AMB   = AMB0 + WMB0*RANN(ISEED)
@@ -112,12 +104,8 @@ C ........
 C
       AMF = 0
       CALL DECAY2( PH, AMB, AMF, AMF, PF(0,1), PF(0,2) )
-#ifdef C
-   NIDF(1) =  5
-#endif 
-#ifdef C
-   NIDF(2) = -5
-#endif 
+C   NIDF(1) =  5
+C   NIDF(2) = -5
  
       IF( RAN(ISEED) .GT. 0.5 ) THEN
         NIDF(1) = 1
@@ -222,9 +210,6 @@ C
         CALL TBPUT(1,'Spring:Parton_List',1+IF, 20, RBUF, IRET )
 500   CONTINUE
 C
-#ifdef XXX
- PRINT *,' End of SPEVNT...'
-#endif 
 C
       RETURN
       END
@@ -389,12 +374,12 @@ C
  
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'Spring:Header'
+     >   'Spring:Header'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
  
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'Spring:Parton_List'
+     >   'Spring:Parton_List'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
  
 C
