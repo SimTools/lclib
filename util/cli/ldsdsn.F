@@ -1,9 +1,11 @@
 C   08/12/87 712081627  MEMBER NAME  LDSDSN   (FORT)     M  FORTRAN
+#if 0
 C
       CALL LDSDSN( 'TAHS.IEEE.DATA' )
 C
       STOP
       END
+#endif
 C
       SUBROUTINE LDSDSN( DSNAME )
 C
