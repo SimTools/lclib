@@ -187,11 +187,7 @@ CDBG       PRINT *,' PGEN(,3)=',(PGEN(K,3),K=0,3)
 CDBG       PRINT *,' PGEN(,4)=',(PGEN(K,4),K=0,3)
 CDBG       PRINT *,' PGEN(,5)=',(PGEN(K,5),K=0,3)
       CALL UIDATE( IBUF(2) )
-#ifdef HIUXF77
-      CALL CLOCK(2, IBUF(3))
-#else
-      CALL   TIME( IBUF(3) )
-#endif
+      CALL UITIME( IBUF(3) )
       IBUF(5) = EMINS*1.E3
       IBUF(6) = EPLUS*1.E3
       IBUF(7) = EBEAM*1.E3
@@ -326,6 +322,8 @@ C
       RBUF( 8) =   PGEN(0,3)
       RBUF(14) =   1.
       RBUF(18) =   1.
+      RBUF(19) =   101.
+      IF( IABS(IFIX(RBUF(2))).GE.11 ) RBUF(19)=0.
       CALL TBPUT(1,'Spring:Parton_List', 3, 20, RBUF, IRET )
 C
 C  fbar from W-
@@ -341,6 +339,8 @@ C
       RBUF( 8) =   PGEN(0,4)
       RBUF(14) =   1.
       RBUF(18) =   1.
+      RBUF(19) =   101.
+      IF( IABS(IFIX(RBUF(2))).GE.11 ) RBUF(19)=0.
       CALL TBPUT(1,'Spring:Parton_List', 4, 20, RBUF, IRET )
  
 C
@@ -357,6 +357,8 @@ C
       RBUF( 8) =   PGEN(0,5)
       RBUF(14) =   2.
       RBUF(18) =   2.
+      RBUF(19) =   202.
+      IF( IABS(IFIX(RBUF(2))).GE.11 ) RBUF(19)=0.
       CALL TBPUT(1,'Spring:Parton_List', 5, 20, RBUF, IRET )
 C
 C  fbar from W+
@@ -372,6 +374,8 @@ C
       RBUF( 8) =   PGEN(0,6)
       RBUF(14) =   2.
       RBUF(18) =   2.
+      RBUF(19) =   202.
+      IF( IABS(IFIX(RBUF(2))).GE.11 ) RBUF(19)=0.
       CALL TBPUT(1,'Spring:Parton_List', 6, 20, RBUF, IRET )
 
 C      DO 100 I = 1, 6
