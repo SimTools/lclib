@@ -41,6 +41,7 @@
 @!                             parameters for Inner Tracker.
 @!  99/04/06  A.Miyamoto       detect6.com is revised to have consistency 
 @!                             with JIM and Background study
+@!  99/05/07  A.Miyamoto       Thick ness of 1st VTX layer is changes from 0.0015 to 0.003
 @!
 @! Tracking device parameters.
 @!
@@ -131,7 +132,7 @@
  81     2.4  ! radius (cm)
  82    -5.0  ! Z-(cm)
  83     5.0  ! Z+(cm)
- 84   0.0015  ! thickness in radiation length
+ 84   0.003  ! thickness in radiation length
 @! layer #2 
  85     3.6  ! radius (cm)
  86    -7.5  ! Z-(cm)
