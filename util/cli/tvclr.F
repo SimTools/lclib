@@ -378,13 +378,21 @@ C CONST
 C
 C VAR
       CHARACTER * 1024  CBUF
+#ifdef HIUXF77
+      LOGICAL      * 1     LBUF(1024)
+#else
       BYTE      * 1     LBUF(1024)
+#endif
       EQUIVALENCE( CBUF,LBUF )
 C
 C BEGIN
 D     PRINT *, '*TVINPT'
       CALL TGET( CBUF,1024,'A,W',IRET,LAST )
+#ifdef HIUXF77
+      AID = LBUF(1)
+#else
       AID = INT(LBUF(1))
+#endif
       CALL TVSRDA( LBUF(2),LBUF(3),CSRPOS(1),CSRPOS(2) )
 C
       NFIELD = 0

@@ -98,7 +98,7 @@ tvoins.o : tvoins.f
 
 tvoptn.o : tvoptn.f
 
-tvpack.o : tvpack.f
+tvpack.o : tvpack.F
 
 tvslct.o : tvslct.f
 
