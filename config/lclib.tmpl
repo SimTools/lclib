@@ -98,7 +98,7 @@ XCOMM  ************************
 FC = f90
 F90OPTS=-L/usr/lib -i,E,U,P,PL,LT,L,EU,CL,CU,BL -W0,"LANGLVL(CONTI199,DARG(L),H8000)"
 FFLAGS = $(CPPOPT) $(INCPATH) $(F90OPTS) 
-#define HitachiFortranCompiler(dir) @\
+#define HitachiFortranCompiler(dir) \
 $(FC) dir/$*.F -c $(F90OPTS) $(CPPOPT) $(INCPATH) $(SHRLIBFLAGS) -o $*.o
 .F.o:
 	HitachiFortranCompiler(.)
