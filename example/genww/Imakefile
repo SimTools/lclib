@@ -43,7 +43,7 @@ MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2
 #ifdef F90FORTRAN
-# MYLDOPT = $(LCLIB)/FNUM.o -lmsl2 -L/lib/pa1.1 -lm
+# MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
 MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
 HBOOK_LIB = /cern/95a_f90/lib
 CERNLIBOPT = -Wl,-a,archive 
