@@ -36,6 +36,9 @@ C*     6/07/90  K.Fujii           Modified to store error matrix and
 C*                                related information.
 C*     7/16/92  K.Fujii           Fixed a bug concerning shallow
 C*                                tracks.
+C*     2/3/99   A.Miyamoto        Fix bug to set error matrix.
+C*                                Add type defs of RANN, otherwise don't
+C*                                work in HIUX
 C*
 C***********************************************************************
  
@@ -55,8 +58,11 @@ C--
       REAL   *4    RDATA(10)
       INTEGER*2    HDATA(2,10)
       EQUIVALENCE ( RDATA, HDATA )
+      REAL*4       RANN
+      EXTERNAL     RANN
       DATA EPSL  / 0.1 /
       DATA NCALL / 0 /
+
 C
 C========< Entry Point >================================================
 C
