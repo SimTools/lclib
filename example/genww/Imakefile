@@ -45,8 +45,8 @@ MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
 MYLDOPT = -lmsl2
 #ifdef F90FORTRAN
 # MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
-MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
-HBOOK_LIB = /cern/97a_nog/lib
+MYLDOPT = -lmsl2_90 -L/lib/pa1.1 -lm
+HBOOK_LIB = /cern/pro/lib
 CERNLIBOPT = -Wl,-a,archive 
 #endif
 #endif
