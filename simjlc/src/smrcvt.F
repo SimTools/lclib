@@ -95,7 +95,7 @@ C--
           NVHT = 2
 C--  When VTX Hit is more than 2, select only first and last hits for
 C--  Combined fitting.
-         IF ( NNVHT.EQ.2 ) THEN
+         IF ( NVHT.EQ.2 .AND. NNVHT .GE. 2 ) THEN
 C--
 C  Set XVHT.
 C--
