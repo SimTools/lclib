@@ -26,3 +26,7 @@ install:: lib$(LIBNAME).a
 	rm -f $(INSTALLDIR)/lib$(LIBNAME).a
 	cp -p lib$(LIBNAME).a $(INSTALLDIR)/lib$(LIBNAME).a
 
+clean::
+	rm -f *.o; rm -f *.a; rm -f *~ 
+	rm -f Makefile Makefile.bak
+
