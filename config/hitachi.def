@@ -46,7 +46,8 @@ clean::                                                                 @@\
 
 
 #ifdef DOSHRLIB
-SHRLIBFLAGS = +z 
+XCOMM   SHRLIBFLAGS = +z 
+SHRLIBFLAGS = +Z 
 SHLIBLDFLAGS = -b -E
 INSTLIBFLAGS = -m 555
 #endif
@@ -73,7 +74,7 @@ XCOMM  F90FORTRAN
 XCOMM  ************************
 #if defined(F90FORTRAN)
 FC = f90
-F90OPTS=-L/usr/lib -i,E,U,P,PL,LT,L,EU,CL,CU -W0,"LANGLVL(CONTI199,DARG(L),H8000)"
+F90OPTS=-O2 -L/usr/lib -i,E,U,P,PL,LT,L,EU,CL,CU -W0,"LANGLVL(CONTI199,DARG(L),H8000)"
 FFLAGS = $(CPPOPT) $(INCPATH) $(F90OPTS) 
 #define HitachiFortranCompiler(dir) \
 $(FC) dir/$*.F -c $(F90OPTS) $(CPPOPT) $(INCPATH) $(SHRLIBFLAGS) -o $*.o
