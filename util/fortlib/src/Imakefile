@@ -68,7 +68,7 @@ INSTALLDIR = ../../../lib
 ALLOBJ = $(OBJL) rann.o ran_.o $(OBJASM) $(OBJDEP) $(COBJECT) $(OBJSSL2)
 
 $(OOBJSSL2): $(SRCSSL2)
-	(cd ../ssl2; make)
+	(cd ../ssl2; xmkmf ; make all)
 
 $(OBJSSL2): $(OOBJSSL2)
 	ln -sf ../ssl2/$*.o $*.o
