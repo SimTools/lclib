@@ -22,7 +22,11 @@ c      SUBROUTINE SPFUNC( /MFUNC/, MMXTRY )
 C
       COMMON /SPPARM/ NADSPF, MXTRY
 C
+#if defined(AIX)
+      NADSPF = LOC(MFUNC)
+#else
       NADSPF = %LOC(MFUNC)
+#endif
       MXTRY  = MMXTRY
 C
       RETURN
