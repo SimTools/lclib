@@ -142,8 +142,11 @@ C  Calculate deflection angle.
 C--
          IF ( ICHG.NE.0 ) THEN
             R   = PTOR*PT
-            if( ap.eq.0.0 ) dfi=0.0
-            else  DFI = -ICHG*DL*PT/AP/R
+            if( ap.eq.0.0 ) then
+               dfi=0.0
+            else  
+               DFI = -ICHG*DL*PT/AP/R
+            endif
          ELSE
             DFI = 0
          ENDIF
