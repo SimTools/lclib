@@ -55,8 +55,8 @@ C
         COMMON /SSWORK_/ IELM(MXxPT), RPLIST(LNxPT,MXxPT), HELX(8),
 #endif 
      .                DPHI(2,MXxPT), PV(3), IMT(0:MXxPT), IDIDIT(MXxPT)
-      REAL*4 EPSDL
-      DATA   EPSDL  / 1.E-20 /
+      REAL*8 EPSDL
+      DATA   EPSDL  / 1.D-30 /
 C
 C========< Entry Point >================================================
 C

@@ -43,6 +43,8 @@ C*     5/14/99  A.Miyamoto        A bug to calculate NHITs of curled up
 C*                                was fixed
 C*     5/26/99  A.Miyamoto        Use SMRHLM instead of SMRHLE to include
 C*                                the effect of multiple-scattering
+C*     5/28/01  K.Fujii		  Limit NHIT less or equal to NSMPTK
+C*				  also in MODE=1.
 C*
 C***********************************************************************
  
@@ -144,7 +146,7 @@ C--
       NDOT = PLIST(12)
       IF ( NDOT.GT.0 ) THEN
          DL  = PLIST(17)
-         PHI = -DL/R
+         PHI = -DL*(ABS(TNL)/SQRT(1+TNL*TNL))/R
          CALL UPHELX(HLXCT,PHI,XV,PV)
          RDK = SQRT(XV(1)**2+XV(2)**2)
       ELSE
@@ -178,7 +180,7 @@ C--
 C--
 C  Reject tracks with insufficient # hits.
 C--
-      NHIT = (R2-R1-0.1)/DSMPTK
+      NHIT = MIN((R2-R1-0.1)/DSMPTK,NSMPTK)
       IF ( NHIT.LT.NSMPCT ) RETURN
 C--
 C  Move the pivot from the production point to the 1-st
