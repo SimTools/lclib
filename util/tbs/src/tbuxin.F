@@ -32,7 +32,7 @@ C
 C*        PRINT *, '#### Standard Mapping File assumed.'
 #ifdef  MSP
         OPEN ( UNIT=IU, FILE='T#PR.TBSTOVAX.FORMAT(VAXBANK)',
-     #         STATUS='SHR',ACTION='READ')
+     >         STATUS='SHR',ACTION='READ')
 #endif
 #ifdef  UNIX
 #ifndef HIUXF77
@@ -45,7 +45,7 @@ C*        PRINT *, '#### Standard Mapping File assumed.'
 #endif
 #ifdef  SUN
         LINBUF ='/topaz2/toptape/TOPAZLIB'//
-     #         '/TBS/TBSTOUNX/VAXBANK.format'
+     >         '/TBS/TBSTOUNX/VAXBANK.format'
 #endif
 #ifdef  HP
          LINBUF = '/proj/phys/lclib/95a/util/tbs/VAXBANK.format'
@@ -55,7 +55,7 @@ C*        PRINT *, '#### Standard Mapping File assumed.'
 #endif
 #ifdef  HIUXF77
          LINBUF = '/.../ccjlc.kek.jp/fs/g/ofl1/lclib/'//
-     #            '96a/util/tbs/VAXBANK.format'
+     >            '96a/util/tbs/VAXBANK.format'
 #endif
             ENDIF
 #ifdef  HP
@@ -74,7 +74,7 @@ C*        PRINT *, '#### Standard Mapping File assumed.'
             WRITE(6,'(A,A)') ' TBUXIN .. Map file is',
 #endif
 #ifdef  UNIX
-     #    LINBUF(:LNBLNK(LINBUF))
+     >    LINBUF(:LNBLNK(LINBUF))
 #endif
       ELSE
         PRINT *, '#### Mapping File was loaded from FT03.'
@@ -103,7 +103,7 @@ CCC       LBNK = LKBRD ( MAPBNK(NMAP), ' ' )
           NRANGE(NMAP,MAPMEL(NMAP)) = NRANGE(NMAP,MAPMEL(NMAP)) + 1
           NR = NRANGE ( NMAP, NE )
           READ ( LINBUF(2:LBUF), * ) (RANGE(NMAP,NE,NR,I),I=1,2),
-     #                               MAPTYP(NMAP,NE,NR)
+     >                               MAPTYP(NMAP,NE,NR)
         ELSE
           PRINT *, 'Error in Reading Map File'
           PRINT *, LINBUF(1:LBUF)

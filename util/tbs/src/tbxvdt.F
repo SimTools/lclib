@@ -20,7 +20,7 @@ C
        IF ( NWDS .LE. MAXLEN ) THEN
          DO 10 I = 1, NRANGE(PNTR(1),PNTR(2))
            IF ( NWDS .GE. RANGE(PNTR(1),PNTR(2),I,1) .AND.
-     #          NWDS .LE. RANGE(PNTR(1),PNTR(2),I,2) ) THEN
+     >          NWDS .LE. RANGE(PNTR(1),PNTR(2),I,2) ) THEN
              TBxVDT = MAPTYP ( PNTR(1), PNTR(2), I )
              RETURN
            END IF
@@ -35,7 +35,7 @@ C        PRINT *, 'Range Over : ', NWDS, ' ---> ', IPT
 C          PRINT *, 'Trying ..... : ', I, RANGE(PNTR(1),PNTR(2),I,1),
 C    #               RANGE(PNTR(1),PNTR(2),I,2)
            IF ( IPT .GE. RANGE(PNTR(1),PNTR(2),I,1) .AND.
-     #          IPT .LE. RANGE(PNTR(1),PNTR(2),I,2) ) THEN
+     >          IPT .LE. RANGE(PNTR(1),PNTR(2),I,2) ) THEN
              TBxVDT = MAPTYP ( PNTR(1), PNTR(2), I )
              RETURN
            END IF

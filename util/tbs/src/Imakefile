@@ -40,29 +40,37 @@ C_OBJS	      = tb_buflib.o \ @@\
  	tbtwrt.o tbvopn.o tbvred.o 
 
 #ifdef HPArchitecture
-OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
+SHROBJ	= $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
+ALLOBJ	= $(SHROBJ)
 #endif
 #ifdef hitachiArchitecture
-OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) FNUM.o.hiuxf77
-#endif
+FNUMHIUX = FNUM.o.hiuxf77
+SHROBJ	= $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) 
+ALLOBJ	= $(SHROBJ) $(FNUMHIUX)
+#endif  /* End of hitachiArchitecture */
 #ifdef PPCArchitecture
-OBJS	      = $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
+SHROBJ	= $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
+ALLOBJ	= $(SHROBJ)
 #endif
 #ifdef LinuxArchitecture
-OBJS	      = $(F_OBJS) $(C_OBJS) $(LNX_OBJS) $(UNIX_OBJS)
+SHROBJ  = $(F_OBJS) $(C_OBJS) $(LNX_OBJS) $(UNIX_OBJS)
+ALLOBJ	= $(SHROBJ)
 #endif
 
 LIBNAME = TBS
-ALLOBJ = $(OBJS)
 
 #######################
 #ifdef DOSHRLIB
-SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(SHROBJ),.,.)
 InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#if defined(hitachiArchitecture)
+install::
+	cp -f FNUM.o.hiuxf77 $(INSTALLDIR)/FNUM.o
 #endif
-
-NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+#endif
+NormalLibraryTarget($(LIBNAME) $(FNUMUNIX), $(ALLOBJ) )
 InstallLibrary($(LIBNAME),$(INSTALLDIR))
+
 
 ############################################
 

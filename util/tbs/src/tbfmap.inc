@@ -14,10 +14,10 @@ C
       PARAMETER        ( MAXRNG = 10  )
 C
       COMMON / TBFMAP / NMAP, MAPID(MAXBNK), MAPBNK(MAXBNK),
-     #                  MAPMEL(MAXBNK), MAPELM(MAXBNK,MAXELM),
-     #                  NRANGE(MAXBNK,MAXELM),
-     #                  RANGE(MAXBNK,MAXELM,MAXRNG,2),
-     #                  MAPTYP(MAXBNK,MAXELM,MAXRNG)
+     >                  MAPMEL(MAXBNK), MAPELM(MAXBNK,MAXELM),
+     >                  NRANGE(MAXBNK,MAXELM),
+     >                  RANGE(MAXBNK,MAXELM,MAXRNG,2),
+     >                  MAPTYP(MAXBNK,MAXELM,MAXRNG)
 C
       INTEGER * 2      NMAP, MAPID , MAPMEL, MAPELM
       CHARACTER * 64   MAPBNK

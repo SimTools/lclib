@@ -59,16 +59,16 @@ C         END IF
 C       PRINT *, 'DEBUG=',DEBUG
           CALL TBNOEL ( IDREC, BANK, NELM, NUMELM )
           IF ( DEBUG .EQ. 1 )
-     #      PRINT *, 'Processing..... Bank : ', IDREC, BANK
+     >      PRINT *, 'Processing..... Bank : ', IDREC, BANK
           DO 20 J = 1, NELM
             IF ( DEBUG .EQ. 1 )
-     #        PRINT *, '          ..... Elm  : ', NUMELM(J)
+     >        PRINT *, '          ..... Elm  : ', NUMELM(J)
             CALL TBGET ( IDREC, BANK, NUMELM(J),
-     #                   NWDS, IBUF, IRET )
+     >                   NWDS, IBUF, IRET )
             CALL TBxVCV ( IDREC, BANK, NUMELM(J),
-     #                    NWDS, CBUF, HBUF, IBUF, RBUF, DEBUG )
+     >                    NWDS, CBUF, HBUF, IBUF, RBUF, DEBUG )
             CALL TBPUT ( IDREC, BANK, NUMELM(J),
-     #                   NWDS, IBUF, IRET )
+     >                   NWDS, IBUF, IRET )
 C           PRINT *, '..... Converted : ', BANK
 20        CONTINUE
         ELSE
