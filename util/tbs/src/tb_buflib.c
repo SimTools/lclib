@@ -24,11 +24,7 @@ struct buffer buf;
 /*----------
   tb_set_buffer
   ----------*/
-#if defined(PPC)
-void tb_set_buffer__ ( lun, mxsize, iwork )
-#else
 void tb_set_buffer_ ( lun, mxsize, iwork )
-#endif
 /* arg */
 int *lun;
 int *mxsize;
@@ -62,11 +58,7 @@ int *iwork;
 /*----------
   tb_write_buffer
   ----------*/
-#if defined(PPC)
-void tb_write_buffer__ ( nw, data )
-#else
 void tb_write_buffer_ ( nw, data )
-#endif
 /* arg */
 int *nw;
 int *data;
@@ -99,11 +91,7 @@ int *data;
 /*----------
   tb_flush_buffer
   ----------*/
-#if defined(PPC)
-void tb_flush_buffer__( ntot )
-#else
 void tb_flush_buffer_( ntot )
-#endif
 /* arg */
 int *ntot;
 
@@ -125,11 +113,7 @@ int *ntot;
 /*----------
   tb_read_buffer
   ----------*/
-#if defined(PPC)
-int tb_read_buffer__ ( lun, nw, buf )
-#else
 int tb_read_buffer_ ( lun, nw, buf )
-#endif
 /* arg */
 int *lun;
 int *nw;
