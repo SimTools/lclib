@@ -20,6 +20,7 @@ C* (Updaterecord)
 C*     5/21/90  K.Fujii           Original version.
 C*     6/11/90  K.Fujii           Modified to use input decay length
 C*                                if nonzero.
+C*    29/02/00  A.Miyamoto        Fix problem of zero momentum particle
 C*
 C***********************************************************************
  
@@ -135,12 +136,14 @@ C--
          AP   = SQRT(PT2+PL*PL)
          DL   = RPLIST(17,IPT)
          IF ( DL.LE.0. ) DL = - (AP/AM)*CTU*LOG(1-RAN(ISEED))
+
 C--
 C  Calculate deflection angle.
 C--
          IF ( ICHG.NE.0 ) THEN
             R   = PTOR*PT
-            DFI = -ICHG*DL*PT/AP/R
+            if( ap.eq.0.0 ) dfi=0.0
+            else  DFI = -ICHG*DL*PT/AP/R
          ELSE
             DFI = 0
          ENDIF
@@ -150,6 +153,7 @@ C--
 C--
 C  TBPUT primary finite decay length particles.
 C--
+
          IPR = RPLIST(14,IPT)
          IF ( IPR.LE.0 ) THEN
 #ifndef HP
@@ -225,9 +229,11 @@ C--
                PZ = RPLIST( 7,IPR)
                DL = RPLIST(17,IPR)
                AP = SQRT(PX*PX+PY*PY+PZ*PZ)
+               if( ap.ne.0 ) then
                RPLIST( 9,IDT) = RPLIST( 9,IPR) + DL*PX/AP
                RPLIST(10,IDT) = RPLIST(10,IPR) + DL*PY/AP
                RPLIST(11,IDT) = RPLIST(11,IPR) + DL*PZ/AP
+               endif
             ENDIF
 C--
 C  Modify the momentum.
