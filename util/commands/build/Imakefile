@@ -10,7 +10,12 @@ OBJS  = build.o buildm.o cpstrp.o ctoken.o cupper.o \
 
 
 
+#if defined(AIXArchitecture)
+all::
+	@echo "*** build command is not suppoted on AIX *** "
+#else 
 all:: $(COMMAND)
+#endif
 #if defined(HPArchitecture)
 $(COMMAND):: $(OBJS)
 	$(FF) -g $(FFLAGS) $(OBJS) -o $(COMMAND) -lU77
@@ -43,7 +48,11 @@ getcwd_.o: getcwd_.F
 #endif
 
 install::
+#ifndef AIXArchitecture
 	cp -p $(COMMAND) ../../../bin
+#else
+	@echo "*** build command is not supported on AIX ***"
+#endif
 
 clean::
 	rm -f $(OBJS) $(COMMAND)
