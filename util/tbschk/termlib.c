@@ -2,7 +2,7 @@
 #include <curses.h>
 */
 #ifdef __DARWIN__
-#include "ncurses/curses.h"
+#include "ncurses.h"
 #else
 #include "curses.h"
 #endif
