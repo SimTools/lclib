@@ -10,7 +10,7 @@
 
 set dir=.
 set program=$dir/wwanal.ex
-set lchome=/proj/phys/lclib/pro
+set lchome=$LCLIBROOT
 date
 
 #
@@ -74,7 +74,7 @@ EXIT
 @!*************************************************                     
 @!                                                                      
 Smearing:                                                               
-@#lchome/simjlc/param/detect4.com ! Standard swimer parameters
+@$lchome/simjlc/param/detect4.com ! Standard swimer parameters
 0                             ! End of input                          
 EXIT                                                                    
 @!

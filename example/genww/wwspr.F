@@ -383,7 +383,9 @@ C         print *,' PGEN =',(PGEN(K,I),K=0,3)
 C 100     CONTINUE
  
 C
-C      CALL SPBLST(6)
+      IF( NEVENT .LE. 5 ) THEN
+         CALL SPBLST(6)
+      ENDIF
 C
       NRET = 0
  
