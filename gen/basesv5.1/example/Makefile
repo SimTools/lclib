@@ -18,7 +18,7 @@ LIB 	= -Wl,-L$(LCLIBROOT)/lib -lBASESV5.1 \
 	-lGENUTIL -lHPKTOHBK -lLCFULL -lCOM -lCLI -lTBS -lFORTLIB \
 	-Wl,-L$(CERNLIB) -ljetset74 -lpacklib -lmathlib
 
-ifeq ($(LCLIB_PLATFORM),ppc)
+ifeq ($(LCLIB_PLATFORM),darwin)
 LIB	+= -lU77 -lvec -lm
 endif
 

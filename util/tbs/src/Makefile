@@ -55,7 +55,7 @@ ifeq ($(LCLIB_PLATFORM),hiux)
   ALLOBJ   = $(SHROBJ) $(FNUMHIUX)
 endif
 
-ifeq ($(LCLIB_PLATFORM),ppc)
+ifeq ($(LCLIB_PLATFORM),darwin)
   SHROBJ  = $(F_OBJS) $(C_OBJS) $(PPC_OBJS)
   ALLOBJ  = $(SHROBJ)
 endif
@@ -83,7 +83,7 @@ install: lib$(LIBNAME).$(LibSuf)
 ############################################
 
 
-ifeq ($(LCLIB_PLATFORM),ppc)
+ifeq ($(LCLIB_PLATFORM),darwin)
 lun_to_fileno_ppc.o: lun_to_fileno_ppc.c
 endif
 
