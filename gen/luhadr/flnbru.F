@@ -41,9 +41,15 @@ C
       EQUIVALENCE (IDATA(3),GNNAME),(JDATA(1),ZDATA(1))
 C
       INTEGER * 4      IENV
+C--
+C  Flag for parton shower on/off
+C--
+      COMMON /LufragFlag/ NDoPartonShower
 C
 C MAIN
 C
+      NDoPartonShower=1
+
       CALL FULENV ( IENV )
       IF ( IENV .NE. 1 ) RETURN
 C

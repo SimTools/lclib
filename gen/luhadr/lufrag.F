@@ -48,6 +48,7 @@ C*          (20,i) :(R*4): 0.
 C*    NRET         :(I*4): return flag.
 C* (Update Records)
 C*    95/02/10  K.Fujii		New version for JETSET7.3.
+C*    02/04/23  A.Miyamoto      Add flag for parton shower on/off
 C*
 CC**********************************************************************
  
@@ -67,6 +68,10 @@ C--
      .                 MSTJ( 200 ), PARJ( 200 )
       INTEGER*4        MSTU, MSTJ
       REAL   *4        PARU, PARJ
+C--
+C  Flag for parton shower on/off
+C--   
+      COMMON /LufragFlag/ NDoPartonShower
 C--
 C  Constants
 C--
@@ -189,6 +194,7 @@ C>>>
 C--
 C  Do LUSHOW for each showering pair.
 C--
+      IF( NDoPartonShower .ne. 0 ) then
          DO 300 IS = 1, NSPAR
             IP1 = ISPAR(1,IS)
             IP2 = ISPAR(2,IS)            
@@ -203,6 +209,7 @@ C>>>
 C>>>
             CALL LUSHOW(IP1,IP2, QMX )
 300      CONTINUE
+       endif
 C>>>
 #ifdef DBGLU
        PRINT *,' After LUSHOW '
