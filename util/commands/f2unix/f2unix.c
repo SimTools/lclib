@@ -33,7 +33,8 @@
 
 int gINCOPT;  /* =1 to convert =EXPAND to INCLUDE statement */
 void PrintHelp();
-void DoConvert();
+/* void DoConvert(); */
+void DoConvert(char *infname, char *ofname);
 
 
 
@@ -86,18 +87,19 @@ void PrintHelp()
 /*
 ** DoConvert(char infname, char ofname)
 */
-void DoConvert(infname, ofname)
-char *infname[];
-char *ofname[];
+void DoConvert(char *infname, char *ofname)
 {
- FILE *input,*output;
- char inline[164],*getsc;
+ FILE *input;
+ FILE *output;
+ char inlinestr[164];
+ char *getsc;
  int   lstr,i,icmp;
  char *tmp;
 
  int   fimplicit,fi;
 
- char *bra, *ket;
+ char *bra;
+ char  *ket;
  char  newline[164];
 
  printf("input file name is %s \n",infname);
@@ -121,25 +123,25 @@ char *ofname[];
 
   printf(" file opened successfull \n");
 
-  while( (getsc=fgets(inline, 164, input)) != NULL ){
-     lstr=strlen(inline);
+  while( (getsc=fgets(inlinestr, 164, input)) != NULL ){
+     lstr=strlen(inlinestr);
 /*
 **   get  valid string length
 */
      if(lstr>72) lstr=72 ;
      for(i=lstr-1;i>0;i--){
-       if ( strncmp(inline+i," ",1) != 0 ) break;
+       if ( strncmp(inlinestr+i," ",1) != 0 ) break;
      }
      lstr=i+1;
 /*     printf("lstr =%d, i=%d\n",lstr,i);*/
-     strncpy(&inline[i+1],"\n\0",2);
-/*     printf("%s",inline); */
+     strncpy(&inlinestr[i+1],"\n\0",2);
+/*     printf("%s",inlinestr); */
 
 /*
 ** (2.1) if first character is '*' change it to "C"
 */
-     if( strncmp(inline,"*",1) == 0 ) {
-       strncpy(inline,"C",1);
+     if( strncmp(inlinestr,"*",1) == 0 ) {
+       strncpy(inlinestr,"C",1);
      }
 /*
 ** (2.2) change $ to x
@@ -147,20 +149,20 @@ char *ofname[];
 
      
      fimplicit=-1;
-     if(strncmp(inline,"C",1)!=0) fimplicit=0; 
+     if(strncmp(inlinestr,"C",1)!=0) fimplicit=0; 
      for(i=1;i<lstr;i++){
-       if(strncmp(inline+i," IMPLICIT ",10)==0) fimplicit++;
-       if(strncmp(inline+i,"$",1)==0 &&
-	 (strncmp(inline+i-1,"!$pragma",8)!=0 &&  
-	  strncmp(inline+i-1,"!$PRAGMA",8)!=0) ) { 
+       if(strncmp(inlinestr+i," IMPLICIT ",10)==0) fimplicit++;
+       if(strncmp(inlinestr+i,"$",1)==0 &&
+	 (strncmp(inlinestr+i-1,"!$pragma",8)!=0 &&  
+	  strncmp(inlinestr+i-1,"!$PRAGMA",8)!=0) ) { 
 /*	 printf("found $ when i=%d \n",i); */
 	 if( fimplicit!=1 ) {
-  	   strncpy(inline+i,"x",1);}
+  	   strncpy(inlinestr+i,"x",1);}
 	 else {
-	   strncpy(inline+i," ",1);
+	   strncpy(inlinestr+i," ",1);
 	   for(fi=i;fi>0;fi--){
-	     if(strncmp(inline+fi,",",1)==0){
-	        strncpy(inline+fi," ",1);
+	     if(strncmp(inlinestr+fi,",",1)==0){
+	        strncpy(inlinestr+fi," ",1);
 	        break;}
 	   }
 	 }
@@ -169,42 +171,42 @@ char *ofname[];
 /*
 ** (2.3) include (xxxx) --> include xxx.inc
 */
-     if( strncmp(inline,"C",1) != 0 ) {
-       if( strstr(inline," INCLUDE ")!=NULL){
-	 bra=strchr(inline,'(');
+     if( strncmp(inlinestr,"C",1) != 0 ) {
+       if( strstr(inlinestr," INCLUDE ")!=NULL){
+	 bra=strchr(inlinestr,'(');
 	 strncpy(bra," ",1);
-	 ket=strchr(inline,')');
+	 ket=strchr(inlinestr,')');
 	 if( strncmp(bra+1,"@",1)==0) bra=bra+1;
 	 strncpy(bra,"'",1);
 	 strncpy(ket,".inc'",5);
-	 printf("inline=%s\n",inline);
+	 printf("inlinestr=%s\n",inlinestr);
        }
      }
 /*
 ** =EXPAND statement
 */
-     if( strncmp(inline,"=EXPAND ",8)==0  &&  
-        ( bra=strchr(inline,'(') ) != 0 ){
-       ket=strchr(inline,')');
+     if( strncmp(inlinestr,"=EXPAND ",8)==0  &&  
+        ( bra=strchr(inlinestr,'(') ) != 0 ){
+       ket=strchr(inlinestr,')');
        if(gINCOPT==1){
 	 strcpy(newline,"      INCLUDE '");
        }
        else {
-	 strncpy(newline,inline,bra-inline);
-	 strcpy(newline+(bra-inline),"/\0"); 
+	 strncpy(newline,inlinestr,bra-inlinestr);
+	 strcpy(newline+(bra-inlinestr),"/\0"); 
           }
        if( strncmp(bra+1,"@",1)==0){ 
 	 bra=bra+1;
          strncat(newline,bra+1,ket-bra-1);
          strcat(newline,".inc'\n");
-         strcpy(inline,newline);
+         strcpy(inlinestr,newline);
        }
        else{
 	 strncat(newline,bra+1,ket-bra-1);
 	 strcat(newline,".f'\n");
-	 strcpy(inline,newline);
+	 strcpy(inlinestr,newline);
        }
-       printf("%s",inline);
+       printf("%s",inlinestr);
 	 
 	 
      }
@@ -212,29 +214,29 @@ char *ofname[];
 /*
 ** ==EXPAND statement, proceed with care.
 */
-     if( strncmp(inline,"==EXPAND ",9)==0  &&
-        ( bra=strchr(inline,'(')) != 0 ){
-       ket=strchr(inline,')');
+     if( strncmp(inlinestr,"==EXPAND ",9)==0  &&
+        ( bra=strchr(inlinestr,'(')) != 0 ){
+       ket=strchr(inlinestr,')');
        if(gINCOPT==1){
 	 printf("We can not convert this line to INCLUDE statement:\n");
-	 printf("Input=%S\n",inline);
+	 printf("Input=%S\n",inlinestr);
        }
        else {
-	 strncpy(newline,inline,bra-inline);
-	 strcpy(newline+(bra-inline),"/\0"); 
+	 strncpy(newline,inlinestr,bra-inlinestr);
+	 strcpy(newline+(bra-inlinestr),"/\0"); 
           }
        if( strncmp(bra+1,"@",1)==0) bra=bra+1;
        strncat(newline,bra+1,ket-bra-1);
        strcat(newline,".inc'\n");
-       strcpy(inline,newline);
-       printf("%s",inline);
+       strcpy(inlinestr,newline);
+       printf("%s",inlinestr);
 	 
      }
 
 /*
 ** Output result
 */
-     fprintf(output,"%s",inline);
+     fprintf(output,"%s",inlinestr);
 
    }
   fclose(output);

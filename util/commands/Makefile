@@ -1,11 +1,13 @@
+
+include $(LCLIBROOT)/config/Makefile.lclib
+
+SUBDIRS = build
+
 all:
-	(cd build ; xmkmf ; make)
-
-install:
-	(cd build ; xmkmf ; make ; make install)
-
-clean:
-	(cd build ; make clean)
-	rm -f *~
-
+%:
+	for i in $(SUBDIRS) ; do \
+	(cd $$i ; make $@ ); \
+	done
+	@if [ $@ == clean -o $@ == distclean ] ; then \
+	( $(RM) $(CLEANFILES) $(DISTCLEANFILES)) ; fi 
 

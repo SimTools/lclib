@@ -1,16 +1,18 @@
+include $(LCLIBROOT)/config/Makefile.lclib
+
 COMMANDS = allconv chname f2unix
 
-#if defined(AIXArchitecture)
+ifeq ($(LCLIB_PLATFORM),aix)
 all::
 	@echo "*** f2unix is not supported on AIX ***"
 install::
-#else
+else
 all:: chname f2unix
 install::
 	@for i in $(COMMANDS); do \
 	    cp -p $$i ../../../bin; \
 	done
-#endif
+endif
 
 chname: chname.o
 	$(CC) -o chname chname.c

@@ -24,14 +24,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-void  Chname();
+void  Chname(char *arg, char *out);
 
 main(argc, argv)
 int argc;
 char *argv[];
 {
-  char *instr[163];
-  char *outstr[163];
+  char instr[163];
+  char outstr[163];
 
   if(argc==2){
       Chname(argv[2],outstr);
