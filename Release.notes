@@ -5,6 +5,24 @@ How to install lclib.
 To recompile and create libs, do
   make install
 in this directory.
+------------------------------------------------
+18-September-2000  Akiya Miyamoto
+------------------------------------------------
+(1) simjlc/src/swmevt.F :
+    After modification in 1-March-2000, simjlc/src/swmevt.F does not swim
+    primary short decaied particles.  Short decayed particles created by 
+    primary decaied paritcles were swimed correctly.  This is releated to 
+    the interpretation of if statement of g77 compiler.  The problem was
+    fixed by this release.
+(2) simjlc/src/smrhlx.F :
+    CDC chamber gas density was reduced to 55ppm radiation length per cm to 
+    15 ppm radiation length per cm, to match the momentum resolution of 1 GeV 
+    track obtained by JIM simulation.
+-------------------------------------------------
+1-March-2000 Akiya Miyamoto
+-------------------------------------------------
+(1) simjlc/src/swmevt.F is modified as there was a bug in a treatment of
+    0 momentum particle with fixed life time.
 
 *************************************************
 lclib-2000-1 25-Jan-2000  by A.Miyamoto
