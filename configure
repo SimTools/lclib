@@ -1,0 +1,156 @@
+#!/bin/bash 
+#
+# Configure
+#   This script test your system and creates a file, conf/configure.in 
+#   where configuration parameters for LCLIB is stored.
+#
+#$Id$
+#
+
+Help() {
+cat <<EOF
+Usage:  Configure [option]
+
+Function: Configure configurable parameters of LCLIB.  
+          If option is not specified, default value is used.
+          Parameters are saved in conf/configure.status
+
+Options:       
+  --help               
+	Show this message
+  --platform [osname]
+        linux, macosx, aix, ....,
+        Default=$platform
+  --pythia-major-version * 
+	Major version number of pythia library
+	Default $pythia_major_version
+  --pythia-lib-dir [lib_dir]
+        Directory of pythia library
+        Default=$cern_root/lib
+  --pythia-lib-name [lib_name]
+        Default=pythia
+  --javavm
+        Build library for Java
+  --CERN_ROOT [lib_name]
+        CERNLIB directory
+        Default=$cern_root
+
+EOF
+       
+}
+
+#
+SetDefaults() 
+{
+config_status_file=config/configure.status
+platform=`uname | tr [:upper:] [:lower:] | sed -e "s/ //" `
+pythia_lib_dir="\$(CERN_ROOT)/lib"
+pythia_lib_name=pythia6152
+pythia_major_version=6
+javavm=NO
+cern_root="\$CERN_ROOT"
+}
+
+#
+ParseInputs()
+{
+ while [ $# -ne 0 ] 
+ do 
+   case "$1" in
+   --help) Help ; exit ;;
+   --pythia-major-version) shift ; pythia_major_version=$1 ;;
+   --pythia-lib-dir) shift ; pythia_lib_dir=$1 ;;
+   --pythia-lib-name) shift ; pythia_lib_name=$1 ;;
+   --javavm) javavm=YES ;;
+   --CERN_ROOT) shift ; cern_root=$1 ;;
+   *) echo "Error:: Invalid option " $1 ; Help ;;
+   esac
+   shift
+ done
+
+}
+
+#
+PrintParameters()
+{
+echo "CONFIG_DATE=`LANG=C && date`"
+echo "LCLIB_PLATFORM=$platform"
+echo "PYTHIA_MAJOR_VESION=$pythia_major_version"
+echo "PYTHIA_LIB_DIR=$pythia_lib_dir"
+echo "PYTHIA_LIB_NAME=$pythia_lib_name"
+echo "PYTHIA_MAJOR_VESION=$pythia_major_version"
+echo "JAVAVM=$javavm"
+echo "CERN_ROOT=$cern_root"
+}
+
+# ##############################################################################
+# Here Main part of Configure starts
+# ##############################################################################
+
+
+SetDefaults
+
+ParseInputs `echo $* | sed -e "s/=/ /g" `
+
+PrintParameters
+
+if [ "x$LCLIBROOT" == "x" ] ; then
+   echo "Environment parameter LCLIBROOT is not set."
+   echo "Assume current directory(`pwd`) is LCLIBROOT"
+   echo -n "Is this correct ? (y/n, y=default)"
+   read ans
+   if [ "X$ans" != "Xy" ] ; then
+      echo "Answer is not y.  Configure is terminated"
+      exit
+   fi   
+fi
+
+#
+
+echo "# configure.status created by the Configure script." > $config_status_file
+echo "#" >> $config_status_file
+echo 'prefix = $(LCLIBROOT)'  >> $config_status_file
+echo 'libdir = $(prefix)/lib'  >> $config_status_file
+echo 'includedir = $(prefix)/include'  >> $config_status_file
+echo "#" >> $config_status_file
+echo "CONFIG_DATE = `LANG=C && date`" >> $config_status_file
+echo "LCLIB_PLATFORM = $platform" >>  $config_status_file
+
+#
+if [ "$pythia_major_version" != "5" -a  "$pythia_major_version" != "6"  ] ; then
+  echo "Error!! PYTHIA_MAJOR_VERSION number ($pythia_major_version) is not 5 nor 6. "
+  exit
+else
+  echo "PYTHIA major version number is $pythia_major_version ... OK "
+  echo "PYTHIA_VERSION = $pythia_major_version" >> $config_status_file
+fi
+
+# Setting for Pythia6
+dllsuf=`grep DllSuf config/Makefile.$platform | cut -d= -f2 | sed -e "s/ //g"`
+
+pythia_lib_file=$pythia_lib_dir/lib$pythia_lib_name
+echo $pythia_lib_file
+
+echo "PYTHIA_LIB = -L$pythia_lib_dir -l$pythia_lib_name " >> $config_status_file
+if [ "$platform" == "aix" ] ; then 
+    echo "PYTHIA_FLAGS = -DPYTHIA6" >> $config_status_file
+    echo "PYTHIA_FLAGS_AIX = -WF,$(PYTHIA_FLAGS)" >> $config_status_file
+else
+    echo "PYTHIA_FLAGS = -DPYTHIA6" >> $config_status_file
+fi
+
+# JavaVM
+if [ "x$javavm" == "xYES" ]; then
+  echo "JAVAVMFLAG = -DJAVAVM " >> $config_status_file
+  echo "JavaVM ... yes"
+else
+  echo "JavaVM ... no"
+fi
+
+#
+echo " "
+echo "LCLIB Configure completed"
+echo "Next, do \"make install\" to build library"
+
+
+   
