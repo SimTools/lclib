@@ -28,6 +28,10 @@ C
         COMMON / HCOM / HMEMOR ( 1000 )
         INTEGER * 4     HMEMOR, HPNTR
         COMMON /SSWORK/ IDTYPE(20), IUHEAD(20)
+#if defined(G77_521_OR_GREATER)
+        integer*4     itmp(3)
+        character*8   hizuke
+#endif
 C
 C
 C =====< Entry Point >=================================================
@@ -56,7 +60,14 @@ C
 C  PACK ANALYSIS DATE AND TIME
 C
       IPNTR = HPNTR ( 'DATE', 'HIST' )
+#if defined(G77_521_OR_GREATER)
+      IF( IPNTR .NE. 0 ) CALL  IDATE( itmp )
+      write(hizuke,'(i2.2,''-'',i2.2,''-'',i2.2)') 
+     .               itmp(1), itmp(2), itmp(3)
+      call uvcopy(hizuke,hmemor(ipntr+1),2)
+#else
       IF( IPNTR .NE. 0 ) CALL  DATE( HMEMOR(IPNTR+1) )
+#endif
       IPNTR = HPNTR ( 'TIME', 'HIST' )
       IF( IPNTR .NE. 0 ) CALL UTIME( HMEMOR(IPNTR+1) )
 C

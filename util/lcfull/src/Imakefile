@@ -17,7 +17,7 @@ OBJS  = dbcanl.o dbcini.o dbcopr.o dbcred.o dbcsex.o dbcsub.o dbxadc.o \
 	prslvl.o prtbs1.o prtbs2.o prtrg1.o prtrg2.o prtrgt.o prucom.o \
 	pruhed.o prujin.o prujtm.o pruptr.o prurin.o prurtm.o \
 	pruser.o prwcns.o prwdtp.o prwern.o prwerr.o prwjpr.o \
-	pueloc.o prcseq.o prgtif.o 
+	pueloc.o prcseq.o prgtif.o closelcfull.o
 
 OBJF =  extsub.o fbkdel.o fblchk.o fblcre.o fdfanl.o fdoevt.o \
 	fendrn.o fevusr.o fexevt.o fexprn.o fexsub.o finirn.o flclss.o \
@@ -30,7 +30,7 @@ OBJM   = mablkd.o maclos.o macvrs.o madef.o madump.o magete.o \
 	 maxget.o maxloc.o maxopn.o maxput.o maxrst.o maxslc.o \
 	 maxstp.o maxvrf.o 
 
-ALLOBJ  = $(OBJS) $(OBJF) $(OBJM)
+ALLOBJ = $(OBJS) $(OBJF) $(OBJM)
 
 LIBNAME	   = LCFULL
 INSTALLDIR = $(HOMEDIR)/lib

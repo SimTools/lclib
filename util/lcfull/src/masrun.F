@@ -27,6 +27,9 @@ C
       INTEGER*4     NBUF(NW), KBUF(5)
       PARAMETER    (MAXRUN=100, MXxLEN=130)
       COMMON /MASBUF/ NORUN, NWBUF(MAXRUN), NRBUF(MXxLEN, MAXRUN)
+#if defined(G77_521_OR_GREATER)
+      INTEGER*4     TIME
+#endif
 C
 C
 C ===========< Entry Point >============================================
@@ -65,7 +68,11 @@ C
 C Allocate Temprary file to store new RUNLIST information.
 C
         CALL UIDATE(IDATE)
+#if defined(G77_521_OR_GREATER)
+        ITIME = TIME()
+#else
         CALL TIME(ITIME)
+#endif
         ITIME = ITIME/1000
         WRITE(DSN,310) CMxUID(:4),IDATE,ITIME
 310     FORMAT(A,'.@RUNLIST.UPDATE.D',I6.6,'.T',I6.6)

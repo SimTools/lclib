@@ -27,11 +27,15 @@ C
 #include "presta.inc"
 #include "prhead.inc"
 #include "prjflg.inc"
+#include "prfctl.inc"
 C
 C
 C VARIABLES
 C
         LOGICAL * 4     OKFLG, EXIFLG, PRTFLG, OUTFLG
+#if defined(G77_521_OR_GREATER)
+        LOGICAL      IOPEN
+#endif
 C
 C
 C ==========< Entry Point >=============================================
@@ -373,5 +377,12 @@ C (9) End of PRCEVT
 C ----------------------------------------------------------------------
 C
 990   CONTINUE
+#if defined(G77_521_OR_GREATER)
+      inquire(notuni,opened=iopen)
+      if( iopen ) then
+        call closelcfull(notuni)
+        close(notuni)
+      endif
+#endif
       RETURN
       END
