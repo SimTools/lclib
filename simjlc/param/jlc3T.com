@@ -12,8 +12,8 @@
 @!           sigma-rphi= 85 micron m
 @!           sigma-z   = 0.3 cm
 @!    ECL  : dE/E      = 15%/Sqrt(E) + 1% 
-@!           R=160cm, -160 cm < Z < 160cm   (Barrel)
-@!           50cm<R<160cm at Z=+-160cm      (EndCap)
+@!           R=160cm, -190 cm < Z < 190cm   (Barrel)
+@!           45cm<R<160cm at Z=+-300cm      (EndCap)
 @!    HDC  : dE/E      = 40%/Sqrt(E) + 1%
 @!           R=190cm, -190 cm < Z < 190 cm  (Barrel)
 @!           50cm<R<190cm at Z=190cm        (EndCap)
@@ -41,6 +41,7 @@
 @!  99/04/06  A.Miyamoto       detect6.com is revised to have consistency 
 @!                             with JIM and Background study
 @!  99/05/07  A.Miyamoto       Thick ness of 1st VTX layer is changes from 0.0015 to 0.003
+@!2000/01/25  A.Miyamoto       Parameter set for 3T solenoid
 @!
 @! Tracking device parameters.
 @!
@@ -63,11 +64,11 @@
 @!
  31   252    ! # phi segments
  32    90    ! # theta segments of barrel
- 33    22    ! # radial segments of endcap
- 34    50.   ! inner radius(cm)
+ 33    29    ! # radial segments of endcap
+ 34    45.   ! inner radius(cm)
  35   160.   ! outer radius(cm)
- 36  -160.   ! Z-(cm)
- 37   160.   ! Z+(cm)
+ 36  -190.   ! Z-(cm)
+ 37   190.   ! Z+(cm)
  38   1.E-2  ! sigma_E/E pedestal for barrel
  39  1.5E-1  ! sigma_E/E at 1 GeV
  40   1.E-2  ! sigma_E/E pedestal for endcap
@@ -76,7 +77,7 @@
 @! HD_calorimeter parameters.
 @!
  51    84    ! # phi segments
- 52    26    ! # theta segments of barrel
+ 52    30    ! # theta segments of barrel
  53    28    ! # radial segments of endcap
  54    50.   ! inner radius(cm)
  55   190.   ! outer radius(cm)
