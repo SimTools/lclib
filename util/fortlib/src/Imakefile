@@ -38,7 +38,7 @@ OBJL = 	 area.o curfit.o determ.o fchisq.o gqdriv.o \  @@\
 OBJASM = nuaddr.o uvset.o uvget.o uvcopy.o uvsetc.o \  @@\
 	 uvcpyh.o narg.o ucuper.o uvzero.o \  @@\
 	 errtra.o ucebc.o clockm.o \  @@\
-	 errset.o uitime.o termid.o timel.o \  @@\
+	 errset.o uitime.o termid.o \  @@\
 	 uvfill.o
 
 SSL2DIR = ../ssl2
