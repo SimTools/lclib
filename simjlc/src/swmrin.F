@@ -94,7 +94,7 @@ C  Error.
 C--
       ELSE
          PRINT *, ' >>>>> Error in SWMRIN >>>>>> '
-         PRINT *, '     Failed to TBCRTE ''Swimmer''.'
+         PRINT *, '     Failed to TBCRTE ''Swimmer''. IRT=',IRT
          PRINT *, '     STOP execution. '
          STOP
       ENDIF
