@@ -1,12 +1,10 @@
-all: install
 
-install:
-	(cd genww  ; xmkmf ; make all)
-#	(cd pythia ; xmkmf ; make all)
+include $(LCLIBROOT)/config/Makefile.lclib
 
-clean:
-	(cd genww    ; make clean)
-#	(cd pythia   ; make clean)
-	rm -f *~
-
-
+all:
+%:
+	@if [ $@ == depend ] ; then \
+	(cd genww ; make Makefile.d ) ; fi 
+	(cd genww ; make $@ )
+	@if [ $@ == clean -o $@ == distclean ] ; then \
+	( $(RM) $(CLEANFILES) $(DISTCLEANFILES)) ; fi
