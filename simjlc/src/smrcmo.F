@@ -149,6 +149,13 @@ CC         SIGMS=0.0141/PCDC/SQRT(RDLVX(IL))*
      >       / ( RPV*PNRM)
          X0NOW=RDLVX(IL)/CSTH
 
+         IF( X0NOW .LT. 0.0 ) THEN
+            PRINT *,' Warning in SMRCMO .. X0NOW .LT. 0 ',
+     >      ' X0NOW=',X0NOW,
+     >      ' CSTH=',CSTH,' IL=',IL,' RDLVX=',RDLVX(IL)
+            X0NOW=ABS(X0NOW)
+         ENDIF
+
          SIGMS=0.0141/PCDC*SQRT(X0NOW)*
      >         (1.0+DLOG10(X0NOW)/9.0)
          SIGMSQ=SIGMS*SIGMS
