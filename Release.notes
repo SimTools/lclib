@@ -18,6 +18,10 @@ lclib-97a-3.4 14-October-1998  by A.Miyamoto
     when initializing of common block is needed, call to the
     block data subroutine is inserted.
 
+(3) gen/lund73/full/Imakefile is modified to create libLUHADR.a
+    for just a interfaces to lund only., to use jetset74.
+
+
 *************************************************
 lclib-97a-3.2 27-Jul-1998  by A.Miyamoto
 *************************************************
