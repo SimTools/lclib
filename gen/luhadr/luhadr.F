@@ -371,7 +371,8 @@ C>>>
          IP    = INOSHW(JP)
          ID    = RBUF(2,IP)
          IDA   = IABS(ID)
-         IF ( IDA.GT.24 .AND. IDA.NE.220000 ) THEN
+         IF ( IDA.GT.24 .AND. IDA.NE.220000 .AND.
+     .        IDA.NE.1000022 ) THEN
             PRINT *,'%Warning... LUHADR:Particle_ID=',ID,
      .            ' not recognized.'
             GO TO 800
@@ -381,7 +382,7 @@ C  Neutrinos, e, mu, gamma, and LSP.
 C--
          IF ( IDA.EQ.12 .OR. IDA.EQ.14 .OR. IDA.EQ.16 .OR.
      .        IDA.EQ.11 .OR. IDA.EQ.13 .OR. IDA.EQ.22 .OR.
-     .        IDA.EQ.220000 ) THEN
+     .        IDA.EQ.220000 .OR. IDA.EQ.1000022 ) THEN
             INELM = INELM + 1
             CALL UVZERO(20, RTMP )
             RTMP( 1) =  INELM
