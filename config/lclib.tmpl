@@ -26,6 +26,7 @@ CPPOPT  = -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES)
 CFLAGS  = -O -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) 
 FFLAGSE = $(F77OPTS)
 RANLIB  = /bin/ranlib
+INSTALL = install
 
 .F.o:
 	$(CPP) -P  $(CPPOPT) $(INCPATH) $*.F  >  tmp.$*.f
@@ -95,14 +96,11 @@ RANLIB = ranlib
 #ifdef DOSHRLIB
 SHRLIBFLAGS = -fPIC
 #endif
-# CDEBUGFLAGS = -O2 -g
 CDEBUGFLAGS = -O2
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
-        -Dlinux -DPPC -D__powerpc__ -D_POSIX_SOURCE \
-        -D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
-# FDEBUGFLAGS = -O2 -g
+GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
 FDEBUGFLAGS =  -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
