@@ -103,7 +103,7 @@ C%%      ELSE
 CMSP         OPEN( UNIT=LUN,FILE=FULNAM(1:L),ERR=901,STATUS='SHR',
 CMSP     &         ACTION='READ' )
 CVMS
-#if defined(HIUXF77) || defined(MACHTEN_PPC)
+#if defined(HIUXF77) || defined(MACHTEN_PPC) || defined(AIX)
          OPEN( UNIT=LUN,FILE=FULNAM(1:L),ERR=901,STATUS='OLD')
 #else
          OPEN( UNIT=LUN,FILE=FULNAM(1:L),ERR=901,STATUS='OLD',

@@ -57,7 +57,7 @@ C
 CMSP           OPEN (LU,FILE=RFILE(1:LZ),STATUS=TYPE,ERR=3,FORM=FORM,
 CMSP     %           ACCESS=ACCESS,ACTION='READ')
 CVMS
-#if defined(HIUXF77) || defined(MACHTEN_PPC) 
+#if defined(HIUXF77) || defined(MACHTEN_PPC) || defined(AIX)
            OPEN (LU,FILE=RFILE(1:LZ),STATUS=TYPE,ERR=3,FORM=FORM,
      >           ACCESS=ACCESS)
 #else
@@ -89,7 +89,7 @@ CDD    WRITE(6,*) 'STATUS,FORM,ACCESS',TYPE,FORM,ACCESS
 CMSP           OPEN (LU,FILE=RFILE(1:LZ),STATUS=TYPE,ERR=3,FORM=FORM,
 CMSP     %           ACCESS=ACCESS,ACTION='READ')
 CVMS
-#if defined(HIUXF77) || defined(MACHTEN_PPC) 
+#if defined(HIUXF77) || defined(MACHTEN_PPC) || defined(AIX)
            OPEN (LU,FILE=RFILE(1:LZ),STATUS=TYPE,ERR=3,FORM=FORM,
      %           ACCESS=ACCESS)
 #else

@@ -647,7 +647,7 @@ CMSP        OPEN( UNIT=LUN,FILE=DSNAME,
 CMSP     &        ACTION=KMODE,FORM=KFRM,STATUS=KSTS,ERR=9000 )
 CVMS
         IF( KMODE(1:1).EQ.'R' ) THEN
-#if defined(HIUXF77) || defined(MACHTEN_PPC)
+#if defined(HIUXF77) || defined(MACHTEN_PPC) || defined(AIX)
           OPEN( UNIT=LUN,FILE=DSNAME,
      &          FORM=KFRM,STATUS=KSTS,ERR=9000 )
 #else
@@ -688,7 +688,7 @@ CMSP          OPEN( UNIT=LUN,FILE=DSNAME,
 CMSP     &          ACTION=KMODE,FORM=KFRM,STATUS=KSTS,ERR=9000 )
 CVMS
 	  IF( KMODE(1:1).EQ.'R' ) THEN
-#if defined(HIUXF77) || defined(MACHTEN_PPC)
+#if defined(HIUXF77) || defined(MACHTEN_PPC) || defined(AIX)
             OPEN( UNIT=LUN,FILE=DSNAME,
      &            FORM=KFRM,STATUS=KSTS,ERR=9000 )
 #else
