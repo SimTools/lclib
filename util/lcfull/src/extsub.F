@@ -30,7 +30,7 @@ C===================<< Entry point >>=================================
 #ifdef  MSP
       IADDR = MODULE
 #endif
-#ifdef  SUN
+#if defined(SUN) || defined(AIX)
        IADDR = LOC(MODULE)
 #endif
 #if defined(HP) || defined(HIUXF77) || defined(MACHTEN_PPC)

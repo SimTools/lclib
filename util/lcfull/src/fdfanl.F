@@ -24,7 +24,7 @@ C
        PARAMETER       ( MAXQST = MAXANL + NSVAL )
        INTEGER * 4     NQREST
        PARAMETER       ( NQREST = MAXQST - NSVAL )
-       CHARACTER * 40  QUEST
+       CHARACTER * 58  QUEST
        DATA    QUEST
      >   / '***** FULL Analysis SETUP section ****** FDFANL ****' /
        CHARACTER * 16  CTEMP(MAXQST)

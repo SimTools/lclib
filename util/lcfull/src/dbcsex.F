@@ -20,11 +20,15 @@ C
       SUBROUTINE DBCSEX(CMDNAM, SUBNAM)
 C
       CHARACTER*(*)   CMDNAM
+#if defined(AIX)
+	external subnam
+#endif
 C
 C------< Entry Point >--------------------------------------------------
 C
 C (1) Execute subroutine.
 C
+
       CALL SUBNAM(CMDNAM)
  
       RETURN

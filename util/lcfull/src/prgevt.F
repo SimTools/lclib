@@ -169,6 +169,7 @@ C
       CALL TBVOPN(FILDYN(NOWPNT)(1:LNBLNK(FILDYN(NOWPNT)))//NULL)
 
 C
+#ifndef AIX
 C******************************************************************
 C******************************************************************
 C .. Open SONY DIR1000L Format tape
@@ -193,7 +194,7 @@ CCUNIX                PRINT *,' PRGEVT ... NOWPNT +',NOWPNT
           NOPNFL= NOPNFL + 1
           IF( NOPNFL .EQ. 1 ) CALL TBUXIN(3,0)
           NRWFMT(1) = 3
-
+#endif
 	
         ELSE
             PRINT *,'In PRGEVT .. File type ',NFINFO(1,NOWPNT),

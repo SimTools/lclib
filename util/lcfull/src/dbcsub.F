@@ -59,7 +59,7 @@ C
       CALL DBCSEX(']'//WCMDNM(:LCMD),NDBCTL(4,ICMD))
 #endif
 C
-#ifdef  SUN
+#if defined(SUN) || defined(AIX)
        NDBCTL(4,ICMD) = LOC(MADR)
        CALL DBCSEX(']'//WCMDNM(:LCMD),%VAL(NDBCTL(4,ICMD)))
 #endif
