@@ -9,7 +9,7 @@ C*    Block data for Numerical constants.
 C* 
 C***********************************************************************
 C* 
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(JavaVM)
       SUBROUTINE UCONST
 #else
       BLOCK DATA  UCONST

@@ -28,7 +28,7 @@ C
       PRINT *,'This function sould not be called on SUN'
       STOP
 #endif
-#ifdef  HIUXF77
+#if defined(HIUXF77) || defined(JavaVM) 
 	call msgu1m(1, iseed, x, ier)
 	if( ier.ne.0 ) then
 	  print *,'Error detected in ran.'

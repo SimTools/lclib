@@ -23,7 +23,7 @@ uvsetc_(iaddr, val, lbyte)
 {
 	char *naddr ;
 	int  i      ;
-	naddr = * iaddr ; 
+	naddr = (char*)* iaddr ; 
         for ( i=0 ; i<*lbyte ; i++ )
 {	*(naddr+i) = *(val+i) ; }  ;
 	}

@@ -48,7 +48,7 @@ CC********************************************************************CC
 C  
 C========< Entry Point >================================================
 C  
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(JavaVM)
       CALL PRBLK1
       CALL UCONST
 #endif

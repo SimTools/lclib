@@ -23,8 +23,8 @@ int *iaddr,*array ;
 { 
 	int *naddr, i    ; 
 	short *from, *to ;
-	from = *iaddr ;
-	to   = array ;
+	from = (short*)*iaddr ;
+	to   = (short*)array ;
 	for(i=1;i<=*nbyte;i++)
 	  { *to    = *from  ;
 	     to += 1 ;

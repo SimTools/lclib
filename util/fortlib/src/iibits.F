@@ -39,7 +39,7 @@ C
      .           '1FFF'X,'3FFF'X,'7FFF'X,'FFFF'X/
 #endif
 C  
-#ifdef HIUXF77 
+#if defined(HIUXF77) || defined(JavaVM)
       IIX = IX
       IPRT = ISHFT(IIX,-ILO)
       KMSK = MASK(NBT)

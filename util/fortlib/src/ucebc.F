@@ -27,7 +27,7 @@ C*
       CHARACTER*(*) STRING
       CHARACTER*1   TABLE(0:255)
 C
-#if defined(G77_521_OR_GREATER) || defined(HIUXF77)
+#if defined(G77_521_OR_GREATER) || defined(HIUXF77) || defined(JavaVM)
       CHARACTER*4  TABDAT(4,0:15)
       EQUIVALENCE  (TABDAT(1,0),TABLE(0))
       DATA ((TABDAT(J,K),J=1,4),K=0,15)

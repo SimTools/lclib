@@ -17,7 +17,7 @@
 uvset_(iaddr, val)  int *iaddr,*val ;
 {
 	int *naddr ;
-	naddr = *(iaddr) ;
+	naddr = (int*)*(iaddr) ;
 	*naddr = *(val) ;
 }
 

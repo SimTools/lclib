@@ -1,5 +1,5 @@
-#ifdef HIUXF77
-      CALL UFGEOB
+#if defined(HIUXF77) || defined(JavaVM)
+      SUBROUTINE UFGEOB
 #else
       BLOCK DATA UFGEOB
 #endif

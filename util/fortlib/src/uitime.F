@@ -11,7 +11,7 @@ C
       CALL LTIME(N, TA)
       ITIME=(TA(3)*3600+TA(2)*60+TA(1))*1000
 #endif
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(JavaVM)
       CALL CLOCK(2, ITIME)
 #endif
       RETURN

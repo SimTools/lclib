@@ -16,6 +16,6 @@
 
 nuaddr_(x) int *x ;{
 	int iadr ;
-	iadr = x ;
+	iadr = (int)x ;
 	return(iadr) ;
 }
