@@ -43,6 +43,7 @@ EOF
 SetDefaults() 
 {
 config_status_file=config/configure.status
+config_in_file=config/configure.in
 platform=`uname | tr [:upper:] [:lower:] | sed -e "s/ //" `
 pythia_lib_dir="\$(CERN_ROOT)/lib"
 pythia_lib_name=pythia6152
@@ -123,6 +124,7 @@ if [ "$pythia_major_version" != "5" -a  "$pythia_major_version" != "6"  ] ; then
 else
   echo "PYTHIA major version number is $pythia_major_version ... OK "
   echo "PYTHIA_VERSION = $pythia_major_version" >> $config_status_file
+  echo "PYTHIA_VERSION = $pythia_major_version" > $config_in_file
 fi
 
 # Setting for Pythia6
@@ -132,11 +134,17 @@ pythia_lib_file=$pythia_lib_dir/lib$pythia_lib_name
 echo $pythia_lib_file
 
 echo "PYTHIA_LIB = -L$pythia_lib_dir -l$pythia_lib_name " >> $config_status_file
+echo "PYTHIA_LIB = -L$pythia_lib_dir -l$pythia_lib_name " >> $config_in_file
 if [ "$platform" == "aix" ] ; then 
     echo "PYTHIA_FLAGS = -DPYTHIA6" >> $config_status_file
     echo "PYTHIA_FLAGS_AIX = -WF,$(PYTHIA_FLAGS)" >> $config_status_file
+    echo "PYTHIA_FLAGS = -DPYTHIA6" >> $config_in_file
+    echo "PYTHIA_FLAGS_AIX = -WF,$(PYTHIA_FLAGS)" >> $config_in_file
 else
+  if [ "$pythia_major_version" != "5" ] ; then
     echo "PYTHIA_FLAGS = -DPYTHIA6" >> $config_status_file
+    echo "PYTHIA_FLAGS = -DPYTHIA6" >> $config_in_file
+  fi
 fi
 
 # JavaVM
