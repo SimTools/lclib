@@ -7,6 +7,19 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-98a-5 6-April-1999  by A.Miyamoto
+*************************************************
+(1) Typo in smrblk.F.  NXMPCV is changed to NSMPCV
+(2) smrvhl.F and smrvtx.F are modified to process event without 
+    smeared VTX track parameter properly.
+(3) Add simjpc/src/smrcmo.F and modified smrcvt.F so as to take into 
+    account the effect of the multiple scattering when extrapolating
+    CDC Track.
+(4) Compile problem of simjlc/src/smrcvt.F by egcs1.1.2 is fixed.
+(5) add simjlc/param/detect7.com as updated JLC detector parameter set.
+
+
+*************************************************
 lclib-98a-4 30-March-1999  by A.Miyamoto
 *************************************************
 (1) Subroutines, UTRKMO, UTRKAO, UTRKIO are created in util/fortlib.
