@@ -34,7 +34,7 @@ C***********************************************************************
 CMSP =EXPAND 'T#FP.S#JLC.FORT/SWMRND.inc'
 CMSP =EXPAND 'T#PR.P#STER.FORT/PRFELD.inc'
 #endif 
-#if defined(SUN) || defined(HIUXF77) || defined(MACHTEN_PPC)
+#if defined(SUN) || defined(HIUXF77) || defined(MACHTEN_PPC) || defined(AIX)
 #include "swmrnd.inc"
 #include "prfeld.inc"
 #endif 
@@ -153,7 +153,8 @@ C--
 C--
          RPLIST(17,IPT) = DL
          DPHI  ( 1,IPT) = DFI
-C--
+C
+c--
 C  TBPUT primary finite decay length particles.
 C--
 
