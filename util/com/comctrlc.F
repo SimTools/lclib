@@ -19,7 +19,7 @@ CMSP        call get_processor_id ( iproc )
        call jmlatn( gotatn )
 #endif
 #ifndef HIUXF77
-#elif MACHTEN_PPC
+#ifdef MACHTEN_PPC
 #else
        CALL GETPID(iproc)
        if ( iproc .lt. 0 ) then
