@@ -38,15 +38,22 @@ $(LDIR)/ludata.o: $(LDIR)/ludata.F
 
 ALLOBJ  = $(OBJS) $(OBJL) ludata.o
 
-LIBNAME	   = LUND73
+LIBNAME	    = LUND73
+LIBNAMEHADR = LUHADR
 #######################
 #ifdef DOSHRLIB
 SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
 InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+SharedLibraryTarget($(LIBNAMEHADR),$(SOREV),$(OBJS),.,.)
+InstallSharedLibrary($(LIBNAMEHADR),$(SOREV),$(INSTALLDIR))
 #endif
 NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
 InstallLibrary($(LIBNAME),$(INSTALLDIR))
+NormalLibraryTarget($(LIBNAMEHADR), $(OBJS) )
+InstallLibrary($(LIBNAMEHADR),$(INSTALLDIR))
 
 #######################
 flneru.o: $(HOMEDIR)/util/com/comode.inc
+
+
 
