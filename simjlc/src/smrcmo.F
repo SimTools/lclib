@@ -26,6 +26,7 @@ C*     4/06/99  A.Miyamoto  Firs version is created
 C*     4/08/99  A.Miyamoto  Skip when particle does not reach VTX layer
 C*                          Fix a bug in finding the intersection of
 C*                          of low momentum track.
+C*     5/05/99  A.Miyamoto  Fix error in Multiple-scattering error cal.
 C*
 C***********************************************************************
  
@@ -141,8 +142,15 @@ C ---
 C      BETA=1.0
       DO 300 IL = NLAST, NFIRST, -1
          CALL UTRKMO(LNxHLX, HLXCDC, PIVOT(1,IL), HELOUT)
-         SIGMS=0.0141/PCDC/SQRT(RDLVX(IL))*
-     >         (1.0+ALOG10(RDLVX(IL))/9.0)
+CC         SIGMS=0.0141/PCDC/SQRT(RDLVX(IL))*
+         RPV=SQRT(PIVOT(1,IL)**2+PIVOT(2,IL)**2)
+         PNRM=SQRT(1+HELOUT(5)**2)
+         CSTH=(-PIVOT(1,IL)*SIN(HELOUT(2))+PIVOT(2,IL)*COS(HELOUT(2)))
+     >       / ( RPV*PNRM)
+         X0NOW=RDLVX(IL)/CSTH
+
+         SIGMS=0.0141/PCDC*SQRT(X0NOW)*
+     >         (1.0+DLOG10(X0NOW)/9.0)
          SIGMSQ=SIGMS*SIGMS
 C .. E(2,2)=EDAT(3), E(3,3)=Edat(6), E(3,5)=Edat(13), E(5,5)=Edat(15)
          HELERR(3)=HELERR(3)+SIGMSQ*(1.0+HELOUT(5)**2)
