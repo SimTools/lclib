@@ -67,7 +67,7 @@ C ----------------------------------------------------------------------
 C
       CALL UVZERO(32, NTTOFH)
       DO 300 IB = 0, 31
-#ifndef HIUXF77
+#if !defined(HIUXF77) && !defined(JavaVM)
         IF(.NOT.BTEST(ITRIG(5),IB)) GO TO 300
 #else
 	KIB = IB

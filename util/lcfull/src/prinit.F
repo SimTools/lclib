@@ -73,10 +73,7 @@ C
 9000  CONTINUE
       RETURN
       END
-#else
-
-#ifdef MACHTEN_PPC
-#else
+#elif !defined(MACHTEN_PPC) && !defined(JavaVM)
       CALL GETUID( USERID )
 #endif
 C
@@ -85,4 +82,4 @@ C
 9000  CONTINUE
       RETURN
       END
-#endif
+

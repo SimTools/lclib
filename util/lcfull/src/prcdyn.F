@@ -258,9 +258,9 @@ C  If Last run# or file# not specified, get those info from database.
 C
         IF( NUMLST(2,I) .EQ. 0 ) THEN
           IF( IRUNL .EQ. 0 ) THEN
-            CALL MAOPEN( IRET )
+C            CALL MAOPEN( IRET )
             IF( IT .LE. 3 ) THEN
-              CALL MAGETE( 'RUNLIST', IEXP, 2000, NW, IFBUF )
+C              CALL MAGETE( 'RUNLIST', IEXP, 2000, NW, IFBUF )
               IF( NW .LE. 0 ) THEN
                 PRINT *,'%Warning..PRCDYN  Data ',
      >                  ' for Exp#', IEXP,' not exist.'
@@ -268,7 +268,7 @@ C
               ENDIF
               IRUNL = IFBUF(4)
             ELSE
-              CALL MAGETE( TYPNAM(IT), IEXP, 2000, NW, IFBUF )
+C              CALL MAGETE( TYPNAM(IT), IEXP, 2000, NW, IFBUF )
               IF( NW .LE. 0 ) THEN
                 PRINT *,'%Warning..PRCDYN ',TYPNAM(IT),
      >                  ' files for Exp#', IEXP,' not exist.'
@@ -276,7 +276,7 @@ C
               ENDIF
               IRUNL = IFBUF(3)
             ENDIF
-            CALL MACLOS
+C            CALL MACLOS
           ENDIF
           NUMLST(2,I) = IRUNL
         ENDIF

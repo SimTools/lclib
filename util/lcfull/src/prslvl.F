@@ -53,9 +53,11 @@ C
           IF( ENTNAM(I)(1:ILEN) .NE. NAMDFL(ID)(1:ILEN) ) GO TO 200
           EXELVL(I) = NJBLVL(INDDFL(2,ID),INDDFL(3,ID))
           DBGLVL(I) = NJBDBG(INDDFL(2,ID),INDDFL(3,ID))
+#ifndef JLC
           IF( ENTNAM(I)(1:ILEN) .EQ. 'RFILTER:' ) THEN
             CALL PRINFO( 10, ENTQUI(I) )
           ENDIF
+#endif
           GO TO 210
 200     CONTINUE
 210     CONTINUE

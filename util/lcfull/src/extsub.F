@@ -33,7 +33,7 @@ C===================<< Entry point >>=================================
 #if defined(SUN) || defined(AIX)
        IADDR = LOC(MODULE)
 #endif
-#if defined(HP) || defined(HIUXF77) || defined(MACHTEN_PPC)
+#if defined(HP) || defined(HIUXF77) || defined(MACHTEN_PPC) || defined(JavaVM)
         IADDR = %LOC(MODULE)
 #endif
  

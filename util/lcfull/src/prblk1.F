@@ -1,4 +1,4 @@
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(JavaVM)
       SUBROUTINE PRBLK1
 #else
       BLOCK DATA PRBLK1

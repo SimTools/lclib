@@ -65,7 +65,7 @@ C         (9) = Full_Analysis(0,Nr) = (not done, done)
           GO TO 9000
         ENDIF
  
-      ELSEIF( NELM .EQ. 0 ) THEN
+       ELSEIF( NELM .EQ. 0 ) THEN
         DO 120 I = 1, 9
           NDTYPE(I) = NEXTYP(I)
 120     CONTINUE

@@ -63,7 +63,7 @@ C
        NDBCTL(4,ICMD) = LOC(MADR)
        CALL DBCSEX(']'//WCMDNM(:LCMD),%VAL(NDBCTL(4,ICMD)))
 #endif
-#if defined(HP) || defined(HIUXF77) || defined(MACHTEN_PPC)
+#if defined(HP) || defined(HIUXF77) || defined(MACHTEN_PPC) || defined(JavaVM)
         NDBCTL(4,ICMD) = %LOC(MADR)
         CALL DBCSEX(']'//WCMDNM(:LCMD),%VAL(NDBCTL(4,ICMD)))
 #endif
