@@ -16,7 +16,7 @@
 
 LCDIR  = ../..
 LCLIB  = $(LCDIR)/lib
-HBOOK_LIB = /cern/95a/lib
+HBOOK_LIB = /cern/pro/lib
 
 INCPATH = -I./ \
 	  -I$(LCDIR)/util/lcfull/src \
@@ -47,8 +47,7 @@ MYLDOPT = -lmsl2
 all :: anal
 
 anal   : $(ANALOBJ) 
-	 f77 $(FFLAGS) $(MAIN) $(ANALOBJ) $(ANALLIB) -o wwanal.ex \
-	 -Wl,-y,time_
+	 f77 $(FFLAGS) $(MAIN) $(ANALOBJ) $(ANALLIB) -o wwanal.ex 
 
 clean ::
 	rm -f *.o core *~
