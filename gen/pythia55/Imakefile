@@ -1,0 +1,28 @@
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+HOMEDIR = ../..
+
+INCPATH = 
+
+OBJL = 	pydata.o pydiff.o pydocu.o pyevnt.o pyfram.o \
+	pygamm.o pyhfth.o pyi3au.o pyinit.o pyinki.o pyinre.o \
+	pykcut.o pyklim.o pykmap.o pymaxi.o pymult.o pyofsh.o \
+	pypile.o pyqqbh.o pyrand.o pyremn.o pyresd.o pyscat.o \
+	pysigh.o pyspen.o pyspli.o pysspa.o pystat.o pystfe.o \
+	pystfu.o pystga.o pytest.o pywaux.o pywidt.o pyxtot.o \
+	rkbbv.o rkdot.o rkhlpk.o rkrand.o rkzf.o rkzpr.o rkzsf.o
+
+LIBNAME	   = PYTHIA55
+INSTALLDIR = $(HOMEDIR)/lib
+
+ALLOBJ = $(OBJL) 
+
+#######################
+
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+
+install:: lib$(LIBNAME).a
+	rm -f $(INSTALLDIR)/lib$(LIBNAME).a
+	cp -p lib$(LIBNAME).a $(INSTALLDIR)/lib$(LIBNAME).a
+
