@@ -4,7 +4,7 @@
 
       N = TIME()
       CALL LTIME(N, TA)
-      WRITE(HIZUKE,110) TA(6), TA(5)+1, TA(4)
+      WRITE(HIZUKE,110) MOD(TA(6),100), TA(5)+1, TA(4)
  110  FORMAT(I2.2,'-',I2.2,'-',I2.2)
       RETURN
       END
