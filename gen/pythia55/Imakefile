@@ -20,11 +20,13 @@ ALLOBJ = $(OBJL)
 
 #######################
 
+#######################
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
 NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
-
-install:: lib$(LIBNAME).a
-	rm -f $(INSTALLDIR)/lib$(LIBNAME).a
-	cp -p lib$(LIBNAME).a $(INSTALLDIR)/lib$(LIBNAME).a
+InstallLibrary($(LIBNAME),$(INSTALLDIR))
 
 clean::
 	rm -f *.o; rm -f *.a; rm -f *~ 
