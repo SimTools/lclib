@@ -26,11 +26,16 @@ getcwd_.o: getcwd_.c
 getcwd_.o: getcwd_.F
 	$(FF) -g -c $*.F
 #elif defined(hitachiArchitecture)
+#if defined(F77FORTRAN)
 getcwd_.o: getcwd_.F
 	$(CPP) -P  $(CPPOPT) $(INCPATH) $*.F  >  tmp.$*.f
 	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
 	rm -f tmp.$*.f
 	mv tmp.$*.o $*.o
+#else
+getcwd_.o: getcwd_.F
+	$(FC) $*.F -c $(F90OPTS) $(CPPOPT) $(INCPATH) $(SHRLIBFLAGS) -o $*.o
+#endif /* end of F77FORTRAN */	
 #else
 getcwd_.o: getcwd_.F
 	$(FF) -g -fno-underscoring -c $*.F
