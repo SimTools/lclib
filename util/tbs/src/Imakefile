@@ -37,7 +37,7 @@ ALPHA_OBJS    =
 
 C_OBJS	      = tb_buflib.o \ @@\
 	tbtcls.o tbtdsm.o tbtmnt.o tbtopn.o tbtred.o tbtwfh.o \ @@\
- 	tbtwrt.o tbvopn.o tbvred.o 
+	tbtwrt.o tbvopn.o tbvred.o
 
 #ifdef HPArchitecture
 SHROBJ	= $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
@@ -68,7 +68,7 @@ install::
 	cp -f FNUM.o.hiuxf77 $(INSTALLDIR)/FNUM.o
 #endif
 #endif
-NormalLibraryTarget($(LIBNAME) $(FNUMUNIX), $(ALLOBJ) )
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
 InstallLibrary($(LIBNAME),$(INSTALLDIR))
 
 
