@@ -63,7 +63,12 @@ C---------------------- Get User ID.
 C
 #ifdef HIUXF77 
       call getenv("USER", 4, USERID, 8)
-#elif MACHTEN_PPC
+9000  CONTINUE
+      RETURN
+      END
+#else
+
+#ifdef MACHTEN_PPC
 #else
       CALL GETUID( USERID )
 #endif
@@ -73,3 +78,4 @@ C
 9000  CONTINUE
       RETURN
       END
+#endif

@@ -30,11 +30,13 @@ C ----------------------------------------------------------------------
 C (1) Initialize.
 C ----------------------------------------------------------------------
 C
-#ifdef HIUXF77
-      call getenv("USER", 4, CMxUID, 8)
-#elif MACHTEN_PPC
+#ifndef HIUXF77 
+#ifdef  MACHTEN_PPC
 #else
       CALL GETUID(CMxUID)
+#endif
+#else
+      call getenv("USER", 4, CMxUID, 8)
 #endif
       CMxJBN(1:8) = CMxUID
 C
