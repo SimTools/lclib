@@ -1,5 +1,8 @@
 SOREV = 97a
 
+XCOMM ****************************************************************
+XCOMM HPArchitecture
+XCOMM ****************************************************************
 #if defined(HPArchitecture)
 #define DOSHRLIB
 #ifdef DOSHRLIB
@@ -17,29 +20,108 @@ RANLIB  = /bin/ranlib
 INSTALL = install
 #endif
 
+
+XCOMM ****************************************************************
+XCOMM hitachiArchitecture
+XCOMM (note)
+XCOMM Important Flags
+XCOMM F77FORTRAN : Create libraries using f77 compiler
+XCOMM F90FORTRAN : Create libraries using f90 compiler
+XCOMM DOSHRLIB   : Create shared libraries  
+XCOMM   default setting is define F90FORTRAN and DOSHRLIB
+XCOMM ****************************************************************
+XCOMM TO change configuration , edit following three lines properly.
+XCOMM #define F77FORTRAN
+#define F90FORTRAN
+#define DOSHRLIB
+
+
 #if defined(hitachiArchitecture)
+/*
+ * InstallSharedLibrary - generate rules to install the shared library.
+ */
+#ifndef InstallSharedLibrary
+#define InstallSharedLibrary(libname,rev,dest)                          @@\
+install:: Concat(lib,libname.sl)                                        @@\
+        MakeDir($(DESTDIR)dest)                                         @@\
+        $(INSTALL) $(INSTALLFLAGS) $(INSTLIBFLAGS) Concat(lib,libname.sl) $(DESTDIR)dest
+#endif /* InstallSharedLibrary */
+
+
+/*
+ * SharedLibraryTarget - generate rules to create a shared library;
+ * build it into a different name so that we do not hose people by having
+ * the library gone for long periods.
+ */
+#ifndef SharedLibraryTarget
+#define SharedLibraryTarget(libname,rev,solist,down,up)                 @@\
+AllTarget(Concat(lib,libname.sl))                                       @@\
+                                                                        @@\
+Concat(lib,libname.sl):  solist                                         @@\
+        $(RM) $@~                                                       @@\
+        (cd down; $(LD) -o up/$@~ $(SHLIBLDFLAGS) solist)               @@\
+        $(RM) $@                                                        @@\
+        $(MV) $@~ $@                                                    @@\
+                                                                        @@\
+clean::                                                                 @@\
+        $(RM) Concat(lib,libname.sl)
+#endif /* SharedLibraryTarget */
+
+
+#ifdef DOSHRLIB
+SHRLIBFLAGS = +z 
+SHLIBLDFLAGS = -b -E
+INSTLIBFLAGS = -m 555
+#endif
+XCOMM  ************************
+XCOMM  F77FORTRAN
+XCOMM  ************************
+#if defined(F77FORTRAN)
+#define HitachiFortranCompiler(dir)  @\
+$(CPP) -P  $(CPPOPT) $(INCPATH) dir/$*.F  >  tmp.$*.f   @@\
+$(FC) -c $(F77OPTS) -o $*.o tmp.$*.f                @@\
+rm -f tmp.$*.f                                      @@\
+mv tmp.$*.o $*.o
 .SUFFIXES: .F .f .o
 F77OPTS = -i,E,U,P,PL,LT,L,EU,CL,CU,BL -W0,"LANGLVL(CONTI199,DARG(L),H8000)"
+FFLAGSE = $(F77OPTS)
+FC      = f77
+.F.o:
+	HitachiFortranCompiler(.)
+.f.o:
+	$(FC) -c $(F77OPTS) -O  $<
+#endif  /* end of f77 Fortran */
+XCOMM  ************************
+XCOMM  F90FORTRAN
+XCOMM  ************************
+#if defined(F90FORTRAN)
+FC = f90
+F90OPTS=-L/usr/lib -i,E,U,P,PL,LT,L,EU,CL,CU,BL -W0,"LANGLVL(CONTI199,DARG(L),H8000)"
+FFLAGS = $(CPPOPT) $(INCPATH) $(F90OPTS) 
+#define HitachiFortranCompiler(dir) @\
+$(FC) dir/$*.F -c $(F90OPTS) $(CPPOPT) $(INCPATH) $(SHRLIBFLAGS) -o $*.o
+.F.o:
+	HitachiFortranCompiler(.)
+.f.o:
+	$(FC) -c $(F90OPTS) $(SHRLIBFLAGS) -O  $<
+#endif  /* end of f90 Fortran */
+XCOMM  ************************
+XCOMM  Setting common to F90 and F77
+XCOMM  ************************
+FF      = $(FC)
 CC	= cc
-FF      = f77
 CPP     = /lib/cpp
 CPPOPT  = -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) 
-CFLAGS  = -O -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) 
-FFLAGSE = $(F77OPTS)
+CFLAGS  = -O -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
 RANLIB  = /bin/ranlib
 INSTALL = install
-
-.F.o:
-	$(CPP) -P  $(CPPOPT) $(INCPATH) $*.F  >  tmp.$*.f
-	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
-	rm -f tmp.$*.f
-	mv tmp.$*.o $*.o
-
-.f.o:
-	$(FF) -c $(F77OPTS) -O  $<
 #endif
 
 
+
+XCOMM ****************************************************************
+XCOMM MachTenPPCArchitecture
+XCOMM ****************************************************************
 #if defined(MachTenPPCArchitecture)
 CFLAGS = -O -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
 FFLAGS = -O -fno-automatic -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) \
@@ -48,6 +130,9 @@ RANLIB = ranlib
 #endif
 
 
+XCOMM ****************************************************************
+XCOMM PPCArchitecture
+XCOMM ****************************************************************
 #if defined(PPCArchitecture)
 #ifdef DOSHRLIB
 #undef DOSHRLIB
@@ -74,6 +159,10 @@ RANLIB = ranlib
 #endif
 
 
+
+XCOMM ****************************************************************
+XCOMM LinuxArchitecture
+XCOMM ****************************************************************
 #ifndef PPCArchitecture
 #if defined(LinuxArchitecture)
 #ifdef DOSHRLIB
