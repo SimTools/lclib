@@ -41,7 +41,7 @@ C_OBJS	      = tb_buflib.o \ @@\
 OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
 #endif
 #ifdef hitachiArchitecture
-OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) FNUM.o
+OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) FNUM.o.hiuxf77
 #endif
 #ifdef PPCArchitecture
 OBJS	      = $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
