@@ -159,7 +159,7 @@ C--
 C  Reject tracks with insufficient # hits.
 C--
 #if 1
-      NHIT = MIN((R2-R1+0.1)/DSMPVT+1,NSMPVT)
+      NHIT = MIN(INT((R2-R1+0.1)/DSMPVT)+1,NSMPVT)
 #else
       NHIT = MIN((R2-R1+0.1)/DSMPVT,NSMPVT) +1
 #endif

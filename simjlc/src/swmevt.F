@@ -137,7 +137,8 @@ C--
          PT   = SQRT(PT2)
          AP   = SQRT(PT2+PL*PL)
          DL   = RPLIST(17,IPT)
-         IF ( DL.LE.0. ) DL = - (AP/AM)*CTU*LOG(MAX(1-RAN(ISEED),EPSDL))
+         IF ( DL.LE.0. ) 
+     >   DL = - (AP/AM)*CTU*LOG(MAX(1.0D0-DBLE(RAN(ISEED)),EPSDL))
 
 C--
 C  Calculate deflection angle.
