@@ -21,6 +21,9 @@ MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
 #endif
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2
+#ifdef F90FORTRAN
+MYLDOPT = $(LCLIB)/FNUM.o -lmsl2 -Wl,-a,archive -Wl,-L/lib/pa1.1 -lm
+#endif
 #endif
 
 ####################################################
@@ -28,7 +31,7 @@ MYLDOPT = -lmsl2
 all:: pythia
 
 pythia: $(OBJ)
-	 f77 $(FFLAGS) $(MAIN) $(OBJ) $(LIB) -o pythia.ex 
+	 $(FC) $(FFLAGS) $(MAIN) $(OBJ) $(LIB) -o pythia.ex 
 
 clean:: 
 	rm -f *~ core *.o *.ex Makefile *.bak *.a 

@@ -17,6 +17,7 @@
 LCDIR  = ../..
 LCLIB  = $(LCDIR)/lib
 HBOOK_LIB = /cern/pro/lib
+CERNLIBOPT = 
 
 INCPATH = -I./ \
 	  -I$(LCDIR)/util/lcfull/src \
@@ -30,24 +31,29 @@ ANALOBJ   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
 	    coupla.o boost0.o bs51cm.o bshget.o 
 
 
-ANALLIB   = -Wl,-L$(LCLIB) -lLCFULL -lGENUTIL -lLUND73 -lTAUOLA \
+ANALLIB   =  -Wl,-L$(LCLIB) -lLCFULL -lGENUTIL -lLUND73 -lTAUOLA \
 	    -lHELASV204 -lBASESV5.1 -lSIMJLC -lFORTLIB  -lCOM -lCLI \
 	    -lTBS -lLCFULL -lGENUTIL  \
 	    -lHPKTOHBK -lFORTLIB -lCOM -lCLI \
-	    -Wl,-L$(HBOOK_LIB) -lpacklib $(MYLDOPT)
+	    $(CERNLIBOPT) -Wl,-L$(HBOOK_LIB) -lpacklib $(MYLDOPT)
 
 #ifdef HPArchitecture
 MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
 #endif
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2
+#ifdef F90FORTRAN
+MYLDOPT = $(LCLIB)/FNUM.o -lmsl2 -L/lib/pa1.1 -lm
+HBOOK_LIB = /cern/95a_f90/lib
+CERNLIBOPT = -Wl,-a,archive 
+#endif
 #endif
 
 
 all :: anal
 
 anal   : $(ANALOBJ) 
-	 f77 $(FFLAGS) $(MAIN) $(ANALOBJ) $(ANALLIB) -o wwanal.ex 
+	 $(FC) $(MAIN) $(ANALOBJ) $(FFLAGS) $(ANALLIB) -o wwanal.ex 
 
 clean ::
 	rm -f *.o core *~
