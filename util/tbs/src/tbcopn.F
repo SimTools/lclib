@@ -37,8 +37,12 @@ C
       CALL GETUID(CMxUID)
 #endif
 #ifdef UNIX
+#ifdef HIUXF77
+      call getenv("LOGNAME",7,tempname,8)
+#else
       CALL GETLOG(tempname)
       CMxUID = tempname
+#endif
 #endif
       CMxJBN(1:8) = CMxUID
 

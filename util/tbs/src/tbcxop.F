@@ -98,7 +98,12 @@ C
 #endif
       MCxOPS = 1
       CALL UIDATE(MCxOPD)
+#ifndef HIUXF77
       CALL   TIME(MCxOPT)
+#else
+      call clock(2,mcxopt)
+#endif
+
       GO TO 900
 C
 C ----------------------------------------------------------------------

@@ -76,7 +76,11 @@ C
              NCTIME = NDATIM(2)
          ELSE
             CALL UIDATE( NCDATE )
+#ifndef HIUXF77
             CALL   TIME( NCTIME )
+#else
+            call clock(2, nctime)
+#endif
          ENDIF
 C                          =====
          CALL TBxFRD( ID,  IPSUB )
@@ -149,7 +153,11 @@ C In case of UNIX system, output data using TBWRIT
           CALL TBxERR(100, 'TBCWRT', 3)
 	  nvers = 1
 	else
+#ifdef HIUXF77
+           call clock(2,itim)
+#else
 	  itim = getpid()
+#endif
 	  write(tempfile,4100) itim
 4100      format('/tmp/tbs.ls.',i8.8)
 	  write(systemcmd,4110) dbsfile(:lnblnk(dbsfile)),tempfile

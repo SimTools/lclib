@@ -100,7 +100,11 @@ C
           CALL TBxERR(800, 'TBCXRD', 3)
 	  nvers = 1
 	elseif(ivers.eq.0) then
+#ifdef HIUXF77
+          call clock(2, itim)
+#else
 	  itim = getpid()
+#endif
 	  write(tempfile,4100) itim
 4100      format('/tmp/tbs.ls.',i8.8)
 	  write(systemcmd,4110) dbsfile(:lnblnk(dbsfile)),tempfile
