@@ -1,6 +1,8 @@
 all:
-	(cd ssl2 ; xmkmf ; make)
-	(cd src ; xmkmf ; make)
+	(cd src ; xmkmf ; make all)
+
+#	(cd ssl2 ; xmkmf ; make)
+
 
 install: all
 	(cd src ; make install)
