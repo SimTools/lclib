@@ -35,6 +35,8 @@ HP_OBJS	      = lun_to_fileno_hp.o lnblnk.o
 
 PPC_OBJS      = lun_to_fileno_ppc.o lnblnk.o
 
+LNX_OBJS      = lun_to_fileno_lnx.o lnblnk.o
+
 AV_OBJS	      =
 
 ALPHA_OBJS    =
@@ -57,6 +59,9 @@ OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) ../tbs/sr
 #endif
 #ifdef PPCArchitecture
 OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
+#endif
+#ifdef LinuxArchitecture
+OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(LNX_OBJS) $(UNIX_OBJS)
 #endif
 
 #ifdef hitachiArchitecture
@@ -138,6 +143,11 @@ $(C_OBJS): $(C_SRCS)
 #if defined(PPCArchitecture) || defined(MachTenPPCArchitecture)
 lun_to_fileno_ppc.o: $(TBSDIR)/lun_to_fileno_ppc.c
 	$(CC) -c $(CFLAGS) -o $*.o $(TBSDIR)/$*.c
+#endif
+
+#if defined(LinuxArchitecture)
+lun_to_fileno_lnx.o: $(TBSDIR)/lun_to_fileno_lnx.F
+	$(FF) $(FFLAGS) -fno-underscoring -c $(TBSDIR)/$*.F
 #endif
 
 #if defined(SUNArchitecture)

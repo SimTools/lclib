@@ -43,7 +43,7 @@ C
 107    FORMAT (' CLI: Available Keywords:'/)
        INC = MIN(9,72/(IL+4))
        WRITE (FOR,104) INC
-104    FORMAT ('('I1'(4XA))')
+104    FORMAT ('(',I1,'(4X,A))')
        WRITE (IWR,FOR) CNAME
        WRITE (IWR,*)
        CALL LINRD(1,ABS(MODE))

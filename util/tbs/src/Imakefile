@@ -29,6 +29,8 @@ HP_OBJS	      = lun_to_fileno_hp.o lnblnk.o
 
 PPC_OBJS      = lun_to_fileno_ppc.o lnblnk.o
 
+LNX_OBJS      = lun_to_fileno_lnx.o lnblnk.o
+
 AV_OBJS	      =
 
 ALPHA_OBJS    =
@@ -45,6 +47,9 @@ OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) FNUM.o.hiuxf77
 #endif
 #ifdef PPCArchitecture
 OBJS	      = $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
+#endif
+#ifdef LinuxArchitecture
+OBJS	      = $(F_OBJS) $(C_OBJS) $(LNX_OBJS) $(UNIX_OBJS)
 #endif
 
 LIBNAME = TBS
@@ -66,6 +71,11 @@ lun_to_fileno_ppc.o: lun_to_fileno_ppc.c
 /*
 	$(FF) $(FFLAGS) -fno-underscoring -c $*.F
 */
+#endif
+
+#if defined(LinuxArchitecture)
+lun_to_fileno_lnx.o: lun_to_fileno_lnx.F
+	$(FF) $(FFLAGS) -fno-underscoring -c $*.F
 #endif
 
 ###

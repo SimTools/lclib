@@ -52,6 +52,9 @@ C **********************************************************************
 	character*40  tempfile
 	logical incstat
 	integer getpid
+#if defined(G77_521_OR_GREATER)
+        INTEGER*4 TIME
+#endif
 #endif
 
 C
@@ -76,10 +79,14 @@ C
              NCTIME = NDATIM(2)
          ELSE
             CALL UIDATE( NCDATE )
+#if defined(G77_521_OR_GREATER)
+            NCTIME = TIME()
+#else
 #ifndef HIUXF77
             CALL   TIME( NCTIME )
 #else
             call clock(2, nctime)
+#endif
 #endif
          ENDIF
 C                          =====

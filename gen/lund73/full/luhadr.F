@@ -439,11 +439,7 @@ C--
       CALL UVZERO(10, ITMP )
       ITMP( 1) = ILEVT
       CALL UIDATE( ITMP( 2) )
-#ifdef HIUXF77
-      CALL CLOCK(2, ITMP(3) )
-#else
-      CALL   TIME( ITMP(3)  )
-#endif
+      CALL UITIME( ITMP(3) )
       ITMP( 3) = 1
       ITMP( 5) = ILSAVE
       ITMP( 7) = IEBEAM

@@ -11,7 +11,11 @@ C ARG
       CHARACTER * (*)  DSNAME
 C
 C VAR
+#if defined(G77_521_OR_GREATER)
+      INTEGER   *  4  USERID
+#else
       CHARACTER *  4  USERID
+#endif
       CHARACTER * 72  RECORD
       CHARACTER * 80  CMD
       CHARACTER * 100  ALOCFB, FREEFB
@@ -19,7 +23,11 @@ C
 C BEGIN
       ALOCFB = 'ALLOC DD(FT06F001) DS(@.PIPE) REUSE SHR'
       FREEFB = 'FREE DD(FT06F001)'
+#if defined(G77_521_OR_GREATER)
+      USERID = GETUID()
+#else
       CALL GETUID( USERID )
+#endif
       CMD(1:4) = 'LDS '
       LCMD = 4
       LDSN = LENRD( DSNAME )

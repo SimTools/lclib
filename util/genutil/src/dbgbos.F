@@ -63,6 +63,9 @@ C ... Temporary data for the bank system
 C
       INTEGER*4  IBUF(10)
       REAL*4     RBUF(20)
+#if defined(G77_521_OR_GREATER)
+      INTEGER*4  TIME
+#endif
       DATA     IFIRST/1/
       DATA     ISEED/62327492/
 C
@@ -144,7 +147,11 @@ C                 (10) = not used.
       EBEAM   = PHA
       CALL PRINFO( 4, IBUF(1) )
       CALL UIDATE( IBUF(2) )
+#if defined(G77_521_OR_GREATER)
+      IBUF(3) = TIME()
+#else
       CALL   TIME( IBUF(3) )
+#endif
       IBUF(5) = EBEAM*1.E3
       IBUF(6) = EBEAM*1.E3
       IBUF(7) = EBEAM*1.E3

@@ -34,7 +34,7 @@ C
 #endif
 C
 #ifdef UNIX
-#if !defined(HIUXF77) && !defined(MACHTEN_PPC)
+#if (!defined(HIUXF77) && !defined(MACHTEN_PPC))||defined(G77_521_OR_GREATER)
        INTEGER*4  STIME, TARRAY(9), TIME
 C
        STIME = TIME()

@@ -74,7 +74,7 @@ ispace.o : ispace.f
 
 keyrd.o : keyrd.f
 
-ldsdsn.o : ldsdsn.f
+ldsdsn.o : ldsdsn.F
 
 lenrd.o : lenrd.f
 
@@ -96,7 +96,7 @@ tvmenu.o : tvmenu.f
 
 tvoins.o : tvoins.f
 
-tvoptn.o : tvoptn.f
+tvoptn.o : tvoptn.F
 
 tvpack.o : tvpack.F
 

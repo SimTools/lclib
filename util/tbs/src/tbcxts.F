@@ -32,7 +32,11 @@ C (1) Write time stamp.
 C-----------------------------------------------------------------------
 C
       CALL UIDATE(IBUF(1))
+#if defined(G77_521_OR_GREATER)
+      IBUF(2) = TIME()
+#else
       CALL   TIME(IBUF(2))
+#endif
       READ(CMxJBN,'(4A4)') (IBUF(K1),K1=3,6)
       NW      = 6
       REWRITE(MCxDBS,ERR=910) CMxDLM(:MCxKEY),NW, (IBUF(K1),K1=1,NW)

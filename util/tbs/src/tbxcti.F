@@ -20,7 +20,11 @@ C
        CHARACTER*4  CHARA
 C
        DO  100  I = 1, 4
+#if defined(LITTLE_ENDIAN)
+         ICODE( 5-I ) =ICHAR( CHARA( I:I ) )
+#else
          ICODE( I ) = ICHAR( CHARA( I:I ) )
+#endif
   100  CONTINUE
 C
        ICODE( 1 )   = ISHFT( ICODE(1), 24 )

@@ -19,6 +19,7 @@ $(COMMAND):: $(OBJS)
 	$(FF) -g $(FFLAGS) $(OBJS) -o $(COMMAND)
 #endif
 
+#if !defined(LinuxArchitecture)
 #if defined(PPCArchitecture)
 getcwd_.o: getcwd_.c
 #elif defined(HPArchitecture)
@@ -33,6 +34,7 @@ getcwd_.o: getcwd_.F
 #else
 getcwd_.o: getcwd_.F
 	$(FF) -g -fno-underscoring -c $*.F
+#endif
 #endif
 
 install::

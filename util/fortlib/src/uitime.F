@@ -5,7 +5,7 @@ C prepared to provide similar function as sub. TIME in
 C FACOM MSP Fortran77
 C
 
-#if defined(HP) && !defined(MACHTEN_PPC)
+#if (defined(HP) && !defined(MACHTEN_PPC)) || defined(G77_521_OR_GREATER)
       INTEGER*4   N, TIME, TA(9)
       N = TIME()
       CALL LTIME(N, TA)

@@ -325,11 +325,7 @@ C                 (10) = not used.
       NEVENT = NEVENT + 1
       IBUF(1) = NEVENT
       CALL UIDATE( IBUF(2) )
-#ifdef MSP
-      CALL   TIME( IBUF(3) )
-#else
-      IBUF(3) = TIME()
-#endif
+      CALL UITIME( IBUF(3) )
       IBUF(5) = EMINS*1.E3
       IBUF(6) = EPLUS*1.E3
       IBUF(7) = EBEAM*1.E3

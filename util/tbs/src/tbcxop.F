@@ -32,6 +32,9 @@ C
       EXTERNAL     TBCBLK
 #ifdef UNIX
 	character*128 dbsdir
+#if defined(G77_521_OR_GREATER)
+        INTEGER*4 TIME
+#endif
 #endif
 
 C
@@ -98,12 +101,15 @@ C
 #endif
       MCxOPS = 1
       CALL UIDATE(MCxOPD)
+#if defined(G77_521_OR_GREATER)
+      MCxOPT = TIME()
+#else
 #ifndef HIUXF77
       CALL   TIME(MCxOPT)
 #else
       call clock(2,mcxopt)
 #endif
-
+#endif
       GO TO 900
 C
 C ----------------------------------------------------------------------

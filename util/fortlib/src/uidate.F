@@ -17,14 +17,21 @@ C*    A. Miyamoto        19-Dec-1985  Original version.
 C* 
 C*********************************************************************
 C* 
-      SUBROUTINE UIDATE(IDATE)
+      SUBROUTINE UIDATE(IIDATE)
 C  
+#if defined(G77_521_OR_GREATER)
+      INTEGER*4 ITMP(3)
+      CALL IDATE(ITMP)
+      IY = ITMP(3)
+      IM = ITMP(2)
+      ID = ITMP(1)
+#else
       CHARACTER*8 HIZUKE
-C  
       CALL DATE(HIZUKE)
       READ(HIZUKE(1:2),'(I2)') IY
       READ(HIZUKE(4:5),'(I2)') IM
       READ(HIZUKE(7:8),'(I2)') ID
-      IDATE = ID + 100*IM + 10000*IY
+#endif
+      IIDATE = ID + 100*IM + 10000*IY
       RETURN
       END

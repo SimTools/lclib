@@ -161,7 +161,12 @@ CYM  + 10 CARDS, ISEL=1...LASER, ISEL=4...F6657
 CYM
        IF(ISEL.EQ.1)THEN
          IF( LTSS ) THEN
+#if defined(G77_521_OR_GREATER)
+           IDUSER = GETUID()
+           CALL UVCOPY(IDUSER,USERID,1)
+#else
            CALL GETUID( USERID )
+#endif
            INQUIRE( FILE=USERID//'.@LASER',EXIST=LEXIST )
            IF( LEXIST ) THEN
              CALL IPFCMD( IER, IER, 'DELETE @LASER',13)
@@ -184,7 +189,12 @@ CMSP              CALL EXIT
        END IF
        IF( ISEL.EQ.4 ) THEN
          IF( LTSS ) THEN
+#if defined(G77_521_OR_GREATER)
+           IDUSER = GETUID()
+           CALL UVCOPY(IDUSER,USERID,1)
+#else
            CALL GETUID( USERID )
+#endif
            INQUIRE( FILE=USERID//'.@UG',EXIST=LEXIST )
            IF( LEXIST ) THEN
              CALL IPFCMD( IER, IER, 'DELETE @UG',10)

@@ -189,7 +189,12 @@ C        CALL STRUPC( LDS,DSNAME )
 C
         FULNAM = ' '
         IF( DSNAME(1:1) .EQ. '.' ) THEN
+#if defined(G77_521_OR_GREATER)
+          IDUSER = GETUID()
+          CALL UVCOPY(IDUSER,FULNAM,1)
+#else
           CALL GETUID( FULNAM(1:4) )
+#endif
           FULNAM(5:) = DSNAME
         ELSE
           FULNAM = DSNAME

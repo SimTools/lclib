@@ -38,8 +38,8 @@ C
 C
       LRSL  = RINDEX(FULDSN(:LFULL),'/')
       DSN(:LDSN) = ' '
-      IF( LRSL .EQ. 0 ) THEN
-#if defined(HP) || defined(MACHTEN_PPC)
+      IF( LRSL .EQ. 0 ) THEN     
+#if defined(HP) || (defined(MACHTEN_PPC) && !defined(G77_521_OR_GREATER))
          IR = getcwd( DSN , LDSN )  ! for  HP unix
          DSN(:LDSN) = DSN(:(INDEX(DSN,' ')-1)) 
 #else 
