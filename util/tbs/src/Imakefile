@@ -31,6 +31,8 @@ PPC_OBJS      = lun_to_fileno_ppc.o lnblnk.o
 
 LNX_OBJS      = lun_to_fileno_lnx.o lnblnk.o
 
+AIX_OBJS      = lnblnk.o
+
 AV_OBJS	      =
 
 ALPHA_OBJS    =
@@ -54,6 +56,11 @@ ALLOBJ	= $(SHROBJ)
 #endif
 #ifdef LinuxArchitecture
 SHROBJ  = $(F_OBJS) $(C_OBJS) $(LNX_OBJS) $(UNIX_OBJS)
+ALLOBJ	= $(SHROBJ)
+#endif
+#ifdef AIXArchitecture
+C_OBJS	= tbvopn.o tbvred.o
+SHROBJ  = $(F_OBJS) $(C_OBJS) $(AIX_OBJS) $(UNIX_OBJS)
 ALLOBJ	= $(SHROBJ)
 #endif
 

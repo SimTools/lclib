@@ -250,7 +250,7 @@ C9200                  FORMAT(1X,'TBWRIT Write Control_Block  LUN=',I5)
  
          NTWRIT        = NTWRIT + 1
          NOWRIT(IPSUB) = NOWRIT(IPSUB) + 1
-#ifdef UNIX
+#if defined(UNIX) && !defined(AIX)
          Call TB_Set_Buffer ( LUN, MXWORK, IWORK )
          Call TB_Write_Buffer ( 1, NWCNTL )
          Call TB_Write_Buffer ( NWCNTL, ICNTL )
@@ -274,7 +274,7 @@ C                                                              /// DEBUG
 C                                                      WRITE(6,9300) LUN
 C9300                      FORMAT(1X,'TBWRIT Write Data_Block  LUN=',I5)
 C
-#ifdef UNIX
+#if defined(UNIX) && !defined(AIX)
          Call TB_Write_Buffer ( 1, NWORDS )
          Do L = 1, Nrec
            NBGN = NBEGIN ( L )

@@ -61,19 +61,11 @@ C*        PRINT *, '#### Standard Mapping File assumed.'
 #ifdef  HP
         OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD',READONLY)
 #endif
-#ifdef  SUN
-        OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD')
-#endif
-#ifdef  MACHTEN_PPC
-        OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD')
-#endif
-#ifdef  HIUXF77
+#if defined(SUN) || defined(MACHTEN_PPC) || defined(HIUXF77) || defined(AIX)
         OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD')
 #endif
 #ifdef  UNIX
             WRITE(6,'(A,A)') ' TBUXIN .. Map file is',
-#endif
-#ifdef  UNIX
      >    LINBUF(:LNBLNK(LINBUF))
 #endif
       ELSE

@@ -32,8 +32,12 @@ C  --------------------------------------------------------------------
 C
 #ifdef  UNIX
       IF( NRWFMT(1).EQ.0 ) THEN
+#if defined(AIX) 
+        READ( LUN, END =8000, IOSTAT=IST ) NW,(IDATA(K),K=1,NW)
+#else
 	Is = TB_read_buffer ( LUN, Nw, Idata )
 	If ( Is .EQ. 0 ) Goto 8000 
+#endif
 C
 C   Read VBS format data.
       ELSEIF( NRWFMT(1) .EQ. 1 ) THEN
@@ -46,6 +50,7 @@ C   Read VBS format data.
           IST = 0
         ENDIF
 C
+#ifndef AIX
 C   Read SONY-DIR100L Tapes.
       ELSEIF( NRWFMT(1) .EQ. 3 ) THEN
         CALL TBTRED(LUN, NW, IDATA(1))
@@ -56,6 +61,7 @@ C   Read SONY-DIR100L Tapes.
         ELSE
           IST = 0
         ENDIF
+#endif
 C
 C   Read Fortran-I/O'ed files
       ElseIf ( NRWFMT(1) .EQ. 4 .OR. NRWFMT(1).EQ.5 ) then

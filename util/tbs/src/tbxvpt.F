@@ -42,7 +42,9 @@ C               PRINT *, '    : ', I, J, NELM, MAPELM(I,J)
             IF ( MAPELM(I,1) .EQ. -1 ) THEN
               PNTR(2) = 1
             ELSE
-              IPT = MOD ( NELM, MAPELM(I,MAPMEL(I)) )
+cccc              IPT = MOD ( NELM, MAPELM(I,MAPMEL(I)) )
+              kkk=mapelm(i,mapmel(i))
+	      ipt = mod( nelm ,kkk )
               IF ( IPT .EQ. 0 ) IPT = MAPELM(I,MAPMEL(I))
               DO 30 J = 1, MAPMEL(I)
                 IF ( IPT .EQ. MAPELM (I,J) ) THEN
