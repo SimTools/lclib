@@ -29,4 +29,5 @@ cleanall:
 	(rm -f util/lcfull/src/Makefile)
 	(cd util/tbs/src ; rm -f Makefile)
 	(cd util/tbschk ; rm -f Makefile tbschk)
+	(cd util/lcfull/src ; rm -f prmain.o )
 

@@ -7,6 +7,15 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-97a-3.1 10-April-1998  by A.Miyamoto
+*************************************************
+(1) Modified to run on Redhat 4.0 machine (jlcpc1).
+    deleted tbsds, and rmtl files from TBS libraries.
+    Those are obsolute.
+(2) util/lcfull/src/prmain.o is created after make clean
+
+
+*************************************************
 lclib-97a-3 7-April-1998  by A.Miyamoto
 *************************************************
 1) lclib was installed in Redhat 5.0 for i386.linux,
