@@ -1,13 +1,6 @@
-all:
-	(cd src ; xmkmf ; make)
-	(cd full ; xmkmf ; make)
+%:
+	(cd src; make $@ )
+	(cd full ; make $@)
+	@if [ $@ == clean -o $@ == distclean ]  ; then \
+	 rm -f *~ core *.a  ; fi 
 
-install:
-	(cd src ; make install)
-	(cd full ; make install)
-
-clean:
-	(cd src ; make clean)
-	(cd full ; make clean)
-	rm -f *~ core *.a
-	

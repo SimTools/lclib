@@ -1,5 +1,12 @@
-#define LCLIB_TMPL "../../../config/lclib.tmpl"
-#include LCLIB_TMPL
+# -----------------------------------------------
+# Makefile to create FORTLIB library
+#
+# (Author) Akiya Miyamoto, KEK, 15-Jan-2003
+#          Recoded so as not to use Imakefile
+#$Id$
+# -----------------------------------------------
+
+include $(LCLIBROOT)/config/Makefile.lclib
 
 OBJS	= bases.o bhinit.o bhplot.o bhrset.o bhsave.o \
 	bhsum.o bscast.o bschck.o bsdate.o bsdsum.o bsetgu.o \
@@ -13,3 +20,7 @@ OBJS	= bases.o bhinit.o bhplot.o bhrset.o bhsave.o \
 	uxtime_.o uxdate_.o uxdate.o
 
 all:: $(OBJS)
+
+install: all
+
+include $(LCLIBROOT)/config/Makefile.defaults
