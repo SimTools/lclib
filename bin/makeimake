@@ -1,0 +1,13 @@
+#!/bin/sh -f
+#
+# Make Imakefiles for user environment
+#
+iflag=`pwd | grep -c -E "^/proj/phys/lclib"`
+if [ ${iflag} = "0" ] 
+then
+    mv Imakefile Imakefile.org 
+    sed "s/\.\.\/\.\./\/proj\/phys\/lclib\/pro/" Imakefile.org > Imakefile 
+    echo "Imakefile is modified for user environment" 
+fi
+
+
