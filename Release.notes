@@ -7,6 +7,15 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-98a-5-1 26-May-1999  by K.Fujii
+*************************************************
+(1) config/lclib.tmpl modified to compile everything with a PIC flag
+    even if one just creates archive files. This is necessary to 
+    create a shared library using lclib routines.
+
+*************************************************
+lclib-98a-5-1 7-April-1999  by A.Miyamoto
+*************************************************
 lclib-98a-6 27-May-1999  by A.Miyamoto
 *************************************************
 --------------------------
