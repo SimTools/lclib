@@ -7,7 +7,7 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
-lclib-98a-2 25-December-1998  by A.Miyamoto
+lclib-98a-2 6-January-1998  by A.Miyamoto
 *************************************************
 (1) Several changes in simjlc/src to allow VTX layer more than 2.
     In addition to Production:VTX;Space_Point bank, output
