@@ -45,6 +45,7 @@ C*     5/26/99  A.Miyamoto        Use SMRHLM instead of SMRHLE to include
 C*                                the effect of multiple-scattering
 C*     5/28/01  K.Fujii		  Limit NHIT less or equal to NSMPTK
 C*				  also in MODE=1.
+C*				  Fixed a bug in RDK calculation.
 C*
 C***********************************************************************
  
@@ -180,7 +181,7 @@ C--
 C--
 C  Reject tracks with insufficient # hits.
 C--
-      NHIT = MIN((R2-R1-0.1)/DSMPTK,NSMPTK)
+      NHIT = MIN((R2-R1+0.1)/DSMPTK,NSMPTK)
       IF ( NHIT.LT.NSMPCT ) RETURN
 C--
 C  Move the pivot from the production point to the 1-st

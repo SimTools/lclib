@@ -31,7 +31,8 @@ C*     Called by SMRHLX.
 C*     Calls the following routines;
 C*        UVCOPY and DSEIG1.
 C* (Updaterecord)
-C*     5/26/99  A.Miyamoto  Created using SMRHLE
+C*     5/26/99  A.Miyamoto  	Created using SMRHLE
+C*     5/28/01  K.Fujii		EL = EN*DSMP instead of EL = NHIT*DSMP.
 C*
 C***********************************************************************
  
@@ -62,8 +63,8 @@ C--
       EN    = NHIT - 1
       ENP1  = NHIT
       TENP1 = 2*EN + 1
-C      EL    = EN*DSMP
-      EL    = NHIT*DSMP
+      EL    = EN*DSMP
+C      EL    = NHIT*DSMP
       EL2   = EL*EL
 C--
 C  R-Phi part.

@@ -31,6 +31,9 @@ C*     29/3/99   A.Miyamoto       Original version, duplicating SMRHLX
 C*      9/4/99   A.Miyamoto       Does not move the pivot.
 C*     26/5/99  A.Miyamoto        Use SMRHLM instead of SMRHLE to include
 C*                                the effect of multiple-scattering
+C*     28/5/01  K.Fujii           Limit NHIT less or equal to NSMPVT
+C*                                also in MODE=1.
+C*                                Fixed a bug in RDK calculation.
 C*
 C***********************************************************************
  
@@ -125,7 +128,7 @@ C--
       NDOT = PLIST(12)
       IF ( NDOT.GT.0 ) THEN
          DL  = PLIST(17)
-         PHI = -DL/R
+         PHI = -DL*(ABS(TNL)/SQRT(1+TNL*TNL))/R
          CALL UPHELX(HLXCT,PHI,XV,PV)
          RDK = SQRT(XV(1)**2+XV(2)**2)
       ELSE
@@ -155,7 +158,8 @@ C--
 C--
 C  Reject tracks with insufficient # hits.
 C--
-      NHIT = (R2-R1+0.1)/DSMPVT +1
+C      NHIT = (R2-R1+0.1)/DSMPVT +1
+      NHIT = MIN((R2-R1+0.1)/DSMPVT,NSMPVT)
       IF ( NHIT.LT.NSMPCV ) RETURN
 C--
 C  Move the pivot from the production point to the 1-st
