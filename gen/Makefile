@@ -1,4 +1,4 @@
-SHELL	= /bin/sh
+SHELL   = /bin/bash
 MFLAGS	=
 CURRDIR	= .
 SUBDIRS	= basesv5.1 helasv204 luhadr tauola

@@ -80,5 +80,14 @@ C*
       DATA            BFIELD/10.1085E0/
       DATA            PTOR  /329.9837713/
       DATA            ROPT  /3.03045206E-3/
+
+#include "presta.inc"
+      DATA NCTBGN /0/
+      DATA NCTEND /0/
+      DATA NSTEVT /320*0/
+#include "prrsta.inc"
+      DATA NRDREC /0/
+      DATA NWTREC /0/
+      DATA NSTREC /60*0/
 C
       END

@@ -100,7 +100,6 @@ FFLAGS = -O -fno-automatic -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) \
 RANLIB = ranlib
 #endif
 
-
 XCOMM ****************************************************************
 XCOMM PPCArchitecture
 XCOMM ****************************************************************
@@ -138,6 +137,49 @@ FFLAGS = $(FDEBUGFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DG77_521_OR_GREATER \
          $(EXTRADEFINES) $(INCPATH)
 CC = gcc
+FF = g77
+RANLIB = ranlib
+#endif
+
+
+
+
+XCOMM ****************************************************************
+XCOMM MacOSXArchitecture
+XCOMM ****************************************************************
+#if defined(MacOSXArchitecture) || defined(DarwinArchitecture)
+#ifndef PowerPCArchitecture
+#define PowerPCArchitecture
+#endif
+#ifndef PPCArchitecture
+#define PPCArchitecture
+#endif
+
+#if defined(PPCArchitecture)
+#ifdef DOSHRLIB
+#undef DOSHRLIB
+#endif
+#endif
+
+#ifdef DOSHRLIB
+REQUIREDLIBS = -lg2c -lm -lc
+#endif
+
+SHRLIBFLAGS = -fPIC
+CDEBUGFLAGS = -O
+CFLAGS = $(CDEBUGFLAGS) \
+	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
+	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
+	-Dlinux -DPPC -D__powerpc__ \
+	-DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
+FDEBUGFLAGS =  -O
+FFLAGS = $(FDEBUGFLAGS) -fPIC \
+        -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
+        -fno-globals -fugly-init -Wno-globals \
+	-fno-second-underscore \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
+         $(EXTRADEFINES) $(INCPATH)
+CC = cc
 FF = g77
 RANLIB = ranlib
 #endif

@@ -1,7 +1,11 @@
 /*
 #include <curses.h>
 */
+#ifdef __DARWIN__
+#include "ncurses/curses.h"
+#else
 #include "curses.h"
+#endif
 #define CTRL(c) ('c'&037)
 
 void tinit_()

@@ -112,12 +112,28 @@ C--
       CALL UVZERO(600,ISGRP)
       CALL UVZERO( 30,NDKPTN)
 C--
+C>>>
+#ifdef DBGLU
+        PRINT *, ' Entered LUHADR............'
+        print *, ' npart = ', npart
+#endif 
+C>>>
       DO 200 IP = 1, NPART
          NDAU  = RBUF(12,IP)
          IFSHW = RBUF(19,IP)
          ISLV  = IFSHW/100
          IPSHW = MOD(IFSHW,100)
          NSLVL = MAX(NSLVL,ISLV)
+C>>>
+#ifdef DBGLU
+        print *, ' ip    = ', ip
+        print *, ' ndau  = ', ndau
+        print *, ' ifshw = ', ifshw
+        print *, ' islv  = ', islv
+        print *, ' ipshw = ', ipshw
+        print *, ' nslvl = ', nslvl
+#endif 
+C>>>
          IF ( ISLV.LE.0 ) THEN
             IF ( NDAU.LE.0 ) THEN
                NNOSHW = NNOSHW + 1
@@ -172,10 +188,16 @@ C--
 C>>>
 #ifdef DBGLU
         PRINT *, ' LUHADR starts Hadronization.'
+        print *, ' nslvl = ', nslvl
 #endif 
 C>>>
       INELM = 0
       DO 7000 ISLV = 1, NSLVL
+C>>>
+#ifdef DBGLU
+	print *, 'nptlv(', islv, ') = ', nptlv(islv)
+#endif 
+C>>>
          IF ( NPTLV(ISLV).LE.0 )		GO TO 7000
          NIN   = 0
          CALL UVZERO(30,IDIDIT)
@@ -210,7 +232,22 @@ C     ISHUFL(IQ)    = Pointer to RINLST of IQ-th parton in the
 C                     current showering level (IIN=1,..,NIN)
 C--
          DO 300 IQ = 1, NPTLV(ISLV)
+C>>>
+#ifdef DBGLU
+	print *, 'iq = ', iq
+	print *, 'ididit(', iq, ') = ', ididit(iq)
+	print *, 'iptlv(', iq, ',',islv,') = ', iptlv(iq,islv)
+#endif 
+C>>>
             IF ( IDIDIT(IQ).GT.0 )               GO TO 300
+C>>>
+#ifdef DBGLU
+	print *, 'iptlv(', iq, ',',islv,') = ', iptlv(iq,islv)
+	print *, 'id   = ', rbuf( 2,ip)
+	print *, 'ndau = ', rbuf(12,ip)
+	print *, 'icf  = ', rbuf(18,ip)
+#endif 
+C>>>
             IP   = IPTLV(IQ,ISLV)
             ID   = RBUF(2,IP)
             IDA  = IABS(ID)

@@ -1,15 +1,17 @@
 all: install
 
-install:
-	./bin/make.libdir
-	(cd gen    ; make install)
-	(cd simjlc ; make install)
-	(cd util   ; make install)
+dir:	
+	@./bin/make.libdir
+
+install: dir
+	(cd gen; make install)
+	(cd simjlc; make install)
+	(cd util  ; make install)
 
 clean:
-	(cd gen    ; make clean)
-	(cd simjlc ; make clean)
-	(cd util   ; make clean)
+	(cd gen; make clean)
+	(cd simjlc; make clean)
+	(cd util  ; make clean)
 	rm -f *~
 
 cleanall: clean
