@@ -162,7 +162,8 @@ install:: tbschk
 	cp tbschk ../../bin/tbschk
 
 clean::
-	rm -f $(OBJS) *~ core
+	rm -f $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
+	rm -f *~ core
 
 cleanall:: clean
 	rm -f tbschk *.bak
