@@ -1,0 +1,34 @@
+#
+# Makefile template for linux architecture
+#
+
+CC      = gcc
+FC      = g77
+RANLIB  = ranlib
+DllSuf  = so
+ArchiveSuf = a
+FF      = $(FC)
+ObjSuf  = o
+
+ifdef $(ENABLESHARED)
+   DOSHRLIB = 1
+   REQUIREDLIBS = -lg2c -lm -lc -rdynamic
+else
+   DOSHRLIB =
+endif
+
+SHRLIBFLAGS = -fPIC
+CDEBUGFLAGS = -O2
+CFLAGS = $(CDEBUGFLAGS) \
+        -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
+	-DGNU_SOURCE -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)
+FDEBUGFLAGS =  -O2
+FFLAGS = $(FDEBUGFLAGS) \
+        -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
+        -fno-globals -fugly-init -Wno-globals \
+	-fno-second-underscore \
+        $(SHRLIBFLAGS) -DLITTLE_ENDIAN \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DG77_521_OR_GREATER $(JAVAVMFLAG) \
+	$(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
+

@@ -1,0 +1,76 @@
+#
+# Makefile variables common to any Makefile at any platform
+#
+# Variables defined by "define" command and its function
+#   LibraryTarget : create an archive or shared library, depending on DOSHRLIB flag 
+#   InstallLibrary: install an archive or shared library, depending on DOSHRLIB flag
+#   NormalLibraryTarget  : create a archive library
+#   InstallNormalLibrary :      install a archive library
+#   SharedLibraryTarget  : create a shared library
+#   InstallSharedLibrary : install s shared library
+#
+#$Id$
+#
+RANLIB 	= ranlib
+AR 	= ar clq
+RM 	= rm -f
+RANLIB 	= ranlib
+INSTALL = install
+INCS    = 
+
+# These files are removed by "make clean"
+CLEANFILES = *.BAK *.bak *~ *.$(ObjSuf) core *.$(LibSuf) 
+
+DISTCLEANFILES = *.$(LibSuf)  # Files removed by "make distclean"
+
+# #############################################
+# Create archive library
+# #############################################
+# libABC.a: abc.o
+#     $(NormalLibraryTarget)
+define NormalLibraryTarget
+	@$(RM) $@
+	@$(AR) $@  $^
+	@$(RANLIB) $@
+	@echo $@ was created.
+endef
+
+# Install library
+define InstallNormalLibrary
+	@if [ -d $(libdir) ]; then \
+	set +x; \
+	else \
+	if [ -h $(libdir) ]; then \
+	(set -x; rm -f $(libdir)); \
+	fi; \
+	(set -x; $(MKDIRHIER) $(libdir)); \
+	fi
+	$(INSTALL) -m 644 $^ $(libdir)
+	$(RANLIB) $(RANLIBINSTFLAGS) $(libdir)/$^
+	@echo $^ is installed at $(libdir)
+endef
+
+# #############################################
+# 
+# #############################################
+define SharedLibraryTarget
+	@echo "Sorry! SharedLibraryTarget is not implemented yet."
+endef
+
+define InstallSharedLibrary
+	@echo "Sorry! InstallSharedLibrary is not implemented yet."
+endef
+
+# #############################################
+# Define LibSuf, LibraryTarget, InstallLibrary
+# #############################################
+ifdef $(DOSHRLIB)
+	LibSuf = $(DllSuf)
+	LibraryTarget = $(SharedLibraryTarget)
+	InstallLibrary = $(InstallSharedLibrary)
+else
+	LibSuf = $(ArchiveSuf)
+	LibraryTarget = $(NormalLibraryTarget)
+	InstallLibrary = $(InstallNormalLibrary)
+endif
+

@@ -1,0 +1,13 @@
+#
+# LCLIB Makefile common to any architecture
+#
+#$Id$
+
+include $(LCLIBROOT)/config/configure.status
+include $(LCLIBROOT)/config/Makefile.global
+
+SOREV = 98a
+
+include $(LCLIBROOT)/config/Makefile.$(LCLIB_PLATFORM)
+
+

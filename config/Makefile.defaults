@@ -1,0 +1,27 @@
+clean::
+	$(RM) $(CLEANFILES)
+
+distclean:: clean
+	$(RM) $(DISTCLEANFILES)
+
+include::
+	for i in $(INCS) ; do \
+	( cd $(includedir) ; ln -sf $(CURDIR)/$$i . ); \
+	done
+
+clean_include::
+	for i in $(INCS) ; do \
+	( rm  -f  $(includedir)/$$i  ); 
+	done
+
+Makefile.d:
+	touch Makefile.d
+
+depend:: Makefile.d
+	makedepend -fMakefile.d -- $(INCPATH) -- $(SRCS) 
+
+-include Makefile.d
+
+
+
+

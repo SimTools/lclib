@@ -1,0 +1,30 @@
+SHRLIBFLAGS = 
+.SUFFIXES: .F
+.F.o :
+	$(FF) -c $(FFLAGS) $(INCPATH) $*.F -o $*.o
+
+DOSHRLIB = 1
+
+CC = cc
+FC = f90
+FF	= $(FC)
+RANLIB  = /usr/bin/ranlib
+INSTALL = cp
+INSTALLFLAGS = 
+INSTLIBFLAGS = 
+
+DllSuf  = sl
+ArchiveSuf = a
+
+ifeq ($(PYTHIA_VERSION),6)
+  PYTHIA_FLAGS_AIX = -WF,$(PYTHIA_FLAGS)
+endif
+
+CDEBUGFLAGS = -O
+CFLAGS	= $(CDEBUGFLAGS) -DAIX -DKEK -DUNIX -DJLC \
+	$(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
+FDEBUGFLAGS = -O3 -qstrict -qarch=pwr3 -qextname -qfixed -qsave  -qinitauto \
+	-brtl -bshared 
+FFLAGS	= $(FDEBUGFLAGS) -WF,-DKEK,-DUNIX,-DJLC,-DAIX \
+	$(PYTHIA_FLAGS_AIX) $(EXTRADEFINES)  $(SHRLIBFLAGS)
+FFLAGSE	= $(EXTRADEFINES) $(SHRLIBFLAGS) 
