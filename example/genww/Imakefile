@@ -30,7 +30,7 @@ MAIN  = $(LCDIR)/util/lcfull/src/prmain.o
 ANALOBJ   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
 	    coupla.o boost0.o bs51cm.o bshget.o 
 
-CERNLIBOPT = `cernlib packlib jetset74`
+CERNLIBOPT = `cernlib packlib jetset74 mathlib`
 
 ANALLIB   =  -Wl,-L$(LCLIB) -lLCFULL -lLUHADR -lGENUTIL -lTAUOLA \
 	    -lHELASV204 -lBASESV5.1 -lSIMJLC -lFORTLIB  -lCOM -lCLI \
