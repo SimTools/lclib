@@ -87,7 +87,11 @@ CTAYM900406
 C
       CALL TBCRTE(2,'Generator',0,0,IRET)
       CALL UIDATE(IDATE)
-      CALL TIME  (ITIME)
+#ifdef HIUXF77
+      CALL CLOCK(2, ITIME)
+#else
+      CALL   TIME( ITIME )
+#endif
       IDATA (1) = IDATE
       IDATA (2) = ITIME
       GNNAME    = PGNAME
