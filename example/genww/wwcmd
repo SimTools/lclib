@@ -29,7 +29,7 @@ STEERING
 @!   EVENT GEN(400000)     ! Number of event is just a dummy.
    STEERING DEBUG(3)  ! Standard debug level.
    INPUT FILE(BASES.WW.TBS)   ! Output file for BASES data
-   EVENT GEN(50000)     ! Number of event is just a dummy.
+   EVENT GEN(500)     ! Number of event is just a dummy.
 *   ANAL SEQ(BASES LUND )
    ANAL SEQ(BASES LUND SWIMMER SMEARING USER)
 EXIT                                                                    

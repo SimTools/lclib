@@ -17,7 +17,7 @@ MAIN  = $(HOMEDIR)/util/lcfull/src/prmain.o
 OBJ = flanli.o 
 
 #ifdef HPArchitecture
-MYLDOPT = -lvec -lU77 -Wl,-a,arvhice
+MYLDOPT = -lvec -lU77 -Wl,-a,archive
 #endif
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2

@@ -37,14 +37,14 @@ ANALLIB   = -Wl,-L$(LCLIB) -lLCFULL -lGENUTIL -lLUND73 -lTAUOLA \
 	    -Wl,-L$(HBOOK_LIB) -lpacklib $(MYLDOPT)
 
 #ifdef HPArchitecture
-MYLDOPT = -lvec -lU77 -Wl,-a,arvhice
+MYLDOPT = -lvec -lU77 -Wl,-a,archive
 #endif
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2
 #endif
 
 
-all : anal
+all :: anal
 
 anal   : $(ANALOBJ) 
 	 f77 $(FFLAGS) $(MAIN) $(ANALOBJ) $(ANALLIB) -o wwanal.ex \
