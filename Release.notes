@@ -5,6 +5,14 @@ How to install lclib.
 To recompile and create libs, do
   make install
 in this directory.
+
+
+------------------------------------------------
+8-Feburary-2001 Akiya Miyamoto
+------------------------------------------------
+(1) LCLIB was installed on AIX.4.3 using xlf and xlC compilers.
+  Several files were modified accordingly.
+
 ------------------------------------------------
 18-September-2000  Akiya Miyamoto
 ------------------------------------------------
