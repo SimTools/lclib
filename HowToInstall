@@ -1,0 +1,30 @@
+How to install
+
+0) Before install, this package has been tested on
+        Redhat 5.1 Linux
+        MkLinux
+        HP-UX 10.2
+        HI-UX 
+ 
+   You may need  X11R6.3/config  to run  xmkmf .
+
+1) Do
+	setenv CERN_ROOT <<cern directory>>
+	setenv LCLIBROOT <<lclib directory>>
+	set path=(. $JSFROOT/bin $ROOTSYS/bin $path)
+	setenv IMAKEINCLUDE "-I$JSFROOT -I$LCLIBROOT"
+
+2) do 
+	cd $LCLIBROOT
+	make all
+	make install
+
+This will create library in $LCLIBROOT/lib.
+Then 
+
+	cd $LCLIBROOT/example/genww
+	
+and read a file, Readme, there to run example.
+
+
+
