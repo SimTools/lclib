@@ -5,9 +5,11 @@ distclean:: clean
 	$(RM) $(DISTCLEANFILES)
 
 include::
+ifneq "$(INCS)" ""
 	for i in $(INCS) ; do \
 	( cd $(includedir) ; ln -sf $(CURDIR)/$$i . ); \
 	done
+endif
 
 clean_include::
 	for i in $(INCS) ; do \
