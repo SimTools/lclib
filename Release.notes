@@ -7,7 +7,7 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
-lclib-98a-5 8-April-1999  by A.Miyamoto
+lclib-98a-5 9-April-1999  by A.Miyamoto
 *************************************************
 (1) Typo in smrblk.F.  NXMPCV is changed to NSMPCV
 (2) smrvhl.F and smrvtx.F are modified to process event without 
@@ -23,6 +23,8 @@ lclib-98a-5 8-April-1999  by A.Miyamoto
     less than 1 eV, Pt=1eV is used to get helix parameter to avoid 0 
     division.  This is required to save all LUJETS common in 
     Generator:Particle_List bank.
+(8) Avoid pivot move when construct the smeared VTX helix parameter 
+    in the subroutine smrvhl.
 
 *************************************************
 lclib-98a-4 30-March-1999  by A.Miyamoto
