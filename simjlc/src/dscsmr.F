@@ -74,6 +74,9 @@ C--
       OUBNAM(NENTR,OUTBLK(NENTR)) = 'Production:VTX;Space_Point'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
+      OUBNAM(NENTR,OUTBLK(NENTR)) = 'Production:VTX;Space_Point_Error'
+      OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
+      OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) = 'Production:CDC;Track_Parameter'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
