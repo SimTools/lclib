@@ -19,6 +19,7 @@ C* (Relation)                                                         *C
 C*    Calls no subroutines.                                           *C
 C* (Update Record)                                                    *C
 C*    5/31/88  K.Fujii        Original version.                       *C
+C*    4/08/99  A.Miyamoto     Avoid 0 Pt.                             *C
 C*                                                                    *C
 CC********************************************************************CC
    
@@ -39,9 +40,15 @@ C--
 C--
       HELX(1) = 0
       HELX(2) = ATAN2(-PX,PY)
-      HELX(3) = ICHG/PT
       HELX(4) = 0
-      HELX(5) = PZ/PT
+      IF( PT .GE. 1.E-9 ) THEN
+        HELX(3) = ICHG/PT
+        HELX(5) = PZ/PT
+      ELSE
+        HELX(3) = ICHG*1.E9
+        HELX(5) = PZ*1.E9
+      ENDIF
+
       CALL UVCOPY(3,XV,HELX(6))
 C--
 C  That's it.
