@@ -48,11 +48,11 @@ C
       OUTBLK(NENTR) = 0
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'Spring:Header'
+     >   'Spring:Header'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'Spring:Parton_List'
+     >   'Spring:Parton_List'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
 C
 C

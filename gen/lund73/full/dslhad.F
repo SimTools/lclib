@@ -77,12 +77,12 @@ C
  
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'Generator:Particle_List'
+     >   'Generator:Particle_List'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
  
       OUTBLK(NENTR) = OUTBLK(NENTR) + 1
       OUBNAM(NENTR,OUTBLK(NENTR)) =
-     #   'Generator:Header'
+     >   'Generator:Header'
       OUBSIZ(NENTR,OUTBLK(NENTR)) =          0
 C
 C-----------------------------------------------------------------------
