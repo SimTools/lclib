@@ -1,0 +1,15 @@
+This version of lclib is compiled with f90 compiler.
+To build your own executables, using libraries here,
+please read config/lclib/tmpl and example/genww/Imakefile
+and find out what is necessary to build your application.
+
+Partial lists of what should be reminded of are,
+(1) If your application uses TBS, include lclib/lib/FNUM.o 
+    in your link list.
+(2) There are no sharedlib cernlib.  When you used it,
+    specify ld option of -a archive.  See example/genww/Imakefile
+    for actual example.
+(3) /lib/pa1.1 -lm must be specified, otheresize  ld fails to find out
+    ia symbol fpclasify.
+(4) ld options to build your own shared library is " -b -E "
+ 
