@@ -4,10 +4,19 @@ XCOMM ****************************************************************
 XCOMM HPArchitecture
 XCOMM ****************************************************************
 #if defined(HPArchitecture)
-#define DOSHRLIB
+/* 99/05/25 K.Fujii     Don't create shared lib.          */
+/*                      Just create *.a with a PIC flag   */
+/* #define DOSHRLIB */
+#ifndef ENABLESHARED
 #ifdef DOSHRLIB
-SHRLIBFLAGS = +z
+#undef DOSHRLIB
 #endif
+#else
+#ifndef DOSHRLIB
+#define DOSHRLIB
+#endif
+#endif
+SHRLIBFLAGS = +Z
 .SUFFIXES: .F
 .F.o :
 	$(FF) -c $(FFLAGS) $(INCPATH) $*.F -o $*.o
@@ -35,12 +44,14 @@ XCOMM F90FORTRAN : Create libraries using f90 compiler
 XCOMM DOSHRLIB   : Create shared libraries  
 XCOMM   default setting is define F90FORTRAN and DOSHRLIB
 XCOMM ****************************************************************
+#if defined(hitachiArchitecture)
 XCOMM TO change configuration , edit following three lines properly.
 XCOMM #define F77FORTRAN
 #define F90FORTRAN
 #define DOSHRLIB
 
 #include "hitachi.def"
+#endif
 
 
 XCOMM ****************************************************************
@@ -58,12 +69,19 @@ XCOMM ****************************************************************
 XCOMM PPCArchitecture
 XCOMM ****************************************************************
 #if defined(PPCArchitecture)
+#ifndef ENABLESHARED
 #ifdef DOSHRLIB
 #undef DOSHRLIB
 #endif
-#ifdef DOSHRLIB
-SHRLIBFLAGS = -fPIC
+#else
+#ifndef DOSHRLIB
+#define DOSHRLIB
 #endif
+#endif
+#ifdef DOSHRLIB
+REQUIREDLIBS = -lg2c -lm -lc -rdynamic
+#endif
+SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O2
 CFLAGS = $(CDEBUGFLAGS) \
 	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
@@ -88,14 +106,20 @@ RANLIB = ranlib
 XCOMM ****************************************************************
 XCOMM LinuxArchitecture
 XCOMM ****************************************************************
-#ifndef PPCArchitecture
-#if defined(LinuxArchitecture)
+#if !defined(PPCArchitecture) && defined(LinuxArchitecture)
+#ifndef ENABLESHARED
 #ifdef DOSHRLIB
 #undef DOSHRLIB
 #endif
-#ifdef DOSHRLIB
-SHRLIBFLAGS = -fPIC
+#else
+#ifndef DOSHRLIB
+#define DOSHRLIB
 #endif
+#endif
+#ifdef DOSHRLIB
+REQUIREDLIBS = -lg2c -lm -lc -rdynamic
+#endif
+SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O2
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
@@ -112,6 +136,5 @@ FFLAGS = $(FDEBUGFLAGS) \
 CC = gcc
 FF = g77
 RANLIB = ranlib
-#endif
 #endif
 
