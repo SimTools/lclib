@@ -5,12 +5,16 @@ C
        CHARACTER*(*) NAMES(NVAL), HELP(NVAL)
 c___   include 'pep4_com_lib(comode)'
        include 'comode.inc'
-C@@@   EXTERNAL HELP_LINE, LIB$GET_INPUT
+C@@@   EXTERNAL HELP_LINE, 
 C
 C..... TYPE HELP INFORMATION
 C
+#if defined(AIX)
+       IF (HELP(1)(1:1).EQ.'$') THEN
+#else
        IF (HELP(1)(1:1).EQ.'$'.OR.HELP(1)(1:1).EQ.'\') THEN
-         CALL CGETHL ( HELP(1)(2:) )
+#endif
+         CALL CGETHL( HELP(1)(2:) )
 C        PRINT *, '%COM-F-HLPFIL, External Help is not supported yet.'
        ELSE
          DO 10 J = 1,NVAL
