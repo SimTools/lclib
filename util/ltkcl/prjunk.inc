@@ -65,10 +65,12 @@ C*      a      !                                                  !
 C*
 C* (Update Record)
 C*    9/16/86  K.Fujii  Original version.
+C*   12/11/99  A.Miyamoto MXxPHI, MXxZET are increased
 C*
 CC**********************************************************************
  
-      PARAMETER ( MXxZET=43, MXxPHI=77, MXxBD=(MXxZET+1)*(MXxPHI+1),
+CC      PARAMETER ( MXxZET=43, MXxPHI=77, MXxBD=(MXxZET+1)*(MXxPHI+1),
+      PARAMETER ( MXxZET=90, MXxPHI=100,MXxBD=(MXxZET+1)*(MXxPHI+1),
      .            MXxCLS=5000 ,MXxWRK=1000, LNxTRK = 100, MXxTRK = 500 )
       COMMON /PRJUNK/ NBNON, NCELLS, JBNPNT(0:MXxZET,0:MXxPHI),
      .                IBNPNT(2,MXxBD) , NCLIN(MXxBD), ICLPNT(5,MXxCLS),
