@@ -35,6 +35,10 @@ CC********************************************************************CC
 C  
 C========< Entry Point >================================================
 C  
+#ifdef HIUXF77
+      CALL PRBLK1
+      CALL UCONST
+#endif
 C--
 C  Convert helix parameterization.
 C     X = XC(1) - R*cos(FI+FI0)

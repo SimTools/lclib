@@ -50,6 +50,9 @@ C
 C  
 C =====< Entry Point >=================================================
 C  
+#ifdef HIUXF77
+      CALL PRBLK1
+#endif
       DPTOR  = PTOR
 C ---------------------------------------------------------------------
 C (2) Loop by Trak to copy track parameter to /PGFBUF/

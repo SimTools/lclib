@@ -23,6 +23,10 @@ C***********************************************************************
 C
 C==================<<  Entry Point  >>================================
 C
+#ifdef HIUXF77
+      CALL CMBBLK
+      CALL UCONST
+#endif
 C--
 C  Reset return code.
 C--

@@ -834,6 +834,11 @@ C
       INTEGER * 4      IENV
 C
 C MAIN
+
+#ifdef HIUXF77
+      CALL LUDATA
+      CALL PYDATA
+#endif
 C
       CALL FULENV ( IENV )
       IF ( IENV .NE. 1 ) RETURN

@@ -1,5 +1,5 @@
 #ifdef HIUXF77
-      BLOCK DATA mablkd_
+      SUBROUTINE MABLKD
 #else
       BLOCK DATA MABLKD
 #endif

@@ -22,6 +22,9 @@ C VAR
       LOGICAL * 4  INPAR
 C
 C BEGIN
+#ifdef HIUXF77
+      CALL CLARGB
+#endif
       LENGTH = LEN( LINE )
 C     ... skip blanks
       DO 100 I = 1, LENGTH
@@ -142,6 +145,9 @@ C COMMON
       EXTERNAL STACKB
 C
 C BEGIN
+#ifdef HIUXF77
+      CALL STACKB
+#endif
       IF( STACKP .GE. MAXSTK ) THEN
         PRINT *, '%CLI-E, Stack Overflow'
         RETURN
@@ -175,7 +181,7 @@ C
 C
 C
 #ifdef HIUXF77
-      block data clargb_
+	SUBROUTINE CLARGB
 #else
       BLOCK DATA CLARGB
 #endif
@@ -189,7 +195,7 @@ C
 C
 C
 #ifdef HIUXF77
-      block data stackb_
+	SUBROUTINE STACKB
 #else
       BLOCK DATA STACKB
 #endif

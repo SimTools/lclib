@@ -32,6 +32,9 @@ C***********************************************************************
 C
 C========< Entry Point >================================================
 C
+#ifdef HIUXF77
+      CALL SWMBLK
+#endif
 C--
 C  Swimmer information to be saved in 'Swimmer'.
 C--

@@ -227,7 +227,11 @@ C*                                                                    *C
 CC********************************************************************CC
 C
 C ==========================
+#ifdef HIUXF77
+      SUBROUTINE DBGBOD
+#else
       BLOCK DATA DBGBOD
+#endif
 C ==========================
 C
       COMMON  /DBGPAR/ DBGDAT(20)
@@ -346,6 +350,9 @@ C
 C
 C ======< Entry Point >=================================================
 C
+#ifdef HIUXF77
+      CALL DBGBOD
+#endif
 C
 C-----------------------------------------------------------------------
 C 1. Define initialization and disgnostic entry.

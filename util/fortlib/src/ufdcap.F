@@ -33,6 +33,10 @@ C>>>
 C  
 C========< Entry Point >================================================
 C  
+#ifdef HIUXF77
+      CALL PRBLK1
+      CALL UCONST
+#endif
 C--
 C  Get X and P at closest point to Z-axis.
 C--

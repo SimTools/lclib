@@ -1,8 +1,9 @@
 #ifdef HIUXF77
-      BLOCK DATA swmblk_
+      SUBROUTINE SWMBLK
 #else
       BLOCK DATA SWMBLK
 #endif
+
 #include "swmrnd.inc"
       DATA ISEED / 314159 /
       END

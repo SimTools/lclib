@@ -1,5 +1,5 @@
 #ifdef HIUXF77
-      BLOCK DATA smrblk_
+      SUBROUTINE SMRBLK
 #else
       BLOCK DATA SMRBLK
 #endif

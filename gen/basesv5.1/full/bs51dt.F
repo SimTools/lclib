@@ -1,8 +1,4 @@
-#ifdef HIUXF77
-      BLOCK DATA bs51dt_
-#else
       BLOCK DATA BS51DT
-#endif
 
       INCLUDE 'bs51pr.inc'
 

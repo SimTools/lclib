@@ -33,10 +33,13 @@ CC********************************************************************CC
       REAL*8 DXDA(3,5)
    
       EXTERNAL PRBLK1, UCONST
-   
 C  
 C========< Entry Point >================================================
 C  
+#ifdef HIUXF77
+      CALL PRBLK1
+      CALL UCONST
+#endif
 C--
 C  Copy helix parameters to local variables.
 C--

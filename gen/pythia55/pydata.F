@@ -1,9 +1,8 @@
  
 C*********************************************************************
- 
 #ifdef HIUXF77
-      BLOCK DATA pydata_
-#else
+	subroutine PYDATA
+#else 
       BLOCK DATA PYDATA
 #endif
  

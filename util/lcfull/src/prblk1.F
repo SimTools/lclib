@@ -1,5 +1,5 @@
 #ifdef HIUXF77
-      BLOCK DATA prblk1_
+      SUBROUTINE PRBLK1
 #else
       BLOCK DATA PRBLK1
 #endif

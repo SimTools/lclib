@@ -10,7 +10,7 @@ C*
 C***********************************************************************
 C* 
 #ifdef HIUXF77
-      BLOCK DATA  uconst_
+      SUBROUTINE UCONST
 #else
       BLOCK DATA  UCONST
 #endif

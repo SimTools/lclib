@@ -1,9 +1,8 @@
  
 C*********************************************************************
- 
 #ifdef HIUXF77
-      BLOCK DATA ludata_
-#else
+	subroutine ludata
+#else 
       BLOCK DATA LUDATA
 #endif
  

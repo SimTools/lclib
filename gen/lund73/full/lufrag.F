@@ -80,6 +80,9 @@ C--
 C
 C ======< Entry Point >=============================================
 C
+#ifdef HIUXF77
+      CALL LUDATA
+#endif
 C--
 C  Reset #particles in /LUJETS/.
 C--

@@ -55,6 +55,9 @@ C COOMON
       EXTERNAL TVBLK
 C
 C BEGIN
+#ifdef HIUXF77
+      CALL TVBLK
+#endif
 D     PRINT *, '*TVLOC'
       ROWS = MIN( ROW + 1, 24 )
       COLS = MIN( COL + 1, 79 )
@@ -121,6 +124,10 @@ C VAR
       INTEGER   *  4  LS, LP
 C
 C BEGIN
+#ifdef HIUXF77
+      CALL TVBLK
+#endif
+
 D     PRINT *, '*TVPROM'
 C     ... locate cursor
       IF( LTVLOC ) CALL TVLOC1( ROWS,COLS )
@@ -174,6 +181,10 @@ C VAR
       INTEGER   *  4  CSRPOS(2), NFIELD, FLDPOS(2)
 C
 C BEGIN
+#ifdef HIUXF77
+      CALL TVBLK
+#endif
+
 D     PRINT *, '*TVEDIT'
 C     ... locate cursor
       IF( LTVLOC ) CALL TVLOC1( ROWS,COLS )
@@ -203,6 +214,10 @@ C VAR
       CHARACTER * 80  WORKS
 C
 C BEGIN
+#ifdef HIUXF77
+      CALL TVBLK
+#endif
+
 D     PRINT *, '*TVPEDT'
       LS = 0
       WORKS(LS+1:) = WCC
@@ -444,7 +459,7 @@ D     PRINT *, '*TVMLIN'
       END
 C
 #ifdef HIUXF77
-      BLOCK DATA tvblk_
+	SUBROUTINE TVBLK
 #else
       BLOCK DATA TVBLK
 #endif

@@ -80,6 +80,9 @@ C FUNC
        LOGICAL  IFTSS, IFATN
 C
 C BEGIN
+#ifdef HIUXF77
+       CALL CLIBLK
+#endif
        IF( IPNT.GT.LAST ) GOTO 880
        K = LINE(IPNT:IPNT)
        KOLD = K
@@ -1033,7 +1036,7 @@ C      END
 C
 C
 #ifdef HIUXF77
-      block data cliblk_
+	SUBROUTINE CLIBLK
 #else
       BLOCK DATA CLIBLK
 #endif

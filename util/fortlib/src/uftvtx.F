@@ -62,6 +62,10 @@ C
 C  
 C========< Entry Point >================================================
 C  
+#ifdef HIUXF77
+      CALL PRBLK1
+      CALL UCONST
+#endif
 C  
 C--
 C  Reset # trials.

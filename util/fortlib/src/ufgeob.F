@@ -1,5 +1,5 @@
 #ifdef HIUXF77
-      BLOCK DATA ufgeob_
+      CALL UFGEOB
 #else
       BLOCK DATA UFGEOB
 #endif

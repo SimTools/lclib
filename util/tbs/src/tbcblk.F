@@ -1,8 +1,9 @@
 #ifdef HIUXF77
-      BLOCK DATA tbcblk_
+      SUBROUTINE TBCBLK
 #else
       BLOCK DATA TBCBLK
 #endif
+
 #include "tbcctl.inc"
 C      DATA  MCxDBS/-1/
 #ifdef  KEK

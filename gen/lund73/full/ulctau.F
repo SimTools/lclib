@@ -32,6 +32,9 @@ C--
 C
 C ======< Entry Point >=============================================
 C
+#ifdef HIUXF77
+      CALL LUDATA
+#endif
 C--
 C  Get Compressed ID.
 C--

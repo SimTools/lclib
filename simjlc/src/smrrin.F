@@ -43,6 +43,9 @@ C--
 C
 C========< Entry Point >================================================
 C
+#ifdef HIUXF77
+      CALL SMRBLK
+#endif
 C--
 C  Check if BFIELD is consistently defined.
 C--

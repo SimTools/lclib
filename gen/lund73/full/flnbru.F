@@ -43,6 +43,10 @@ C
 C
 C MAIN
 C
+#ifdef HIUXF77
+      CALL LUDATA
+#endif
+
       CALL FULENV ( IENV )
       IF ( IENV .NE. 1 ) RETURN
 C
