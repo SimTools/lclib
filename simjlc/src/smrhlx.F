@@ -39,6 +39,8 @@ C*                                tracks.
 C*     2/3/99   A.Miyamoto        Fix bug to set error matrix.
 C*                                Add type defs of RANN, otherwise don't
 C*                                work in HIUX
+C*     5/14/99  A.Miyamoto        A bug to calculate NHITs of curled up 
+C*                                was fixed
 C*
 C***********************************************************************
  
@@ -150,6 +152,11 @@ C--
          R2  = RCY2
       ELSE
          R2  = SQRT(XV(1)**2+XV(2)**2)
+         PHIANG=(Z0+HLXCT(4)-XV(3))/(ABS(R)*TNL)
+         IF( PHIANG .LT. -3.1416 .OR. PHIANG .GT. 3.1416 ) THEN
+            R2 = SQRT(XC**2+YC**2)+ABS(R)
+         ENDIF
+
       ENDIF
       R2 = MIN(R2,RDK)
 C--
