@@ -13,6 +13,7 @@ C*                               parameters has been changed.
 C*    02/04/91  K.Fujii          Read in vertex detector geometry.
 C*    03/31/93  K.Fujii          Fixed a bug in CLSPAR initialization.
 C*    09/01/95  K.Fujii          ISEED now saved as an integer.
+C*    03/29/99  A.Miyamoto       Modify parameter read of VTX 
 C*
 C***********************************************************************
  
@@ -75,20 +76,43 @@ C--
       SMRPRM(61) = SGHDE
 C--
       SMRPRM(70) = NERRVX
-      SMRPRM(71) = NSMPVX
-      SMRPRM(72) = DPHIVX
-      SMRPRM(73) = DZEEVX
-      DO 10 LYR = 0, NSMPVX
-         IOFF = 4*LYR + 73
-         SMRPRM(1+IOFF) = RCYVX(  LYR)
-         SMRPRM(2+IOFF) = ZCYVX(1,LYR)
-         SMRPRM(3+IOFF) = ZCYVX(2,LYR)
-         SMRPRM(4+IOFF) = RDLVX(  LYR)
-10    CONTINUE
-      IOFF = IOFF+4
-      DO 11 I=1, 5
-         SMRPRM(I+IOFF)= ERRVX(I)
- 11   CONTINUE
+      IF( NERRVX .EQ. 1 .OR. NERRVX .EQ.2 ) THEN
+        SMRPRM(71) = NSMPVX
+        SMRPRM(72) = DPHIVX
+        SMRPRM(73) = DZEEVX
+        DO 10 LYR = 0, NSMPVX
+           IOFF = 4*LYR + 73
+           SMRPRM(1+IOFF) = RCYVX(  LYR)
+           SMRPRM(2+IOFF) = ZCYVX(1,LYR)
+           SMRPRM(3+IOFF) = ZCYVX(2,LYR)
+           SMRPRM(4+IOFF) = RDLVX(  LYR)
+10      CONTINUE
+        IOFF = IOFF+4
+        DO 11 I=1, 5
+           SMRPRM(I+IOFF)= ERRVX(I)
+   11   CONTINUE
+
+      ELSEIF( NERRVX .EQ. 3 ) THEN
+        SMRPRM(71) = NSMPVX
+        SMRPRM(72) = NUMVTX
+        SMRPRM(73) = ERRVX(1)
+        SMRPRM(74) = ERRVX(2)
+        SMRPRM(75) = ERRVX(3)
+        SMRPRM(76) = ERRVX(4)
+        DO 13 LYR = 0, NSMPVX
+           IOFF = 4*LYR + 76
+           SMRPRM(1+IOFF) = RCYVX(  LYR)
+           SMRPRM(2+IOFF) = ZCYVX(1,LYR)
+           SMRPRM(3+IOFF) = ZCYVX(2,LYR)
+           SMRPRM(4+IOFF) = RDLVX(  LYR)
+13      CONTINUE
+        
+      ELSE
+         PRINT *,'Error in SMRPRD .. VTX parameter type NERRVX=',NERRVX,
+     >    ' which must be 1 , 2 or 3'
+         STOP
+      ENDIF
+
 C--
 C  Read in input paramters.
 C--
@@ -165,6 +189,8 @@ C--
       SGHDE0   = SMRPRM(60)
       SGHDE    = SMRPRM(61)
 C--
+      NERRVX   = SMRPRM(70)
+      NSMPVX   = SMRPRM(71)
       IF ( NSMPVX.GT.MXxVXL ) THEN
          PRINT *, ' >>>>>> Fatal error in SMRPRD >>>>> '
          PRINT *, '   NSMPVX > MXxVXL( too many vtx layers specified )'
@@ -172,21 +198,41 @@ C--
          PRINT *, '   Increase MXxVXL in /SMRVGO/.'
          STOP
       ENDIF
-      NERRVX   = SMRPRM(70)
-      NSMPVX   = SMRPRM(71)
-      DPHIVX   = SMRPRM(72)
-      DZEEVX   = SMRPRM(73)
-      DO 30 LYR = 0, NSMPVX
-         IOFF = 4*LYR + 73
-         RCYVX(LYR)   = SMRPRM(1+IOFF)
-         ZCYVX(1,LYR) = SMRPRM(2+IOFF)
-         ZCYVX(2,LYR) = SMRPRM(3+IOFF)
-         RDLVX(  LYR) = SMRPRM(4+IOFF)
-30    CONTINUE
-      IOFF = 4*(LYR+1)+73
-      DO 31 I = 1, 5
-         ERRVX(I) = SMRPRM(IOFF+1)
- 31   CONTINUE
+
+      IF( NERRVX .EQ. 1 .OR. NERRVX .EQ. 2 ) THEN
+        DPHIVX   = SMRPRM(72)
+        DZEEVX   = SMRPRM(73)
+        DO 310 LYR = 0, NSMPVX
+          IOFF = 4*LYR + 73
+          RCYVX(LYR)   = SMRPRM(1+IOFF)
+          ZCYVX(1,LYR) = SMRPRM(2+IOFF)
+          ZCYVX(2,LYR) = SMRPRM(3+IOFF)
+          RDLVX(  LYR) = SMRPRM(4+IOFF)
+310      CONTINUE
+        IOFF = 4*(LYR+1)+73
+        DO 312 I = 1, 5
+          ERRVX(I) = SMRPRM(IOFF+1)
+ 312    CONTINUE
+      
+      ELSEIF( NERRVX .EQ. 3 ) THEN
+        NUMVTX   = SMRPRM(72)
+        ERRVX(1) = SMRPRM(73)
+        ERRVX(2) = SMRPRM(74)
+        ERRVX(3) = SMRPRM(75)
+        ERRVX(4) = SMRPRM(76)
+        DO 330 LYR = 0, NSMPVX
+          IOFF = 4*LYR + 76
+          RCYVX(LYR)   = SMRPRM(1+IOFF)
+          ZCYVX(1,LYR) = SMRPRM(2+IOFF)
+          ZCYVX(2,LYR) = SMRPRM(3+IOFF)
+          RDLVX(  LYR) = SMRPRM(4+IOFF)
+330      CONTINUE
+
+      ELSE
+        PRINT *,'Fatal error in SMRPRD .. Parameter data format',
+     >  ', NERRVX is ',NERRVX,' which must be 1, 2 or 3'
+        STOP
+      ENDIF
 
 C--
 C  Print out input paramters.
@@ -234,14 +280,26 @@ C--
       WRITE(6,*) ' Vertex detector paramters '
       WRITE(6,*) '        Type of Error assignment     ', SMRPRM(70)
       WRITE(6,*) '        # sampling layer + 1         ', SMRPRM(71)
-      WRITE(6,*) '        phi width                    ', SMRPRM(72)
-      WRITE(6,*) '        zee width                    ', SMRPRM(73)
-      WRITE(6,*) '        R of beam pipe               ', SMRPRM(74)
-      WRITE(6,*) '        Z_min of beam pipe           ', SMRPRM(75)
-      WRITE(6,*) '        Z_max of beam pipe           ', SMRPRM(76)
-      WRITE(6,*) '        thickness of beam pipe in RL ', SMRPRM(77)
+      
+      IOFFV=73
+      IF( NERRVX .EQ. 1 .OR. NERRVX .EQ. 2 ) THEN
+        WRITE(6,*) '        phi width                    ', SMRPRM(72)
+        WRITE(6,*) '        zee width                    ', SMRPRM(73)
+      ELSE
+        WRITE(6,*) '        Nuber of VTX layer           ', SMRPRM(72)
+        WRITE(6,*) '        phi resol. of VTX            ', SMRPRM(73)
+        WRITE(6,*) '        Z resol. of VTX              ', SMRPRM(74)
+        WRITE(6,*) '        phi resol. of IT             ', SMRPRM(75)
+        WRITE(6,*) '        Z resol. of IT               ', SMRPRM(76)
+        IOFFV=76
+      ENDIF
+        
+      WRITE(6,*) '        R of beam pipe               ',SMRPRM(IOFFV+1)
+      WRITE(6,*) '        Z_min of beam pipe           ',SMRPRM(IOFFV+2)
+      WRITE(6,*) '        Z_max of beam pipe           ',SMRPRM(IOFFV+3)
+      WRITE(6,*) '        thickness of beam pipe in RL ',SMRPRM(IOFFV+4)
       DO 40 LYR = 1, NSMPVX - 1
-         IOFF = 4*LYR + 77
+         IOFF = 4*LYR + IOFFV
          WRITE(6,*) '        R of ', LYR, '-th layer              ',
      .                          SMRPRM(1+IOFF)
          WRITE(6,*) '        Z_min of ', LYR, '-th layer          ',
@@ -251,15 +309,18 @@ C--
          WRITE(6,*) '        thickness of ', LYR, '-th layer(RL)  ',
      .                          SMRPRM(4+IOFF)
 40    CONTINUE
-      IOFF = 4*NSMPVX + 73
-      WRITE(6,*) '        R of CDC inner wall          ', SMRPRM(IOFF+1)
-      WRITE(6,*) '        Z_min of CDC inner wall      ', SMRPRM(IOFF+2)
-      WRITE(6,*) '        Z_max of CDC inner wall      ', SMRPRM(IOFF+3)
-      WRITE(6,*) '        thickness of CDC inner wall  ', SMRPRM(IOFF+4)
-      IOFF = IOFF + 4
-      WRITE(6,*) '        VTX rphi/z error             ', SMRPRM(IOFF+1)
-C--
+      IOFF = 4*NSMPVX + IOFFV
+      WRITE(6,*) '        R of CDC inner wall          ',SMRPRM(IOFF+1)
+      WRITE(6,*) '        Z_min of CDC inner wall      ',SMRPRM(IOFF+2)
+      WRITE(6,*) '        Z_max of CDC inner wall      ',SMRPRM(IOFF+3)
+      WRITE(6,*) '        thickness of CDC inner wall  ',SMRPRM(IOFF+4)
+      IF( NERRVX .EQ. 2 ) THEN
+       IOFF = IOFF + 4
+       WRITE(6,*)'        VTX rphi/z error             ',SMRPRM(IOFF+1)
+      ENDIF
+C--   
 C  That's it.
 C--
       RETURN
       END
+

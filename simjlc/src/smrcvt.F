@@ -19,6 +19,8 @@ C*     3/19/93  K.Fujii           Temporary version using track to
 C*                                particle pointers.
 C*    12/24/98  A.Miyamoto        Use only first and last VTX hit points
 C*                                for combined track fit.
+C*     3/29/99  A.Miyamoto        Make a true combined track of CDC and VTX
+C*                                This is used when NERRVX=3
 C*
 C***********************************************************************
  
@@ -27,15 +29,38 @@ C***********************************************************************
 #include "smrvgo.inc"
       PARAMETER     ( LNxTRK = 100, MXxCDT = 500, MXxVHT = 20,
      .                LNxHLX = 52 )
+      PARAMETER     ( LNxCHT = 57 )
+      PARAMETER     ( LNxSTK = LNxCHT-10+1 )
       COMMON /SSWORK/ RCDTK(LNxTRK), RVTHT(3,MXxVHT), RCVTK(LNxTRK),
-     .                XVHT(2,3,MXxVHT), IELM(MXxCDT)
+     .                XVHT(2,3,MXxVHT), IELM(MXxCDT),
+     .                HLXVTX(LNxCHT),
+     .                HLXSTK(LNxSTK,2), HLXCSQ(2)
       REAL   *8       HELX8(8)
+      PARAMETER      ( LHxTRK=LNxTRK/2, LHxSTK=LNxSTK/2)
+      REAL   *8       DCDTK(LHxTRK), DLXSTK(LHxSTK,2),
+     .                DCVTK(LHxTRK), DLXVTX(LHxTRK)
+      EQUIVALENCE    (DCDTK,RCDTK), (DLXSTK, HLXSTK), 
+     .               (DCVTK, RCVTK), (DLXVTX, HLXVTX)
       INTEGER*4       ICDTK(LNxTRK), ICVTK(LNxTRK)
       EQUIVALENCE    (ICDTK,RCDTK), (ICVTK,RCVTK)
-      CHARACTER*64    BKNAM1 / 'Production:CDC;Track_Parameter'     /
-      CHARACTER*64    BKNAM2 / 'Production:VTX;Space_Point'         /
+      CHARACTER*64    BKNAM1 / 'Production:CDC;Track_Parameter'    /
+      CHARACTER*64    BKNAM1V / 'Production:VTX;Track_Parameter'   /
+      CHARACTER*64    BKNAM2 / 'Production:VTX;Space_Point'        /
       CHARACTER*64    BKNAM3 / 'Production:CDC_VTX;Track_Parameter' /
-      PARAMETER     ( LNxCHT = 57 )
+C
+C LC Format Error matrx     TOPAZ error matrix format
+C    1 2 4  7 11            1 2  3  4  5
+C      3 5  8 12              6  7  8  9
+C        6  9 13                10 11 12
+C          10 14                   13 14 
+C             15                      15
+C   IPTRAN(i) : Error_LC(IPTRAN(k))= Error_Topaz(k)
+C
+      INTEGER*4 IPTRAN(15), KPTRAN(15)
+      DATA  IPTRAN/1,2,4,7,11,  3,5,8,12, 6,9,13, 10,14, 15/
+      DATA  KPTRAN/1, 2,6, 3,7,10, 4,8,11,13, 5,9,12,14,15/
+C
+
 C
 C========< Entry Point >================================================
 C
@@ -74,6 +99,58 @@ C--
             PRINT *, '   Stop.'
             STOP
          ENDIF
+C--
+C  When NERRVX=3, the pivot of the CDC track parameter is moved
+C  to that of corresponding VTX track parameter, then CDC track
+C  parameter and VTX track parameter is averaged to produce
+C  combined CDC_VTX track parameter.  Note that the energy loss
+C  correction for the CDC track is not applied since no energy loss
+C  is take into account in SMRVTX.  When CDC track parameter is extrapolated
+C  its error matrix should be scaled to take into account multile scattering
+C  in the VTX matrial, but this effect is not considered yet.
+
+         IF( NERRVX .EQ. 3 ) THEN
+           IPT  = ICDTK(57)
+           DO 3000 I = 1, LNxCHT
+              RCVTK(I)=RCDTK(I)
+ 3000      CONTINUE
+           ICND=0
+           CALL TBGET(1,BKNAM1V,IPT,NW,HLXVTX,IRT)
+           IF( IRT.GE.0 ) THEN
+             DO 3010 I = 11, LNxCHT
+               HLXSTK(I-10,2)=HLXVTX(I)
+               HLXSTK(I-10,1)=RCDTK(I)
+ 3010        CONTINUE
+             HLXSTK(LNxSTK,1)=0
+             HLXSTK(LNxSTK,2)=0
+             RCVTK(13)=0.0
+             RCVTK(16)=HLXVTX(16)
+             RCVTK(17)=HLXVTX(17)
+             RCVTK(18)=HLXVTX(18)
+             CALL UTRKAO(2, LNxSTK, HLXSTK, RCVTK(11), 
+     .                    CHISQ, HLXCSQ, IRET)
+             IF( IRET .LT. 0 ) THEN
+               PRINT *,'Use CDC Track parameter for CDC_VTX',
+     .          ' combined track.'
+               ICND=-1
+             ELSE
+               DO 3020 I = 1, 8
+                 HELX8(I)=RCVTK(I+10)
+ 3020          CONTINUE
+               CALL UFDCAP(HELX8, RCVTK(5), RCVTK(1))
+               RCVTK(4)=SQRT(RCVTK(1)**2+RCVTK(2)**2+RCVTK(3)**2)
+               ICVTK(8)=0
+               ICVTK(9)=SIGN(1.0,RCVTK(13))
+               ICVTK(10)=0
+               ICND=2
+             ENDIF
+
+             ICVTK(53) = ICND
+             ICVTK(54) = ITK
+             ICVTK(55) = IPT
+           ENDIF
+    
+         ELSE
 C--
 C  Get corresponding VTX hits.
 C--
@@ -139,6 +216,8 @@ C--
          ICVTK(53) = ICND
          ICVTK(54) = ITK
          ICVTK(55) = IPT
+         ENDIF
+
          NW        = 55
          CALL TBPUT(1,BKNAM3,ITK,NW,RCVTK,IRT)
          IF ( IRT.LT.0 ) THEN

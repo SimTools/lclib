@@ -27,6 +27,7 @@ C***********************************************************************
       SUBROUTINE SMRJIN
  
 #include "smrvgo.inc"
+#include "smrvtp.inc"
 #include "smrtgo.inc"
 #include "smrego.inc"
 #include "smrhgo.inc"
@@ -62,7 +63,7 @@ C
 C--
 C  Initialize vertex detector smearing.
 C--
-      IF ( NSMPVX.GT.1 ) THEN
+      IF ( NSMPVX.GT.1 .AND. NERRVX .EQ. 1) THEN
          PRINT *, ' ******* SMRJIN modified /SMRVGO/ ******* '
          DO 10 LYR = 1, NSMPVX - 1
             NPHI         = x2PI*RCYVX(LYR)/DPHIVX
@@ -75,6 +76,16 @@ C--
             PRINT *, '    ZCYVX(1,', LYR ,') = ', ZCYVX(1,LYR)
             PRINT *, '    ZCYVX(2,', LYR ,') = ', ZCYVX(2,LYR)
 10       CONTINUE
+
+      ELSEIF( NSMPVX.GT.1 .AND. NERRVX .EQ. 3 ) THEN
+         RCYVT(1) = RCYVX(1)
+         RCYVT(2) = RCYVX(NUMVTX)
+         ZCYVT(1) = ZCYVX(1,NUMVTX)
+         ZCYVT(2) = ZCYVX(2,NUMVTX)
+         SIGRFV   = ERRVX(1)
+         SIGZEV   = ERRVX(2)
+         DSMPVT = (RCYVT(2)-RCYVT(1))/(NUMVTX+1)
+
       ENDIF
 C--
 C  Initialize charged track smearing.
@@ -143,3 +154,5 @@ C  That's it.
 C--
       RETURN
       END
+
+

@@ -17,6 +17,14 @@
       DATA    RDLVX  / 0.003, 0.003, 0.003, 0.01, 7*0. /
       DATA    NERRVX /1/
       DATA    ERRVX  / 4.E-4, 4*0.0/
+      DATA    NUMVTX / 2/
+#include "smrvtp.inc"
+      DATA    NXMPCV /3/
+      DATA    NSMPVT /4/
+      DATA    DSMPVT /0.0/
+      DATA    RCYVT  /2.4, 6.0/
+      DATA    ZCYVT  /-12.5, 12.5/
+
 #include "smrtgo.inc"
       DATA    NSMPCT /   10  /
       DATA    NSMPTK /  100  /
