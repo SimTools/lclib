@@ -61,7 +61,10 @@ C*        PRINT *, '#### Standard Mapping File assumed.'
 #ifdef  HP
         OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD',READONLY)
 #endif
-#if defined(SUN) || defined(MACHTEN_PPC) || defined(HIUXF77) || defined(AIX)
+#if defined(SUN) || defined(MACHTEN_PPC) || defined(AIX)
+        OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD')
+#endif
+#if  defined(HIUXF77) || defined(JavaVM)
         OPEN(UNIT=IU,FILE=LINBUF, STATUS='OLD')
 #endif
 #ifdef  UNIX

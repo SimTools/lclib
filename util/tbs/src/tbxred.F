@@ -50,19 +50,6 @@ C   Read VBS format data.
           IST = 0
         ENDIF
 C
-#ifndef AIX
-C   Read SONY-DIR100L Tapes.
-      ELSEIF( NRWFMT(1) .EQ. 3 ) THEN
-        CALL TBTRED(LUN, NW, IDATA(1))
-        IF( NW.EQ.0 ) THEN
-          GO TO 8000
-        ELSEIF( NW.LT.0 ) THEN
-          IST = -10
-        ELSE
-          IST = 0
-        ENDIF
-#endif
-C
 C   Read Fortran-I/O'ed files
       ElseIf ( NRWFMT(1) .EQ. 4 .OR. NRWFMT(1).EQ.5 ) then
         READ( LUN, END =8000, IOSTAT=IST ) NW,(IDATA(K),K=1,NW)
