@@ -10,6 +10,7 @@
 
 set dir=.
 set program=$dir/wwanal.ex
+set lchome=/proj/phys/lclib/pro
 date
 
 #
@@ -64,7 +65,7 @@ EXIT
 @!*************************************************                     
 @!                                                                      
 Swimmer:                                                                
-@/proj/phys/TOPAZ/94a/simjlc/param/SWIMER4.COM     ! Standard swimer parameters.
+@$lchome/simjlc/param/swimer4.com     ! Standard swimer parameters.
 0                             ! End of input                          
 EXIT                                                                    
 @!                                                                      
@@ -73,7 +74,7 @@ EXIT
 @!*************************************************                     
 @!                                                                      
 Smearing:                                                               
-@/proj/phys/TOPAZ/94a/simjlc/param/DETECT4.COM ! Standard swimer parameters
+@#lchome/simjlc/param/detect4.com ! Standard swimer parameters
 0                             ! End of input                          
 EXIT                                                                    
 @!
@@ -95,5 +96,5 @@ eof
 
 date
 
-echo "End of job.'
+echo "End of job."
 
