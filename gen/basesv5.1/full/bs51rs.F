@@ -85,7 +85,11 @@ C
 C --- Job ID informations ( Element #1 ).
 C
       CALL UIDATE(IDATE)
-      CALL TIME  (ITIME)
+#ifdef HIUXF77
+      CALL CLOCK(2, ITIME)
+#else
+      CALL   TIME( ITIME )
+#endif
       IDATA (1) = IDATE
       IDATA (2) = ITIME
       GNNAME    = 'BASES V5.1'
