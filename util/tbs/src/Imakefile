@@ -37,7 +37,7 @@ ALPHA_OBJS    =
 
 C_OBJS	      = tb_buflib.o \ @@\
 	tbtcls.o tbtdsm.o tbtmnt.o tbtopn.o tbtred.o tbtwfh.o \ @@\
- 	tbtwrt.o tbvopn.o tbvred.o tbsds_socketlib.o
+ 	tbtwrt.o tbvopn.o tbvred.o 
 
 #ifdef HPArchitecture
 OBJS	      = $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)

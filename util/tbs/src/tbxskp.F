@@ -41,12 +41,6 @@ C   To skip VBS format data.
         IF( NW.EQ.0 ) GO TO 8000
         IF( NW.LT.0 ) IST = -20
         
-#if !defined(JLC) && !defined(HP)
-C
-C   To skip data transfered through RMTL
-      ELSEIF( NRWFMT(1).EQ.2 ) THEN
-        CALL MTLRED(10, NW, 1, IST)
-#endif
 C
 C   To skip SONY DIR-1000L tapes.
       ELSEIF( NRWFMT(1).EQ.3 ) THEN
@@ -59,21 +53,7 @@ C   Read Fortran-I/O'ed files
       Else If ( NRWFMT(1) .EQ. 4 ) then
         READ( LUN, END =8000, IOSTAT=IST ) NW
 C
-C   Read Through tbsds
-C
-      Else if( NRWFMT(1).EQ.20 .OR. NRWFMT(1).EQ.21 .OR.
-     >	       NRWFMT(1).EQ.23 .OR. NRWFMT(1).EQ.24 ) THEN
-        call tbsds_receive(100000, NW, IDATA)
-        print *,' got from tbsds_client..nw=',nw,
-     >     ' idata(1)=',idata(1)
-        if( nw .gt. 0 ) then
-          ist = 0
-        elseif( nw.eq.0 ) then
-          go to 8000
-        else
-          ist = -10
-        endif
-        
+       
 C
 C   Error
       ELSE

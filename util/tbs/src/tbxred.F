@@ -45,14 +45,6 @@ C   Read VBS format data.
         ELSE
           IST = 0
         ENDIF
-#if !defined(JLC) && !defined(HP)
-C
-C   Read FACOM data through RMTL
-      ELSEIF( NRWFMT(1) .EQ. 2 ) THEN
-        LBUF = LUN*4
-        CALL MTLRED(10, NW, LBUF, IST)
-        IF( IST.EQ.-1.AND.NW.EQ.0 ) GO TO 8000
-#endif
 C
 C   Read SONY-DIR100L Tapes.
       ELSEIF( NRWFMT(1) .EQ. 3 ) THEN
@@ -68,19 +60,6 @@ C
 C   Read Fortran-I/O'ed files
       ElseIf ( NRWFMT(1) .EQ. 4 .OR. NRWFMT(1).EQ.5 ) then
         READ( LUN, END =8000, IOSTAT=IST ) NW,(IDATA(K),K=1,NW)
-C
-C   Read Through tbsds
-C
-      Elseif( NRWFMT(1).EQ.20 .OR. NRWFMT(1).EQ.21 .OR.
-     >	       NRWFMT(1).EQ.23 .OR. NRWFMT(1).EQ.24 ) THEN
-        call tbsds_receive(100000, nw, idata)
-        if( nw .gt. 1 ) then
-          ist = 0
-        elseif( nw.eq.1 .and. idata(1).eq.0 ) then
-          go to 8000
-        else
-          ist = -10
-        endif
         
 C   Error
       ELSE
