@@ -181,7 +181,11 @@ C--
 C--
 C  Reject tracks with insufficient # hits.
 C--
+#if 0
       NHIT = MIN((R2-R1+0.1)/DSMPTK,NSMPTK)
+#else
+      NHIT = MIN((R2-R1-0.1)/DSMPTK,NSMPTK)
+#endif
       IF ( NHIT.LT.NSMPCT ) RETURN
 C--
 C  Move the pivot from the production point to the 1-st

@@ -63,8 +63,11 @@ C--
       EN    = NHIT - 1
       ENP1  = NHIT
       TENP1 = 2*EN + 1
+#if 0
       EL    = EN*DSMP
-C      EL    = NHIT*DSMP
+#else
+      EL    = NHIT*DSMP
+#endif
       EL2   = EL*EL
 C--
 C  R-Phi part.
