@@ -96,14 +96,14 @@ RANLIB = ranlib
 SHRLIBFLAGS = -fPIC
 #endif
 # CDEBUGFLAGS = -O2 -g
-CDEBUGFLAGS =
+CDEBUGFLAGS = -O2
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
         -Dlinux -DPPC -D__powerpc__ -D_POSIX_SOURCE \
         -D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
 # FDEBUGFLAGS = -O2 -g
-FDEBUGFLAGS = 
+FDEBUGFLAGS =  -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
         -fno-globals -fugly-init -Wno-globals \
