@@ -8,6 +8,13 @@ in this directory.
 
 
 ------------------------------------------------
+8-May-2002  Akiya Miyamoto
+------------------------------------------------
+TAUOLA and others are modified to run with Pythia6.
+But, LUHADR is not compatible with Pythia6.
+Program is checked with Pythia6.206 program.
+
+------------------------------------------------
 8-Feburary-2001 Akiya Miyamoto
 ------------------------------------------------
 (1) LCLIB was installed on AIX.4.3 using xlf and xlC compilers.

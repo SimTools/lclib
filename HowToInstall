@@ -14,6 +14,16 @@ How to install
 	set path=(. $JSFROOT/bin $ROOTSYS/bin $path)
 	setenv IMAKEINCLUDE "-I$JSFROOT -I$LCLIBROOT"
 
+2) According to the version number of Pythia library, 5 or 6, 
+   set configure parameters in $LCLIBROOT/config/configure.in.
+   Together with the version number, location of the library and
+   compiler switch must be set as shown in the file, configure.in.
+
+   Please note that lib/libLUHADR.a is not compatible with Pythia6.
+   In that case, JSF version of hadronization, JSFHadronizer, must be
+   used.  lib/libTAUOLA.a is not up-to-date, but it is compatible 
+   with Pythia6.
+
 2) do 
 	cd $LCLIBROOT
 	make all
