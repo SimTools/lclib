@@ -22,7 +22,7 @@ MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
 #ifdef hitachiArchitecture
 MYLDOPT = -lmsl2
 #ifdef F90FORTRAN
-MYLDOPT = $(LCLIB)/FNUM.o -lmsl2 -Wl,-a,archive -Wl,-L/lib/pa1.1 -lm
+MYLDOPT = -lmsl2 -Wl,-a,archive -L/lib/pa1.1 -lm
 #endif
 #endif
 
