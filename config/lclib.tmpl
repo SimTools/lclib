@@ -6,15 +6,8 @@ XCOMM AIXArchitecture
 XCOMM ****************************************************************
 #if defined(AIXArchitecture)
 /* 01/01/19  A.Miyamoto for jlc.cc        */
-/* #define DOSHRLIB */
-#ifndef ENABLESHARED
-#ifdef DOSHRLIB
-#undef DOSHRLIB
-#endif
-#else
 #ifndef DOSHRLIB
 #define DOSHRLIB
-#endif
 #endif
 SHRLIBFLAGS = 
 .SUFFIXES: .F
@@ -23,7 +16,8 @@ SHRLIBFLAGS =
 CDEBUGFLAGS = -O
 CFLAGS	= $(CDEBUGFLAGS) -DAIX -DKEK -DUNIX -DJLC \
 	$(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
-FDEBUGFLAGS = -O3 -qstrict -qarch=pwr3 -qextname -qfixed -qsave  -qinitauto
+FDEBUGFLAGS = -O3 -qstrict -qarch=pwr3 -qextname -qfixed -qsave  -qinitauto \
+	-brtl -bshared 
 FFLAGS	= $(FDEBUGFLAGS) -WF,-DKEK,-DUNIX,-DJLC,-DAIX \
 	$(EXTRADEFINES)  $(SHRLIBFLAGS)
 FFLAGSE	= $(EXTRADEFINES) $(SHRLIBFLAGS) 
