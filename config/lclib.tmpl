@@ -89,6 +89,7 @@ RANLIB = ranlib
 #endif
 
 
+#ifndef PPCArchitecture
 #if defined(LinuxArchitecture)
 #ifdef DOSHRLIB
 #undef DOSHRLIB
@@ -112,5 +113,5 @@ CC = gcc
 FF = g77
 RANLIB = ranlib
 #endif
-
+#endif
 
