@@ -59,7 +59,7 @@ OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) ../tbs/sr
 OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
 #endif
 
-#if hitachiArchitecture
+#ifdef hitachiArchitecture
 INCPATH = -I../tbs/src
 LCHOME  = /proj.hi/phys/lclib/pro
 LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lcurses
