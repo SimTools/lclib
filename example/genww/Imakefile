@@ -30,13 +30,14 @@ MAIN  = $(LCDIR)/util/lcfull/src/prmain.o
 ANALOBJ   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
 	    coupla.o boost0.o bs51cm.o bshget.o 
 
+CERNLIBOPT = `cernlib packlib jetset74`
 
 ANALLIB   =  -Wl,-L$(LCLIB) -lLCFULL -lLUHADR -lGENUTIL -lTAUOLA \
 	    -lHELASV204 -lBASESV5.1 -lSIMJLC -lFORTLIB  -lCOM -lCLI \
 	    -lTBS -lLCFULL -lGENUTIL  \
 	    -lHPKTOHBK -lFORTLIB -lCOM -lCLI \
-	    $(CERNLIBOPT) -Wl,-L$(HBOOK_LIB) -lpacklib \
-	    -ljetset74 $(MYLDOPT)
+	    -Wl,-L$(HBOOK_LIB) $(CERNLIBOPT) \
+	    $(MYLDOPT)
 
 #ifdef HPArchitecture
 MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
@@ -47,7 +48,7 @@ MYLDOPT = -lmsl2
 # MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
 MYLDOPT = -lmsl2_90 -L/lib/pa1.1 -lm
 HBOOK_LIB = /cern/pro/lib
-CERNLIBOPT = -Wl,-a,archive 
+# CERNLIBOPT = -Wl,-a,archive 
 #endif
 #endif
 
