@@ -22,7 +22,7 @@ CC**********************************************************************
 #include "prjunk.inc"
 #include "smrhgo.inc"
 C--
-      PARAMETER  ( LNxBUF = 1000, MXxCEL = 5000 )
+      PARAMETER  ( LNxBUF = 2000, MXxCEL = 5000 )
       COMMON /SSWORK/ IBUF(LNxBUF), IELM(MXxCEL), IPNT(MXxCEL)
       INTEGER*4       IBUF, IELM
       INTEGER*4       IPNT
