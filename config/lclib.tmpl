@@ -39,31 +39,6 @@ INSTALL = install
 	$(FF) -c $(F77OPTS) -O  $<
 #endif
 
-#if defined(MachTenPPCArchitecture)
-CFLAGS = -O -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
-FFLAGS = -O -fno-automatic -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) \
-	$(INCPATH)
-RANLIB = ranlib
-#endif
-#if defined(PPCArchitecture)
-#ifdef DOSHRLIB
-#undef DOSHRLIB
-#endif
-#ifdef DOSHRLIB
-SHRLIBFLAGS = -fPIC
-#endif
-CFLAGS = -O2 -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
-	-DUNIX -DKEK -DJLC -DMACHTEN_PPC \
-	-Dlinux -DPPC -D__powerpc__ -D_POSIX_SOURCE \
-	-D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
-FFLAGS = -O2 -fdollar-ok -fno-backslash -fno-automatic $(SHRLIBFLAGS) \
-	-DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
-CC = gcc
-FF = g77
-RANLIB = ranlib
-#endif
-
-
 
 #if defined(MachTenPPCArchitecture)
 CFLAGS = -O -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
@@ -71,6 +46,8 @@ FFLAGS = -O -fno-automatic -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) \
 	$(INCPATH)
 RANLIB = ranlib
 #endif
+
+
 #if defined(PPCArchitecture)
 #ifdef DOSHRLIB
 #undef DOSHRLIB
@@ -78,12 +55,19 @@ RANLIB = ranlib
 #ifdef DOSHRLIB
 SHRLIBFLAGS = -fPIC
 #endif
-CFLAGS = -O2 -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
+CDEBUGFLAGS = -O2
+CFLAGS = $(CDEBUGFLAGS) \
+	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC \
 	-Dlinux -DPPC -D__powerpc__ -D_POSIX_SOURCE \
 	-D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
-FFLAGS = -O2 -fdollar-ok -fno-backslash -fno-automatic $(SHRLIBFLAGS) \
-	-DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
+FDEBUGFLAGS =  -O2
+FFLAGS = $(FDEBUGFLAGS) \
+        -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
+        -fno-globals -fugly-init -Wno-globals \
+        $(SHRLIBFLAGS) \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DG77_521_OR_GREATER \
+         $(EXTRADEFINES) $(INCPATH)
 CC = gcc
 FF = g77
 RANLIB = ranlib

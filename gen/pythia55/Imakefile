@@ -28,5 +28,5 @@ install:: lib$(LIBNAME).a
 
 clean::
 	rm -f *.o; rm -f *.a; rm -f *~ 
-	rm -f Makefile Makefile.bak
+	rm -f Makefile.bak
 
