@@ -12,6 +12,8 @@ lclib-2000-1 25-Jan-2000  by A.Miyamoto
 (1) Dtector parameter set for 3 Tesla solenod is added in
     in simjlc/param/jlc3T.com.  Since Calorimeter segmentation is changed,
     /PRJUNK/ common used by Track-Cluster link was replaced.
+    jlc3T.com includes 5 layers of intermideate tracker, while jlc3T.com.withoutIT
+    does not include the intermideate tracker.
 (2) There are some minar changes in Y2K related problem and Imakefiles
 
 *************************************************
