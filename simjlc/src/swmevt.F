@@ -55,6 +55,8 @@ C
         COMMON /SSWORK_/ IELM(MXxPT), RPLIST(LNxPT,MXxPT), HELX(8),
 #endif 
      .                DPHI(2,MXxPT), PV(3), IMT(0:MXxPT), IDIDIT(MXxPT)
+      REAL*4 EPSDL
+      DATA   EPSDL  / 1.E-20 /
 C
 C========< Entry Point >================================================
 C
@@ -135,7 +137,7 @@ C--
          PT   = SQRT(PT2)
          AP   = SQRT(PT2+PL*PL)
          DL   = RPLIST(17,IPT)
-         IF ( DL.LE.0. ) DL = - (AP/AM)*CTU*LOG(1-RAN(ISEED))
+         IF ( DL.LE.0. ) DL = - (AP/AM)*CTU*LOG(MAX(1-RAN(ISEED),EPSDL))
 
 C--
 C  Calculate deflection angle.
