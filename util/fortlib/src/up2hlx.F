@@ -39,12 +39,13 @@ C--
       PT      = SQRT(PX*PX+PY*PY)
 C--
       HELX(1) = 0
-      HELX(2) = ATAN2(-PX,PY)
       HELX(4) = 0
       IF( PT .GE. 1.E-9 ) THEN
+        HELX(2) = ATAN2(-PX,PY)
         HELX(3) = ICHG/PT
         HELX(5) = PZ/PT
       ELSE
+        HELX(2) = 0.
         HELX(3) = ICHG*1.E9
         HELX(5) = PZ*1.E9
       ENDIF
