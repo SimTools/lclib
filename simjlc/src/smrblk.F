@@ -15,7 +15,7 @@
      .                 -230., 230.,
      .                  14*0      /
       DATA    RDLVX  / 0.003, 0.003, 0.003, 0.01, 7*0. /
-      DATA    NERRVX /2/
+      DATA    NERRVX /1/
       DATA    ERRVX  / 4.E-4, 4*0.0/
 #include "smrtgo.inc"
       DATA    NSMPCT /   10  /
