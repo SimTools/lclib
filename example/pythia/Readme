@@ -1,0 +1,58 @@
+File: /proj/phys/generator/94a/pythia/Readme
+Author: Akiya Miyamoto    28-Sep-1994
+
+
+
+This directory includes PYTHIA55 + JCL Simulator.  See Makefile in
+this directory about how to create executable program.
+
+A commadn, make, creates the executable module, pythia.ex.
+The pythia.ex includes 
+   (1) PYTHIA event generator, including interface routine.
+   (2) List routine for Generator:Particle_List bank.
+   (3) Partcile swimmer
+   (4) Signal smearing 
+as FULL modules.  These are declared in the FLANLI.f in this
+directory.
+
+Typical input data are prepared;
+  ftn05.qq500gev   ; e+e- --> f+fbar at 500 GeV.
+  ftn05.ww500gev   ; e+e- --> W+W- at 500 GeV.
+  ftn05.ww1tev   ; e+e- --> W+W- at 1 TeV.
+  ftn05.zh110gev.300gev ; e+e- --> ZH at 300 GeV with mh=110GeV.
+  ftn05.mnjcc.58gev ; ccbar production by two-photon interaction at 58GeV.
+
+To run program, do
+  pythia.ex < ftn05.qq500gev > jobout.qq500gev &
+
+In this example, the process is executed as a "batch" job.  
+Jobout put is written in a file, jobout.qq500gev, which is
+also in this directory.
+
+<<<<<< Special Notice >>>>>>>
+When I tested the program, jetset library in the standard CERNLIB
+directory seemed wrong, because I saw the error even I run 
+the sample program, PYTEST.  Therefore, I installed the PYTHIA55
+and LUND73 program obtained from FACOM MSP, which was installed
+there by AMY group.  Makefile is coded so that to refer this
+version of PYTHIA55 and JETSET73, and the program is checked
+to run without printing error message  only for the parameter 
+sets given by ftn05.* files.  So, please watch your out put
+carefully, when you make your own analysis.
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+     
+
+    
+    

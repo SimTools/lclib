@@ -1,0 +1,8 @@
+#!/bin/csh -f
+
+./pythia.ex < ftn05.qq500gev >&! jobout.qq500gev 
+./pythia.ex < ftn05.ww500gev >&! jobout.ww500gev 
+./pythia.ex < ftn05.ww1tev >&! jobout.ww1tev 
+./pythia.ex < ftn05.zh110gev.300gev >&! jobout.zh110gev.300gev
+
+

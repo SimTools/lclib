@@ -1,0 +1,50 @@
+@!                                                                              
+@! Input section for Steering part.                                             
+@!                                                                              
+STEERING                                                                        
+   STEERING DEBUG(13)                                                            
+   EVENT GEN(100)       !  Number of event to generate.                         
+   ANAL  SEQ(PYTHIA SWIMMER SMEARING)
+*                                                                               
+EXIT                                                                            
+@!                                                                              
+@!  Input section for PYTHIA 5.5 generator.                                     
+@!                                                                              
+PYTHIA                                                                          
+@!
+@!********************************************
+@! Test data for W pair production at 500 GeV e+e- collider
+@!********************************************
+@!
+ 'CMS'        ! The frame of the experiment.
+ 'e-'          ! The beam particle.
+ 'e+'          ! The target particle.
+  E_CM=500.  ! CM energy = 1 TeV
+@!PRINT=1     ! Print flag.
+  SEED=141421356   !   Seed
+  OK
+@!
+@!  Parameters for the PYTEST routine.
+@!
+  CKIN   1   2.
+  CKIN   3   0.
+  MSTP   2   1
+  MSTP  11   0
+  MSTP  33   0
+  MSTP  81   1
+  MSTP  82   1
+  MSTP 111   1
+  MSTP 131   0
+  MSTP 133   0
+  PARP 131   0.01
+@!
+@!  W pair production at 0.5 TeV e+e- collider.
+@!
+  MSUB  25  1
+  MSUB  69  1
+  MSTP  11  1
+EXIT                                                                            
+@!                                                                              
+@!  and start execution.                                                        
+@!                                                                              
+GO                                                                              
