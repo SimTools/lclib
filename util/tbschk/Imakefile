@@ -77,10 +77,10 @@ LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lncurses
 #endif
 ############################################
 
-all::	tbschk
+all::	$(OBJS)
 #if !defined(hitachiArchitecture)
 tbschk: $(OBJS)
-	$(FF) $(FFLAGS) $(OBJS) $(LDFLAG) -o tbschk
+	$(FF) $(FFLAGS) $(OBJS) $(LDFLAG) -o tbschk 
 
 $(F_OBJS): $(F_SRCS)
 	$(FF) -c $(FFLAGS) -o $*.o $(TBSDIR)/$*.F
