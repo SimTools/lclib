@@ -28,23 +28,15 @@ C
       SINTH1=DSQRT((1.D0-COSTH1)*(1.D0+COSTH1))
 C
       P1(0) = DMAX1((ESUM+ED)*0.5D0,0.D0)
-      P2(0) = DMAX1((ESUM-ED)*0.5D0,0.D0)
-      IF(PHI1.NE.0.D0) THEN
       P1(1) = PP*SINTH1*DCOS(PHI1)
       P1(2) = PP*SINTH1*DSIN(PHI1)
       P1(3) = PP*COSTH1
 C
+      P2(0) = DMAX1((ESUM-ED)*0.5D0,0.D0)
       P2(1) = -P1(1)
       P2(2) = -P1(2)
       P2(3) = -P1(3)
-      ELSE
-      P1(1) = 0.D0
-      P1(2) = 0.D0
-      P1(3) = 0.D0
-      P2(1) = 0.D0
-      P2(2) = 0.D0
-      P2(3) = 0.D0
-      ENDIF
 C
       RETURN
       END
+
