@@ -108,34 +108,19 @@ tbschk: $(OBJS)
 	$(FF) $(FFLAGS) $(OBJS) $(LDFLAG) -o tbschk
 
 $(F_OBJS): $(F_SRCS)
-	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
-	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
-	rm -f tmp.$*.f
-	mv tmp.$*.o $*.o
+	HitachiFortranCompiler($(TBSDIR))
 
 $(UNIX_OBJS): $(UNIX_SRCS)
-	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
-	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
-	rm -f tmp.$*.f
-	mv tmp.$*.o $*.o
+	HitachiFortranCompiler($(TBSDIR))
 	
 lun_to_fileno.o: $(TBSDIR)/lun_to_fileno.F
-	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
-	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
-	rm -f tmp.$*.f
-	mv tmp.$*.o $*.o
+	HitachiFortranCompiler($(TBSDIR))
 
 lun_to_fileno_hp.o: $(TBSDIR)/lun_to_fileno_hp.F
-	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
-	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
-	rm -f tmp.$*.f
-	mv tmp.$*.o $*.o
+	HitachiFortranCompiler($(TBSDIR))
 
 lnblnk.o: $(TBSDIR)/lnblnk.F
-	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
-	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
-	rm -f tmp.$*.f
-	mv tmp.$*.o $*.o
+	HitachiFortranCompiler($(TBSDIR))
 #endif
 $(C_OBJS): $(C_SRCS)
 	$(CC) -c $(CFLAGS) -o $*.o $(TBSDIR)/$*.c
