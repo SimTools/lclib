@@ -1,0 +1,48 @@
+.TH RN_LCLIB 1 "20 March 1995" "RN_LCLIB"
+.SH NAME
+rn_lclib \- Change file names to meet lclib standard.
+.SH SYNOPSIS
+.B rn_lclib 
+.nh
+[-a] [-f] [-F] [help]
+.hy
+.SH DESCRIPTION
+The function of 
+.I rn_lclib
+command is to change the case of 
+the file names in the directory, from lower case to upper case.
+It also removes a character _ prefixed to the file name. 
+.IP
+.SH OPTIONS
+.TP
+.IB -a 
+Files names of all files in the directory
+are changed to lowercase,
+except files whose suffix is .a and special name
+files such as Makefile}, README, Readme.  If -a
+option is not specified, only files with .f and .inc
+suffix are converted.
+.TP
+.IB -f
+If suffix is .f, does not change suffix. 
+This is default option.
+.TP
+.IB -F
+If suffix is .f, changed to .F.
+.TP
+.IB help
+Print help message.
+.SH FILES
+.br
+.TP
+/proj/phys/lclib/95a/bin/rn_lclib
+.TP
+/proj/phys/lclib/95a/man
+.SH "SEE ALSO"
+Release_Note(5)
+.SH AUTHORS
+Akiya Miyamoto, Physics Department, KEK.
+E\-mail:miyamoto@kekux1.kek.jp
+
+
+

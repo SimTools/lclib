@@ -1,0 +1,36 @@
+#define LCLIB_TMPL "../../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+
+COMMAND = build
+
+OBJS  = build.o buildm.o cpstrp.o ctoken.o cupper.o \
+        lbsdsn.o nindex.o ucstrp.o prompt.o cnvnam.o \
+        lnblnk.o rindex.o getcwd_.o
+
+
+
+all:: $(COMMAND)
+#if defined(HPArchitecture)
+$(COMMAND):: $(OBJS)
+	$(FF) -g $(FFLAGS) $(OBJS) -o $(COMMAND) -lU77
+#else
+$(COMMAND):: $(OBJS)
+	$(FF) -g $(FFLAGS) $(OBJS) -o $(COMMAND)
+#endif
+
+#if defined(PPCArchitecture)
+getcwd_.o: getcwd_.c
+#elif defined(HPArchitecture)
+getcwd_.o: getcwd_.F
+	$(FF) -g -c $*.F
+#else
+getcwd_.o: getcwd_.F
+	$(FF) -g -fno-underscoring -c $*.F
+#endif
+
+install::
+	cp -p $(COMMAND) ../../../bin
+
+clean::
+	rm -f $(OBJS) $(COMMAND)

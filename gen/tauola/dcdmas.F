@@ -1,0 +1,35 @@
+
+      FUNCTION DCDMAS(IDENT)
+
+#include "parmas.inc"
+C
+      IF      (IDENT.EQ. 1) THEN
+        APKMAS=AMPI
+      ELSEIF  (IDENT.EQ.-1) THEN
+        APKMAS=AMPI
+      ELSEIF  (IDENT.EQ. 2) THEN
+        APKMAS=AMPIZ
+      ELSEIF  (IDENT.EQ.-2) THEN
+        APKMAS=AMPIZ
+      ELSEIF  (IDENT.EQ. 3) THEN
+        APKMAS=AMK
+      ELSEIF  (IDENT.EQ.-3) THEN
+        APKMAS=AMK
+      ELSEIF  (IDENT.EQ. 4) THEN
+        APKMAS=AMKZ
+      ELSEIF  (IDENT.EQ.-4) THEN
+        APKMAS=AMKZ
+      ELSEIF  (IDENT.EQ. 8) THEN
+        APKMAS=0.0001
+      ELSEIF  (IDENT.EQ.-8) THEN
+        APKMAS=0.0001
+      ELSEIF  (IDENT.EQ. 9) THEN
+        APKMAS=0.5488
+      ELSEIF  (IDENT.EQ.-9) THEN
+        APKMAS=0.5488
+      ELSE
+        PRINT *, 'STOP IN APKMAS, WRONG IDENT=',IDENT
+        STOP
+      ENDIF
+      DCDMAS=APKMAS
+      END

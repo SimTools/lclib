@@ -1,0 +1,62 @@
+SOREV = 97a
+
+#if defined(HPArchitecture)
+#define DOSHRLIB
+#ifdef DOSHRLIB
+SHRLIBFLAGS = +z
+#endif
+.SUFFIXES: .F
+.F.o :
+	$(FF) -c $(FFLAGS) $(INCPATH) $*.F -o $*.o
+CFLAGS	= -O -DHP -DKEK -DUNIX -DJLC $(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
+FFLAGS	= -O -DHP -DKEK -DUNIX -DJLC -K +ppu $(EXTRADEFINES)  $(SHRLIBFLAGS)
+FFLAGSE	= -DHP -DKEK -DUNIX -DJLC -K +e $(EXTRADEFINES)  $(SHRLIBFLAGS)
+CC      = cc
+FF	= f77
+RANLIB  = /bin/ranlib
+#endif
+
+#if defined(hitachiArchitecture)
+.SUFFIXES: .F .f .o
+F77OPTS = -i,E,U,P,PL,LT,L,EU,CL,CU,BL -W0,"LANGLVL(CONTI199,DARG(L),H8000)"
+CC	= cc
+FF      = f77
+CPP     = /lib/cpp
+CPPOPT  = -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) 
+CFLAGS  = -O -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) 
+FFLAGSE = $(F77OPTS)
+RANLIB  = /bin/ranlib
+
+.F.o:
+	$(CPP) -P  $(CPPOPT) $(INCPATH) $*.F  >  tmp.$*.f
+	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
+	rm -f tmp.$*.f
+	mv tmp.$*.o $*.o
+
+.f.o:
+	$(FF) -c $(F77OPTS) -O  $<
+#endif
+
+#if defined(MachTenPPCArchitecture)
+CFLAGS = -O -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
+FFLAGS = -O -fno-automatic -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) \
+	$(INCPATH)
+RANLIB = ranlib
+#endif
+#if defined(PPCArchitecture)
+#ifdef DOSHRLIB
+#undef DOSHRLIB
+#endif
+#ifdef DOSHRLIB
+SHRLIBFLAGS = -fPIC
+#endif
+CFLAGS = -O2 -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
+	-DUNIX -DKEK -DJLC -DMACHTEN_PPC \
+	-Dlinux -DPPC -D__powerpc__ -D_POSIX_SOURCE \
+	-D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
+FFLAGS = -O2 -fdollar-ok -fno-backslash -fno-automatic $(SHRLIBFLAGS) \
+	-DUNIX -DKEK -DJLC -DMACHTEN_PPC $(EXTRADEFINES) $(INCPATH)
+CC = gcc
+FF = g77
+RANLIB = ranlib
+#endif

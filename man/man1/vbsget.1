@@ -1,0 +1,41 @@
+.TH VBSGET 1 "20 March 1995" "VBSGET"
+.SH NAME
+vbsget \- Transfer a VBS format file from FACOM to UNIX system
+.SH SYNOPSIS
+.B vbsget 
+.nh
+facom_dsn unix_dsn
+.hy
+.SH DESCRIPTION
+The function of 
+.I vbsget 
+command is to transfer 
+VBS format data on FACOM MSP system (kektr.kek.jp) to a unix system.
+The DCB parameter of FACOM data set should be, 
+.IP
+.C DCB=(RECFM=VBS,LRECL=23472,BLKSIZE=23476)
+.PP
+Though the data representation of MSP and UNIX system are
+different, no data conversion is performed.  The decoding
+of VBS format is not done.  The command, tbschk,
+can read the data properly.
+.SH OPTIONS
+.TP
+.IB facom_dsn
+The data set name on FACOM MSP system,
+which will be transfered to WS.
+.TP
+.IB ws_dsn
+The file name of UNIX system, where the file is transfered.
+.PP
+User must prepare .netrc file properly to use this command.
+The format of .netrc command will be found by "man netrc" command.
+.SH FILES
+.br
+.TP
+/proj/phys/lclib/95a/bin/vbsget
+/proj/phys/lclib/95a/man
+.SH AUTHORS
+Akiya Miyamoto, Physics Department, KEK.
+E\-mail:miyamoto@kekux1.kek.jp
+

@@ -1,0 +1,50 @@
+      SUBROUTINE MOM2CX(ESUM,MASS1,MASS2,COSTH1,PHI1 , P1,P2)
+C
+C This subroutine sets up two four-momenta in the two particle rest
+C frame.
+C
+C INPUT:
+C       real    ESUM           : energy sum of particle 1 and 2
+C       real    MASS1          : mass            of particle 1
+C       real    MASS2          : mass            of particle 2
+C       real    COSTH1         : cos(theta)      of particle 1
+C       real    PHI1           : azimuthal angle of particle 1
+C
+C OUTPUT:
+C       real    P1(0:3)        : four-momentum of particle 1
+C       real    P2(0:3)        : four-momentum of particle 2
+C
+      REAL*8  P1(0:3),P2(0:3),
+     &        ESUM,MASS1,MASS2,COSTH1,PHI1,MD2,ED,PP,SINTH1
+C
+      MD2=(MASS1-MASS2)*(MASS1+MASS2)
+      ED=MD2/ESUM
+      IF (MASS1*MASS2.EQ.0.D0) THEN
+      PP=(ESUM-DABS(ED))*0.5D0
+C
+      ELSE
+      PP=DSQRT((MD2/ESUM)**2-2.D0*(MASS1**2+MASS2**2)+ESUM**2)*0.5D0
+      ENDIF
+      SINTH1=DSQRT((1.D0-COSTH1)*(1.D0+COSTH1))
+C
+      P1(0) = DMAX1((ESUM+ED)*0.5D0,0.D0)
+      P2(0) = DMAX1((ESUM-ED)*0.5D0,0.D0)
+      IF(PHI1.NE.0.D0) THEN
+      P1(1) = PP*SINTH1*DCOS(PHI1)
+      P1(2) = PP*SINTH1*DSIN(PHI1)
+      P1(3) = PP*COSTH1
+C
+      P2(1) = -P1(1)
+      P2(2) = -P1(2)
+      P2(3) = -P1(3)
+      ELSE
+      P1(1) = 0.D0
+      P1(2) = 0.D0
+      P1(3) = 0.D0
+      P2(1) = 0.D0
+      P2(2) = 0.D0
+      P2(3) = 0.D0
+      ENDIF
+C
+      RETURN
+      END

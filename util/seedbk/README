@@ -1,0 +1,67 @@
+95/09/01  K.Fujii	Original Seed_Booker for MC run continuation.
+
+
+In order to activate Seed_Booker, put
+      CALL DSMCSD
+after the detector simulation step:
+      CALL DSCSMR
+like
+--
+C                     Define BASES generator.
+      CALL DSBS51
+C                     Define Lund Hadronizer.
+      CALL DSLHAD
+C                     Define Swimmer  routine.
+      CALL DSCSWM
+C                     Define Smearing routine.
+      CALL DSCSMR
+C                   +--------------------+
+C		    | Define Seed Booker |
+C     -----------   +--------------------+
+      CALL DSMCSD
+C     -----------
+--      
+in you FLANLI.
+ 
+The status of the random number generators will be saved in
+"Begin_Run" record and output to a user specified logical
+unit to be used for later use when run continuation is necessary.
+
+You can control the action of the sseed booker with the standard
+input stream for FULL:
+@!
+@!*************************************************
+@! Input section for Seed Booker.
+@!*************************************************
+@!
+SEED_BOOKER
+   LUSD 32      ! logical unit to output MC seeds
+   RDSD  0      ! (0,1,2,3)= read  (none,sp,hd,sp+hd) from TBS
+   WTSD  3      ! (0,1,2,3)= write (none,sp,hd,sp+hd) to   TBS
+   SVSD  0      ! (0,1)= write (none,sp+hd) seeds event by event
+   SEDF  seeds_at_end.data
+EXIT
+which starts MC event generation from default seeds, and when finished,
+saves seeds to a file named "seeds_at_end.data" opened as unit 32.
+If you set SVSD to 1, you will have SPRING:Seed_Now and LUND73:Seed_Now
+on an event-by-event basis. This, however, expands the data size
+considerably and cannot be recommended if your disk space is limited.
+
+If you want to continue, you can use seeds_at_end.data as the
+BASES data to be read by FULL, provided that you set RDSD to 1.
+@!
+@!*************************************************
+@! Input section for Seed Booker.
+@!*************************************************
+@!
+SEED_BOOKER
+   LUSD 32      ! logical unit to output MC seeds
+   RDSD  1      ! (0,1,2,3)= read  (none,sp,hd,sp+hd) from TBS
+   WTSD  3      ! (0,1,2,3)= write (none,sp,hd,sp+hd) to   TBS
+   SVSD  0      ! (0,1)= write (none,sp+hd) seeds event by event
+   SEDF  seeds_at_end.data
+EXIT
+
+The library you have to add is
+       libSEEDBK.a
+in /proj/phys/lclib/95a/lib.

@@ -1,0 +1,15 @@
+#!/bin/csh  -f
+#
+# Convert the file name in the INCLUDE statement
+# change to lower case, and _ prefix is removed.
+#
+foreach x (*.f)
+#  set file=$x:r
+#  set file=$file:t
+#  set file=$file.F
+  set file=/tmp/file.$$
+  rm -f $file
+#  awk -f /proj/phys/lclib/pro/bin/rn_include.awk < $x 
+  awk -f /proj/phys/lclib/pro/bin/rn_include.awk < $x > $file
+  mv $file $x
+end

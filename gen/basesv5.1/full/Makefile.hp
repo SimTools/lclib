@@ -1,0 +1,19 @@
+#
+#
+LCLIB  = /proj/phys/lclib/95a
+
+INCPATH = -I$(LCLIB)/util/lcfull/src
+
+FFLAGS  = -K +ppu -DUNIX -DKEK -DJLC $(INCPATH) 
+
+OBJ       = dsbs51.o bs51ri.o bs51rt.o bs51ji.o bs51ev.o \
+            bs51rb.o bs51wb.o bs51rs.o bs51dt.o usrout.o
+
+all : lib
+
+lib   : $(OBJ)
+	@/bin/ar u ../src/libBASESV51.a $(OBJ)
+	@/bin/ranlib ../src/libBASESV51.a
+
+
+

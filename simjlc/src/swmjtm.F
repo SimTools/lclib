@@ -1,0 +1,3 @@
+      SUBROUTINE SWMJTM
+      RETURN
+      END

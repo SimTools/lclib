@@ -1,0 +1,12 @@
+@!
+@!*************************************************
+@! Input section for Seed Booker.
+@!*************************************************
+@!
+SEED_BOOKER
+   LUSD 32      ! logical unit to output MC seeds
+   RDSD  0      ! (0,1,2,3)= read  (none,sp,hd,sp+hd) from TBS
+   WTSD  3      ! (0,1,2,3)= write (none,sp,hd,sp+hd) to   TBS
+   SVSD  0      ! (0,1)= write (none,sp+hd) seeds event by event
+   SEDF  seeds_at_end.data
+EXIT

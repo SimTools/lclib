@@ -1,0 +1,3 @@
+      COMMON /SMRFLD/ IMODBF(2), BFDATA(2)
+C=    DATA IMODBF / 2*0  /
+C=    DATA BFDATA / 2*0. /

@@ -1,0 +1,2 @@
+      COMMON / QEDPRM / ALFINV, ALFPI, XK0
+      REAL*8            ALFINV, ALFPI, XK0

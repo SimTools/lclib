@@ -1,0 +1,11 @@
+C   18/11/86 611182007  MEMBER NAME  XTEST    (FORT)     M  FORTRAN
+C
+      LOGICAL  XOPEN, X
+C
+      CHARACTER * 44  NAME
+C
+      READ( 5,'(A)' ) NAME
+      X = XOPEN( 1,NAME,'READ','FORMATTED','UNKNOWN' )
+      WRITE( 6,* ) X
+      STOP
+      END

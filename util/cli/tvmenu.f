@@ -1,0 +1,78 @@
+C   04/09/87 711291359  MEMBER NAME  TVMENU   (FORT)     M  FORTRAN
+C
+      SUBROUTINE TVMENU( ROWS,COLS,CMDS,ITEMS,MAXITM,NN,MODIFY )
+C
+C ARG
+      INTEGER * 4  ROWS(2), COLS(2), NN(2), MAXITM, MODIFY( * )
+      CHARACTER * ( * )  ITEMS(MAXITM), CMDS(MAXITM)
+C
+C CONST
+      INTEGER * 4  BUFSIZ, MAXSIZ
+      PARAMETER( BUFSIZ = 2000, MAXSIZ = 25 )
+C
+C VAR
+      CHARACTER * (BUFSIZ)  TVBUF
+      CHARACTER * 79        BLANK
+      DATA BLANK / ' ' /
+      CHARACTER * 58  SMENU( MAXSIZ )
+      CHARACTER * 18  SCMDS( MAXSIZ )
+C
+C BEGIN
+      CALL TVPUTL( 'WCC',TVBUF,LTVBUF )
+      IIROW = ROWS(1)
+      DO 100 I = NN(1), NN(2)
+        IF( MODIFY(IIROW).GT.0 .OR. CMDS(I).NE.SCMDS(IIROW) ) THEN
+          CALL TVPUTL( 'UL',TVBUF,LTVBUF,IIROW,COLS(1),CMDS(I) )
+          SCMDS(IIROW) = CMDS(I)
+        END IF
+        IF( IAND(MODIFY(IIROW),2).NE.0 .OR.
+     &                                 ITEMS(I).NE.SMENU(IIROW) ) THEN
+          CALL TVPUTL( 'PL',TVBUF,LTVBUF,IIROW,COLS(2),ITEMS(I) )
+          SMENU(IIROW) = ITEMS(I)
+        END IF
+        MODIFY(IIROW) = 0
+        IIROW = IIROW + 1
+100   CONTINUE
+      DO 110 I = IIROW, ROWS(2)
+        CALL TVPUTL( 'PL',TVBUF,LTVBUF,I,1,BLANK )
+        SMENU(I) = ' '
+        MODIFY(I) = 2
+110   CONTINUE
+      CALL TVPUTL( 'PUT',TVBUF,LTVBUF )
+      RETURN
+      END
+C
+C
+      SUBROUTINE TVSCRL( AID,ITOP,IEND,IM,NUMLIN,IRET )
+C
+C ARG
+      INTEGER * 4  AID
+      INTEGER * 4  ITOP, IEND
+      INTEGER * 4  IM, NUMLIN
+C
+C CONST
+       include '_key_def.inc'
+C
+C BEGIN
+      IRET = 0
+      IF( AID.EQ.ENTER .OR. AID.EQ.PF8 ) THEN
+        ITOP = MIN( IEND+1,IM )
+        IEND = MIN( ITOP+NUMLIN-1,IM )
+      ELSE IF( AID.EQ.PF1 .OR. AID.EQ.PF7 ) THEN
+        IEND = MAX( 1,ITOP-1 )
+        ITOP = MAX( 1,IEND-(NUMLIN-1) )
+        IEND = MIN( ITOP+NUMLIN-1,IM )
+      ELSE IF( AID.EQ.PF12 ) THEN
+        ITOP = MIN( ITOP+1,IM )
+        IEND = MIN( ITOP+NUMLIN-1,IM )
+      ELSE IF( AID.EQ.PF24 ) THEN
+        IEMT = IEND - ITOP
+        IEND = MAX( 1,IEND-1 )
+        ITOP = MAX( 1,IEND-( MIN(IEMT+1,NUMLIN)-1 ) )
+        IEND = MIN( ITOP+NUMLIN-1,IM )
+      ELSE
+        IRET = -1
+      END IF
+C
+      RETURN
+      END

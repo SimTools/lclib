@@ -1,0 +1,31 @@
+
+LCLIB  = /proj/phys/lclib/95a
+
+LIBDIR = 
+
+OBJL   = dscsmr.o  dscswm.o  smrblk.o smrcbk.o  smrcht.o  smrcls.o \
+	 smrcvt.o  smremc.o  smrevt.o smrhdc.o  smrhle.o  smrhlx.o \
+	 smrjin.o  smrjtm.o  smrprd.o smrrin.o  smrrtm.o  smrsha.o \
+	 smrshw.o  smrtbg.o  smrvtx.o swmblk.o  swmjin.o \
+	 swmjtm.o  swmprd.o  swmrin.o swmrtm.o  uftvtk.o ulcvtk.o \
+
+DOPT   = -DUNIX -DKEK -DHP -DJLC
+
+INCPATH = -I$(LCLIB)/util/lcfull/src \
+	  -I$(LCLIB)/util/fortlib/src
+ 
+
+FFLAGS = -c -K +ppu $(DOPT) $(INCPATH)
+
+
+all:   $(OBJL) swmevt.o
+	@echo "Compiling"
+	@rm -f libSIMJLC.a
+	@/bin/ar r $(LIBDIR)libSIMJLC.a $(OBJL) swmevt.o
+	@/bin/ranlib $(LIBDIR)libSIMJLC.a
+	@echo "Update library"
+
+swmevt.o: swmevt.F
+	f77 $< -c -K +e $(DOPT) $(INCPATH) -o swmevt.o
+
+

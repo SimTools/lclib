@@ -1,0 +1,59 @@
+C   04/06/93 401252208  MEMBER NAME  TBxR4U   (FORT)     M  FORTRAN
+C+
+C FILE : TBxR4U
+C Description : Convert R4 data into IEEE format
+C
+C Author : Kouichi Nagai TOPAZ, Kobe Univ.
+C Date : 05 - Jul - 1993
+C-
+C
+      SUBROUTINE TBxR4U ( BUF, NW )
+C
+C ARG
+C
+      INTEGER * 4      BUF ( * )
+      INTEGER * 4      NW
+C
+C CONS
+C
+      INTEGER*4 BITMSK(0:2)
+#ifdef  MSP
+      DATA BITMSK/Z00000000, Z80000000, Z7F000000/
+#endif
+#ifdef  UNIX
+      DATA BITMSK/x'0000000', x'80000000', x'7F000000'/
+#endif
+C
+C VAR
+C
+      INTEGER*4 CONVR4,IR4IN
+C
+C MAIN
+C
+      DO 100 IBUF=1,NW
+        IR4IN=BUF(IBUF)
+C=== INITIALIZE OUTPUT BUFFER.
+        CONVR4=BITMSK(0)
+        IF(IR4IN.EQ.0) GOTO 98
+C=== SET SIGN BIT.
+        CONVR4=IAND(IR4IN,BITMSK(1))
+C=== Look exponential bits.
+        KEXP=ISHFT(IAND(IR4IN,BITMSK(2)),-24)-64
+C=== Look frac1 (A PART EQUAL TO OR GREATER THAN 1.0)
+        KF=6-KEXP
+        KS=4*KF
+        DO 14 I=23,20,-1
+          IF(BTEST(IR4IN,I))  GOTO 10
+  14    CONTINUE
+  10    NEXP=I-KS
+        IFU=32-I
+        KFRAC=ISHFT(IR4IN,IFU)
+        KFRAC=ISHFT(KFRAC,-9)
+        CONVR4=IOR(KFRAC,CONVR4)
+        IEXP=127+NEXP
+        IEXP=ISHFT(IEXP,23)
+        CONVR4=IOR(IEXP,CONVR4)
+  98    BUF(IBUF)=CONVR4
+  100 CONTINUE
+      RETURN
+      END

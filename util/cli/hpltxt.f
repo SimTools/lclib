@@ -1,0 +1,148 @@
+
+C   02/04/87 704021022  MEMBER NAME  HPLTXT   (FORT)        FORTRAN
+      SUBROUTINE HPLTXT(ITXT,KTYP)
+C
+C
+C     ******************************************************************
+C     *                                                                *
+C     *                                                                *
+C     *       GENERAL TEXT WRITING ROUTINE                             *
+C     *                                                                *
+C     *                                                                *
+C     ******************************************************************
+C
+      COMMON/HPL1/IPLTNO,IKOLOR,IVSIZE,LOGXFL,ICM   ,IOP   ,IPGSIZ
+     +    ,NSAME ,LSM   ,LSLIC ,LWIN  ,LOGYFL,LZERO ,LCM   ,LVERT
+     +    ,LEAH  ,LCHA  ,LASTK ,LSOFT ,LSQR  ,LUTIT ,LTAB  ,LBOX
+      LOGICAL     LSM   ,LSLIC ,LWIN  ,LOGYFL,LZERO ,LCM   ,LVERT
+     +    ,LEAH  ,LCHA  ,LASTK ,LSOFT ,LSQR  ,LUTIT ,LTAB  ,LBOX
+     +    ,LOGXFL
+C
+      COMMON/HPL2/XLOW  ,XHIGH ,YLOW  ,YHIGH ,XFRAC ,YFRAC ,YMMAX
+     +    ,YMMIN ,IOFSET,XWDIST,YWDIST,NWIN  ,XWIND ,YWIND ,IXWIN
+     +    ,IYWIN ,IWIN  ,IROT  ,ISLIC ,XSIZE ,NCX   ,XMUL  ,YMUL
+     +    ,XBOXL ,XBOXH ,YBOXL ,YBOXH
+C
+      COMMON /HPL5/NSAVE,YSAVE(106)
+C
+      COMMON /HPL6/NCHR,XK,YK,KORNT,KFLG,TVSIZ(9)
+C
+      COMMON/HFLAG /ID    ,IDBADD,LID   ,IDLAST,IDHOLD,NBIT  ,NBITCH,
+     +       NCHAR ,NX0   ,NX1   ,NX2   ,INTER ,INDEX ,LAST  ,LIMIT ,
+     +       LFIEL ,NEWHIS,NRLENG,NWLIB ,NWFLAG,NBFLAG,NWSTAT,NRHIST,
+     +       IDISC ,LFHIST,LLHIST,NWHIST,IERR  ,NV    ,NRDIS ,IA2
+C
+      COMMON/HPPRIN/IFW   ,NW    ,NB    ,IH    ,NHT   ,ICN   ,IPONCE,
+     +       NH    ,MSTEP ,NOENT ,NOLD  ,IDOLAR,IBLANC,KBINSZ,INO   ,
+     +       KSQUEZ,NCOLMA,NCOLPA,NLINPA,BIGP  ,ICBLAC,ICSTAR,ICFUNC,
+     +       IDG(42),MAX(30),IDENT(9)
+C
+      EQUIVALENCE (IDG(41),IBLNK)
+C
+      COMMON /HFORM  /WKSP(128)
+      DIMENSION IWKSP(128)
+      EQUIVALENCE (WKSP(1),IWKSP(1))
+C
+C
+      DIMENSION ITXT(2)
+      DATA IDOLLR/1H$/
+C
+C
+C     ------------------------------------------------------------------
+C
+C
+      X=XK
+      Y=YK
+      CALL UBLOW(ITXT,WKSP,80)
+      IF(NCHR.EQ.80) GOTO 5
+      IF(NCHR.GT.0) GOTO 50
+      IF(NCHR.LT.0) GOTO 4
+      NCHR=IUCOMP(IDOLLR,WKSP,80)-1
+      IF(NCHR.LE.0) NCHR=80
+      GOTO 5
+C----
+C     NCHR NEGATIVE FOR CASES WHERE TEXT STRING CAN BE LESS THAN 80
+C     BUT WE STILL NEED TO REMOVE TRAILING BLANKS
+C----
+    4 NCHR=-NCHR
+C----
+C     REMOVE TRAILING BLANKS
+C----
+    5 IF(IWKSP(NCHR).NE.IBLNK) GOTO 50
+      NCHR=NCHR-1
+      IF(NCHR.GT.0) GOTO 5
+      GOTO 999
+C----
+C     TEST IF TEXT IS TO BE CENTRED/MOVED
+C----
+   50 S=TVSIZ(KTYP)
+      IF(LSOFT)GO TO 100
+      CHARNO=FLOAT(NCHR)
+      IF(KFLG.EQ.1) GOTO 80
+      IF(.NOT.LSOFT)GO TO (80,60,65),KFLG
+C----
+C     FIND NUMBER OF PRINTABLE CHARACTERS I.E. DO NOT COUNT SOFTWARE
+C     CONTROL CHARACTERS
+C-----------------------------------------------------------------------
+      IF(KFLG.EQ.3) GOTO 65
+C----
+C     CENTRE TEXT
+C----
+   60 OFSET=0.5*CHARNO*S
+      GOTO 70
+C-----
+C     TEXT IS TO END AT X,Y
+C-----
+   65 OFSET=CHARNO*S
+C----
+C     ADJUST XK OR YK DEPENDING ON THE ORIENTATION
+C----
+   70 GOTO (71,72,73,74),KORNT
+   71 X=X-OFSET
+      GOTO 80
+   72 Y=Y-OFSET
+      GOTO 80
+   73 X=X+OFSET
+      GOTO 80
+   74 Y=Y+OFSET
+   80 GOTO (82,81,81,81,81,82,82,82,81),KTYP
+   81 CALL HPLK(KTYP,X,Y,CHARNO)
+   82 I=10.*TVSIZ(KTYP)
+       IF(I.LT.2) CALL TVSET(5HMIN  )
+      IF(I.EQ.2) CALL TVSET(5HSMALL)
+      IF(I.GT.2) CALL TVSET(6HMEDIUM)
+      GOTO (84,85,84,85),KORNT
+   84 CALL TVSET(5HRIGHT)
+      GOTO 86
+  85  CALL TVSET(5HUP   )
+C-----
+C     GD3 CONVENTION IS TO GIVE MIDDLE OF FIRST CHARACTER
+C     (FOR HARDWARE CHARACTERS ONLY,NOT SOFTWARE CHARACTERS)
+C     HPLOT CONVENTION IS TO GIVE BOTTOM LEFT HAND CORNER OF 1ST
+C     CHARACTER
+C-----
+  86  YSAVE(1)=S
+      YSAVE(2)=90.*(KORNT-1)
+      CALL TVTEXT(X,Y,ITXT,NCHR,S)
+      GOTO 999
+C----
+C     H E R S H E Y   S O F T W A R E   C H A R A C T E R S
+C     INSERT DOLLAR AS CHARACTER STRING TERMINATOR
+C----
+  100 I=NCHR+1
+      IWKSP(I)=IDOLLR
+C----
+C     BUNCH WKSP BACK ON ITSELF
+C----
+      CALL UBUNCH(WKSP,WKSP,I)
+      ANGLE=90.0*FLOAT(KORNT-1)
+C
+C             HERSHEY SOFTWARE CHARACTERS
+C
+      SMAX=99999.
+      IF(KTYP.EQ.2)SMAX=XBOXH-XBOXL
+      IF(KTYP.EQ.3)SMAX=XHIGH-XLOW
+      CALL HPLSOF(X,Y,WKSP,S,ANGLE,SMAX,KFLG-2)
+C
+  999 RETURN
+      END

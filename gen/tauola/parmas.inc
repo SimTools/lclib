@@ -1,0 +1,7 @@
+      COMMON / PARMAS / AMTAU,AMNUTA,AMEL,AMNUE,AMMU,AMNUMU
+     .                 ,AMPIZ,AMPI,AMRO,GAMRO,AMA1,GAMA1
+     .                 ,AMK,AMKZ,AMKST,GAMKST
+C--
+      REAL*4            AMTAU,AMNUTA,AMEL,AMNUE,AMMU,AMNUMU
+     .                 ,AMPIZ,AMPI,AMRO,GAMRO,AMA1,GAMA1
+     .                 ,AMK,AMKZ,AMKST,GAMKST

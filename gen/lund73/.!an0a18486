@@ -1,0 +1,7 @@
+94/12/05  K.Fujii 
+------------------
+This directory contains common blocks used in 
+the describe file: dslhad.
+The common blocks are symbolic linked to those in
+  /proj/phys/TOPAZ/94a/genlib/include/
+and are not modifiable.

@@ -1,0 +1,83 @@
+C***********************************************************************
+C* 
+C*=============------=======
+C*    FUNCTION UCHIIN(Q,N)
+C*=============------=======
+C* 
+C* (Description)
+C*    THIS ROUTINE COMPUTES THE INVERSE OF THE DISTRIBUTION FUNCTION
+C*    OF THE CHI 2 DISTRIBUTION WITH N DEGREES OF FREEDOM
+C*     Q=PROBABILITY AT WHICH THE FUNCTION IS INVERTED
+C*     N=INTEGER GREATER THAN ZERO
+C*    THE ROUTINE WAS WRITTEN BY R.B.GOLDSTEIN C.A.C.M. ALGORITHM 451
+C* (Relation)
+C*    Calls UGAUIN.
+C* (Update Record)
+C*     H. KICHIMI    JULY, 1987
+C*                   COPIED FROM CERNLIN ( GEN(CHISIN) )
+C*                   THROUGH MIUJUL85.CERNLIB.CNTL(GEN1)
+C* 
+C***********************************************************************
+C  
+C     FUNCTION CHISIN(Q,N)
+      FUNCTION UCHIIN(Q,N)
+      DIMENSION C(21),A(19)
+      DATA C(1)/1.565326E-3/,C(2)/1.060438E-3/,C(3)/-6.950356E-3/,
+     1C(4)/-1.323293E-2/,C(5)/2.277679E-2/,C(6)/-8.986007E-3/,C(7)/
+     2-1.513904E-2/,C(8)/2.530010E-3/,C(9)/-1.450117E-3/,C(10)/
+     35.169654E-3/,C(11)/-1.153761E-2/,C(12)/1.128186E-2/,C(13)/
+     42.607083E-2/,C(14)/-0.2237368/,C(15)/9.780499E-5/,C(16)/
+     5-8.426812E-4/,C(17)/3.125580E-3/,C(18)/-8.553069E-3/,C(19)/
+     61.348028E-4/,C(20)/0.4713941/,C(21)/1.0000886/
+      DATA A(1)/1.264616E-2/,A(2)/-1.425296E-2/,A(3)/
+     11.400483E-2/,A(4)/-5.886090E-3/,A(5)/-1.091214E-2/,A(6)/
+     2-2.304527E-2/,A(7)/3.135411E-3/,A(8)/-2.728484E-4/,A(9)/
+     3-9.699681E-3/,A(10)/1.316872E-2/,A(11)/2.618914E-2/,A(12)/
+     4-0.22222222/,A(13)/5.406674E-5/,A(14)/3.483789E-5/,A(15)/
+     5-7.274761E-4/,A(16)/3.292181E-3/,A(17)/-8.729713E-3/,A(18)/
+     60.4714045/,A(19)/1./
+C     CHISIN=0.
+      UCHIIN=0.
+      IF(Q.EQ.0.) RETURN
+      IF(Q.LT.0. .OR. Q.GE.1.) GO TO 60
+      IF(N.LT.1) GO TO 70
+      P=1.-Q
+      IF(N-2)10,20,30
+C  10 UCHIIN=GAUSIN(0.5*P)
+   10 UCHIIN=UGAUIN(0.5*P)
+C     CHISIN=CHISIN*CHISIN
+      UCHIIN=UCHIIN*UCHIIN
+      RETURN
+C  20 CHISIN=-2.*ALOG(P)
+   20 UCHIIN=-2.*ALOG(P)
+      RETURN
+   30 F=N
+      F1=1./F
+C     T=GAUSIN(Q)
+      T=UGAUIN(Q)
+      F2=SQRT(F1)*T
+      IF(N.GE.(2+INT(4.*ABS(T)))) GO TO 40
+C     CHISIN=(((((((C(1)*F2+C(2))*F2+C(3))*F2+C(4))*F2+C(5))*F2+C(6))*F2
+      UCHIIN=(((((((C(1)*F2+C(2))*F2+C(3))*F2+C(4))*F2+C(5))*F2+C(6))*F2
+     1+C(7))*F1+((((((C(8)+C(9)*F2)*F2+C(10))*F2+C(11))*F2+C(12))*F2+C(1
+     23))*F2+C(14)))*F1+(((((C(15)*F2+C(16))*F2+C(17))*F2+C(18))*F2+C(19
+     3))*F2+C(20))*F2+C(21)
+      GO TO 50
+   40 CONTINUE
+C     CHISIN=(((A(1)+A(2)*F2)*F1+(((A(3)+A(4)*F2)*F2+A(5))*F2+A(6)))*F1
+      UCHIIN=(((A(1)+A(2)*F2)*F1+(((A(3)+A(4)*F2)*F2+A(5))*F2+A(6)))*F1
+     1+(((((A(7)+A(8)*F2)*F2+A(9))*F2+A(10))*F2+A(11))*F2+A(12)))*F1+(((
+     2((A(13)*F2+A(14))*F2+A(15))*F2+A(16))*F2+A(17))*F2*F2+A(18))*F2+A(
+     319)
+C  50 CHISIN=CHISIN*CHISIN*CHISIN*F
+   50 UCHIIN=UCHIIN*UCHIIN*UCHIIN*F
+      RETURN
+   60 PRINT 80,Q
+      STOP
+   70 PRINT 90,N
+      STOP
+C  80 FORMAT(/10X,11HARGUMENT Q=,E15.5,17HIN CHISIN ILLEGAL/)
+   80 FORMAT(/10X,11HARGUMENT Q=,E15.5,17HIN UCHIIN ILLEGAL/)
+C  90 FORMAT(/10X,20HDEGREE OF FREEDOM N=,I5,17HIN CHISIN ILLEGAL/)
+   90 FORMAT(/10X,20HDEGREE OF FREEDOM N=,I5,17HIN UCHIIN ILLEGAL/)
+      END

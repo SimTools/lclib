@@ -1,0 +1,57 @@
+C****************************************
+C*
+C*  Calls HBOOK routine with HPAK calling sequence.
+C*
+C****************************************
+
+      SUBROUTINE HINIT(NHSIZE)
+      INTEGER*4 NHSIZE
+      CALL HLIMIT(NHSIZE)
+      RETURN
+      END
+C
+      SUBROUTINE HDEF1(ID,MODE,NBIN,XMIN,XSTEP,TITLE)
+      INTEGER*4     NBIN
+      REAL*4        XMIN, XSTEP
+      CHARACTER*(*) MODE, TITLE
+      XMAX = FLOAT(NBIN)*XSTEP + XMIN
+      CALL HBOOK1(ID,TITLE,NBIN,XMIN,XMAX,0.)
+      RETURN
+      END
+C
+      SUBROUTINE HDEF2(ID,MODE,NXBIN,NYBIN,XMIN,YMIN,XSTEP,YSTEP,TITLE)
+      INTEGER*4     NXBIN,NYBIN
+      REAL*4        XMIN, YMIN, XSTEP, YSTEP
+      CHARACTER*(*) MODE, TITLE
+      XMAX = FLOAT(NXBIN)*XSTEP + XMIN
+      YMAX = FLOAT(NYBIN)*YSTEP + YMIN
+      CALL HBOOK2(ID,TITLE,NXBIN,XMIN,XMAX,NYBIN,YMIN,YMAX,0.)
+      RETURN
+      END
+C
+      SUBROUTINE HCUM1(ID, X, W)
+      INTEGER*4 ID
+      REAL*4    X,W
+      CALL HFILL(ID,X,0.,W)
+      RETURN
+      END
+C
+      SUBROUTINE HCUM2(ID, X, Y, W)
+      INTEGER*4 ID
+      REAL*4    X,Y,W
+      CALL HFILL(ID,X,Y,W)
+      RETURN
+      END
+C
+      SUBROUTINE DOPT(OPTION, IVAL)
+      CHARACTER*(*) OPTION
+      INTEGER*4     IVAL
+      RETURN
+      END
+C
+      SUBROUTINE HOPTN(OPTION, IVAL)
+      CHARACTER*(*) OPTION
+      INTEGER*4     IVAL
+      RETURN
+      END
+

@@ -1,0 +1,42 @@
+#!/bin/sh
+#------------
+#  findfunc
+#------------
+#
+# (Function)
+#     searches for a function in libraries.
+# (Usage)
+#     findfunc <function name> <directory containing lib*>
+# (Upadate Record)
+#    97/07/27	K.Fujii		Original version.
+#
+#--
+#  Check arguments.
+#--
+if [ ! $# -eq 2 ]; then
+	echo "Usage:"
+	echo "  findfunc <function name> <directory containing lib*>"
+	exit 0
+elif [ ! -d $2 ]; then
+	echo "$1 is not a directory"
+	exit 0
+else
+#--
+#  Now do the search.
+#--
+	cd $2
+	echo "Entering $2 and look for $1"
+	liblist=`ls lib*`
+	for lib in $liblist; do
+		result=`nm $lib | grep $1`
+		if [ x"$result" != x ]; then
+			echo "$lib:"
+			nm $lib | grep $1
+		fi
+	done
+fi
+#--
+#  That's it.
+#--
+echo "(END)"
+exit 0

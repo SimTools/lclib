@@ -1,0 +1,23 @@
+#! /bin/csh -v
+# ********************************************************
+# 
+#  Convert files from KEKTR written under TOPAZ convension
+#  into the format suitable for use on SUN WS.
+#
+#  Mar-22, 1994  Original version coded by A.Miyamoto
+#
+# ********************************************************
+#
+
+set direct="T#SM.TBS.FORT"
+
+cd $direct
+set flist=`ls`
+
+foreach file ($flist)
+set newname=`echo $file | ../chname `
+../f2unix -o $newname $file 
+rm $file
+end
+
+exit

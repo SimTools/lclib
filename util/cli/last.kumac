@@ -1,0 +1,14 @@
+*** Begin of history file: Wed Jul 23 13:50:13 1997
+histo/file 1 ~/temp/paw/p3s350p-1.hbook
+ldir
+hi/pl 30
+zon 2 2
+hi/pl 30
+hi/pl 31
+hi/pl 223
+hi/pro 223
+ldir
+sigma x = sin(array(100,0#2*pi))
+v/draw x
+exit
+*** End   of history file: Wed Jul 23 13:52:11 1997

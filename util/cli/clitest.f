@@ -1,0 +1,25 @@
+C   12/11/86 907261450  MEMBER NAME  CLITEST  (FORT)     M  FORTRAN
+C
+C TEST PROGRAM FOR CLI COMMAND LINE INTERPRETER
+C
+       CHARACTER * 80 LINE
+C
+       LOGICAL  L, QOPEN
+       CHARACTER * 64  DSNAME, DSN
+       DATA DSNAME / 'T@WK.DST001.*' /
+       REAL * 8  F / 1.2D3 /
+       INTEGER * 4  CLILVL
+       CHARACTER * 16  C
+C
+C      CALL TVLOC( 23,0 )
+C      CALL OPNRD('TESTDATA.COM')
+       I = 0
+100    CALL TXTRD('?CLI> ',DSNAME )
+       I = I + 1
+C       PRINT *, I, ': ', DSNAME
+       WRITE(6,*) I,': ',DSNAME
+       GOTO 100
+C       L = QOPEN( 'DATASET> ',1,DSNAME,'R','F','OLD' )
+C      PRINT *, L
+C      GOTO 1
+       END

@@ -1,0 +1,6 @@
+      INTEGER FUNCTION GETCWD_(DSN,LDSN)
+      CHARACTER*(*) DSN
+      INTEGER*4     LDSN
+      GETCWD_ = GETCWD(DSN,LDSN)
+      RETURN
+      END

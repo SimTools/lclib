@@ -1,0 +1,16 @@
+
+LIB	 = libHELASCHKV204.a
+
+OBJL  =  helas_check.o 
+
+FFLAGS = -K -O +ppu -c
+
+
+all : $(OBJL)
+	 @echo "Compiling"
+	 @rm -f $(LIB)
+	 @ar -cr $(LIB) $(OBJL)
+	 @echo "Update library"	
+	 @rm *.o
+	 @echo "End of cleanup"
+

@@ -1,0 +1,10 @@
+      SUBROUTINE DATE(HIZUKE)
+      CHARACTER*8 HIZUKE
+      INTEGER*4   N, TIME, TA(9)
+
+      N = TIME()
+      CALL LTIME(N, TA)
+      WRITE(HIZUKE,110) TA(6), TA(5)+1, TA(4)
+ 110  FORMAT(I2.2,'-',I2.2,'-',I2.2)
+      RETURN
+      END

@@ -1,0 +1,93 @@
+C***********************************************************************
+C* 
+C*===========------=====
+C*  Function UGAUIN(P)
+C*===========------=====
+C* 
+C* (Description)
+C*   THIS ROUTINE COMPUTES THE INVERSE OF THE DISTRIBUTION
+C*   FUNCTION OF THE STANDARD NORMAL DISTRIBUTION.
+C*    THE ROUTINE WAS WRITTEN BY S.W. CUNNINGHAM
+C*    APPLIED STATISTICS ALGORITHM AS 24
+C*   AT LEAST 9 SIGNIFICANT FIGURES ARE CORRECT.
+C* (Relation)
+C*   Calls no subroutine.
+C* (Update Record)
+C*      H. KICHIMI      JULY, 1987
+C*                     COPIED FROM CERNLIB( GEN(GAUSIN) )
+C*                     BY MIUJUL85.CERNLIB.CNTL(GEN1)
+C* 
+C***********************************************************************
+C  
+C     FUNCTION GAUSIN(P)
+      FUNCTION UGAUIN(P)
+      DIMENSION A(5),CONNOR(17),HSINGS(6)
+      DATA RTHFPI,RRT2PI,TERMIN/1.2533141373,0.3989422804,1.E-11/
+      DATA CONNOR
+     1/8.0327350124E-17,1.4483264644E-15,2.4668270103E-14,
+     23.9554295164E-13,5.9477940136E-12,8.3507027951E-11,
+     31.0892221037E-9,1.3122532964E-8,1.4503852223E-7,
+     41.4589169001E-6,1.3227513228E-5,1.0683760684E-4,
+     57.5757575758E-4,4.6296296296E-3,2.3809523810E-2,
+     60.1,0.333333333333/
+      DATA HSINGS
+     1/2.515517,0.802853,0.010328,1.432788,0.189269,0.001308/
+      IF(P .LE. 0. .OR. P .GE. 1.) GO TO 8
+C    GET FIRST APPROXIMATION BY HASTINGS FORMULA
+      B=P
+      IF(B .GT. 0.5) B=1.-B
+      F=-ALOG(B)
+      E=SQRT(F+F)
+      XO=-E+((HSINGS(3)*E+HSINGS(2))*E+HSINGS(1))/(((HSINGS(6)*E+HSINGS
+     1(5))*E+HSINGS(4))*E+1.)
+      IF(XO .LT. 0.) GO TO 1
+      XO=0.
+      PO=0.5
+      X1=-RTHFPI
+      GO TO 7
+C    FIND THE AREA CORRESPONDING TO X0
+    1 Y=XO*XO
+      IF(XO .LE. -1.9) GO TO 3
+      Y=-0.5*Y
+C    SERIES APPROXIMATION
+      PO=CONNOR(1)
+      DO 2 L=2,17
+    2 PO=PO*Y+CONNOR(L)
+      PO=(PO*Y+1.)*XO
+      X1=-(PO+RTHFPI)*EXP(-Y)
+      PO=PO*RRT2PI+0.5
+      GO TO 7
+C    CONTINUED FRACTION APPROXIMATION
+    3 Z=1./Y
+      A(2)=1.
+      A(3)=1.
+      A(4)=Z+1.
+      A(5)=1.
+      W=2.
+    4 CONTINUE
+      DO 6 L=1,3,2
+      DO 5 J=1,2
+      K=L+J
+      KA=7-K
+    5 A(K)=A(KA)+A(K)*W*Z
+    6 W=W+1.
+      APPRXU=A(2)/A(3)
+      APPRXL=A(5)/A(4)
+      C=APPRXU-APPRXL
+      IF(C .GE. TERMIN) GO TO 4
+      X1=APPRXL/XO
+      PO=-X1*RRT2PI*EXP(-0.5*Y)
+C    GET ACCURATE VALUE BY TAYLOR EXPANSION
+    7 D=F+ALOG(PO)
+      X2=XO*X1*X1-X1
+      X3=(X1*X1+2.*XO*X2)*X1-X2
+      X=((X3/3.*D+X2)*D*0.5+X1)*D+XO
+      IF(P .GT. 0.5) X=-X
+C     GAUSIN=X
+      UGAUIN=X
+      RETURN
+    8 PRINT 9, P
+      STOP
+C   9 FORMAT(/10X,11HARGUMENT P=,E15.5,17HIN GAUSIN ILLEGAL/)
+    9 FORMAT(/10X,11HARGUMENT P=,E15.5,17HIN UGAUIN ILLEGAL/)
+      END

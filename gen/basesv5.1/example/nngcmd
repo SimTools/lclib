@@ -1,0 +1,195 @@
+#!/bin/csh
+# **********************************************************
+#
+#  Example of script for event generation using BASES V5.1
+#
+#  Coded by A.Miyamoto   19-Oct-1994
+#
+# *********************************************************
+#
+
+set dir=/proj/phys/lclib/pro/gen/basesv5.1/example
+set program=$dir/nng.ex
+
+
+#
+# ==============================================================
+# ==============================================================
+# First run: Do BASES, then SPRING and event generation.
+# ==============================================================
+# ==============================================================
+#
+$program << eof 
+@!                                                                      
+@!*************************************************                     
+@! Input section for Steering part.                                     
+@!*************************************************                     
+@!                                                                      
+STEERING                                                                
+   EVENT GEN(20)     ! Number of event is just a dummy.
+   STEERING DEBUG(3)  ! Standard debug level.
+   OUTFILE FILE(nng.data.example1)   ! Output file for BASES data
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Input section for Spring part.                                       
+@!*************************************************                     
+@!                                                                      
+BASES
+  HELP    !  for PRINT command help
+  GETB 0  !  Do BASES
+  PUTB 1  !  BASES results are written to the bank.
+  DOSP 1  !  Does not Run spring. 
+EXIT                                                                 
+@!
+@!                                                                      
+@!                                                                      
+@!*************************************************                     
+@! Input section for Lund hadronizer. (LUND63)         
+@!*************************************************                     
+@!                                                                      
+LUND_FRAG                                                               
+@! PAR 12 0.355       ! sigmaq --                                   
+@!  310.361           ! a       ! fragmentation parameters tuned using  
+@!  32 0.914          ! b      --       EXP4 hadronic events           
+@! E 21 0.378         ! lambda -- Lambda for LLA tuned using EXP4 evts 
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Swimmer                                                              
+@!*************************************************                     
+@!                                                                      
+Swimmer:                                                                
+@/proj/phys/lclib/pro/simjlc/param/swimer4.com  ! Standard swimer parameters.
+0                             ! End of input                          
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Smearing parameters.                                                 
+@!*************************************************                     
+@!                                                                      
+Smearing:                                                               
+@/proj/phys/lclib/pro/simjlc/param/detect4.com ! Standard swimer parameters
+0                             ! End of input                          
+EXIT                                                                    
+@
+@!                                                                      
+@!*************************************************                     
+@! Start execution.                                                     
+@!*************************************************                     
+@!                                                                      
+GO                                                                      
+eof
+
+#
+# ==============================================================
+# ==============================================================
+# Second process: Do only BASES, and save results as a TBS file.
+# ==============================================================
+# ==============================================================
+#
+$program << eof 
+@!                                                                      
+@!*************************************************                     
+@! Input section for Steering part.                                     
+@!*************************************************                     
+@!                                                                      
+STEERING                                                                
+   EVENT GEN(100)     ! Number of event is just a dummy.
+   STEERING DEBUG(3)  ! Standard debug level.
+   OUTFILE FILE(nng.bases)   ! Output file for BASES data
+   ANAL  SEQ(BASES)   ! Select only BASES module.
+*  ANAL  SEQ(SPRING LUND_Frag GENE_LIST SWIMMER SMEARING)
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Input section for Spring part.                                       
+@!*************************************************                     
+@!                                                                      
+BASES
+  HELP    !  for PRINT command help
+  GETB 0  !  Do BASES
+  PUTB 1  !  BASES results are written to the bank.
+  DOSP 0  !  Does not Run spring. 
+EXIT                                                                 
+@!
+@!                                                                      
+@!*************************************************                     
+@! Start execution.                                                     
+@!*************************************************                     
+@!                                                                      
+GO                                                                      
+eof
+
+#
+# ==============================================================
+# ==============================================================
+# Last process: Read BASES data in TBS format, then run SPRING
+# ==============================================================
+# ==============================================================
+#
+$program << eof 
+@!                                                                      
+@!*************************************************                     
+@! Input section for Steering part.                                     
+@!*************************************************                     
+@!                                                                      
+STEERING                                                                
+   EVENT GEN(20)     ! Number of event is just a dummy.
+   INPUT FILE(nng.bases) ! Input BASES data with TBS format.
+   STEERING DEBUG(3)  ! Standard debug level.
+   OUTFILE FILE(nng.data.example2)   ! Output file 
+*  ANAL  SEQ(SPRING LUND_Frag GENE_LIST SWIMMER SMEARING)
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Input section for Spring part.                                       
+@!*************************************************                     
+@!                                                                      
+BASES
+  HELP    !  for PRINT command help
+  GETB 1  !  Get BASES data
+  PUTB 0  !  BASES results are not written to the bank.
+  DOSP 1  !  Does  spring. 
+EXIT                                                                 
+@!                                                                      
+@!                                                                      
+@!*************************************************                     
+@! Input section for Lund hadronizer. (LUND63)         
+@!*************************************************                     
+@!                                                                      
+LUND_FRAG                                                               
+@! PAR 12 0.355       ! sigmaq --                                   
+@!  310.361           ! a       ! fragmentation parameters tuned using  
+@!  32 0.914          ! b      --       EXP4 hadronic events           
+@! E 21 0.378         ! lambda -- Lambda for LLA tuned using EXP4 evts 
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Swimmer                                                              
+@!*************************************************                     
+@!                                                                      
+Swimmer:                                                                
+@/proj/phys/lclib/pro/simjlc/param/swimer4.com ! Standard swimer parameters.
+0                             ! End of input                          
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Smearing parameters.                                                 
+@!*************************************************                     
+@!                                                                      
+Smearing:                                                               
+@/proj/phys/lclib/pro/simjlc/param/detect4.com ! Standard swimer parameters
+0                             ! End of input                          
+EXIT                                                                    
+@!                                                      
+@!                                                                      
+@!*************************************************                     
+@! Start execution.                                                     
+@!*************************************************                     
+@!                                                                      
+GO                                                                      
+eof
+
+echo "nngcmd shell was completed."
+	

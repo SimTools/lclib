@@ -1,0 +1,62 @@
+C**********************************************************************
+C*
+C*  Source file :/vhe/jlcux2/proj/phys/TOPAZ/genlib/genlib/EPROBX.f
+C*  Library     :/vhe/jlcux2/proj/phys/TOPAZ/lib/libGEN.a
+C*
+C**********************************************************************
+C*
+C*  -----------------------------=====
+C*   SUBROUTINE  EPROBX(X, NTYP, XBEAM)
+C*  -----------------------------=====
+C*(Function)
+C*   Generate Beam energy
+C*   E at the collision = Ebeam*Xbeam
+C*
+C*(Input)
+C*   X  : Integral variable, 0 < X < 1
+C*   NTYP  : 1 = Ebeam = 250GeV
+C*           2 =       = 500GeV
+C*           3 =       = 750GeV
+C*          11 = Ebeam = 250GeV with 0.5% initial beam energy spread.
+C*          12 =       = 500GeV           (Gaussian)
+C*          13 =       = 750GeV
+C*          21 = Ebeam = 250GeV with 1%   initial beam energy spread.
+C*          22 =       = 500GeV           (Full width, Sqauare)
+C*          23 =       = 750GeV
+C*          31 = JLC-I Sband 150 GeV, 0.01% width
+C*          32 =       Cband   
+C*          33 =       Xband 
+C*          34 = JLC-I Sband 250 GeV, 0.01% width
+C*          35 =       Cband   
+C*          36 =       Xband 
+C*          41 = JLC-I Sband 150 GeV, 0.5% width
+C*          42 =       Cband   
+C*          43 =       Xband 
+C*          44 = JLC-I Sband 250 GeV, 0.5% width
+C*          45 =       Cband   
+C*          46 =       Xband 
+C*      here "width" means Half-width
+C*(Output)
+C*   EPROBX  : function to generate beam spectrum.
+C*             0 < EPROBX < 1.025 ( Corresponds to 5 sigma when
+C*                                  sigma is 0.5%.)
+C*(Required subroutine)
+C*   Sub. UDSRCH ; Do binary search of real*8 variable.
+C*
+C*(Author)
+C*   A. Miyamoto  16-Oct-1990  Original version.
+C*                11-Jun-1991  For JLC parameter on May 1991.
+C*                31-Jul-1991  Add an option, 1% square Ebeam spread
+C*                 6-Feb-1993  Add JLC-I parameters
+C*
+C**********************************************************************
+C*
+    
+This program is created by /users/miyamoto/beam/beam/SDIST/allsdist
+The input beam parameters file will be found in the same directory.
+
+Then, the files are compiled using the program,
+	/users/miyamoto/beam/beam/EPROBAL/allep
+
+
+

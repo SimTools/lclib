@@ -1,0 +1,151 @@
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+LCLIB = ..
+TBSDIR = $(LCLIB)/tbs/src
+
+SHRLIBFLAGS =
+EXTRADEFINES = -DTBSCHK
+
+TBSCHKOBJS = tbschk.o termlib.o
+F_OBJS =  tbaloc.o tbapdh.o tbapnd.o tbcblk.o tbccls.o \  @@\
+	tbcdef.o tbcdel.o tbcinf.o tbcini.o tbcopn.o tbcred.o \ @@\
+	tbcrte.o tbcwac.o tbcwrt.o tbcxgn.o tbcxop.o tbcxrd.o \ @@\
+	tbcxts.o tbcxvf.o tbcxwt.o tbdelb.o tbdele.o tbextd.o \ @@\
+	tbflnk.o tbget.o tbgeth.o tbinit.o \ @@\
+	tblbnm.o tblel0.o tblel1.o tblink.o tblist.o tblldt.o \ @@\
+	tbllnk.o tblnka.o tbloc.o tblspc.o tblsub.o tblsum.o \ @@\
+	tbluni.o tbmod.o tbmodh.o tbmpt.o tbnoel.o tbpass.o \ @@\
+	tbpick.o tbpikh.o tbput.o tbputh.o tbqbnk.o tbqewh.o \ @@\
+	tbqpt.o tbqrec.o tbread.o tbrnam.o tbrrec.o tbshar.o \ @@\
+	tbsize.o tbsqez.o tbstat.o tbuxin.o tbwarn.o tbwrit.o \ @@\
+	tbxasl.o tbxbdl.o tbxbex.o tbxcel.o tbxcha.o tbxcks.o \ @@\
+	tbxcrd.o tbxcrn.o tbxcti.o tbxdel.o tbxdex.o tbxeex.o \ @@\
+	tbxerr.o tbxfbk.o tbxfel.o tbxfrd.o tbxfsb.o tbxgab.o \ @@\
+	tbxini.o tbxint.o tbxitc.o tbxlen.o tbxr4u.o tbxr8u.o \ @@\
+	tbxred.o tbxsbk.o tbxsel.o tbxskp.o tbxspc.o tbxsrt.o \ @@\
+	tbxunx.o tbxvcv.o tbxvdt.o tbxvfb.o tbxvpt.o 
+
+
+UNIX_OBJS     = tbsetf.o tbshwf.o
+
+SUN_OBJS      = fd_to_fileno.o lun_to_fileno.o
+
+HP_OBJS	      = lun_to_fileno_hp.o lnblnk.o
+
+PPC_OBJS      = lun_to_fileno_ppc.o lnblnk.o
+
+AV_OBJS	      =
+
+ALPHA_OBJS    =
+
+C_OBJS	      = tb_buflib.o \ @@\
+	tbtcls.o tbtdsm.o tbtmnt.o tbtopn.o tbtred.o tbtwfh.o \ @@\
+ 	tbtwrt.o tbvopn.o tbvred.o tbsds_socketlib.o
+
+F_SRCS = $(patsubst %.o,$(TBSDIR)/%.F,$(F_OBJS))
+
+C_SRCS = $(patsubst %.o,$(TBSDIR)/%.c,$(C_OBJS))
+
+UNIX_SRCS = $(patsubst %.o,$(TBSDIR)/%.F,$(UNIX_OBJS))
+
+#ifdef HPArchitecture
+OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
+#endif
+#ifdef hitachiArchitecture
+OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) FNUM.o
+#endif
+#ifdef PPCArchitecture
+OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
+#endif
+
+#ifdef HPArchitecture
+INCPATH = -I/jlc/local/include -I../tbs/src
+LCHOME = /proj/phys/lclib/pro
+JLCLIB = /jlc/local/lib
+LDFLAG = -Wl,-L$(LCHOME)/lib -lFORTLIB \
+	-Wl,-L$(JLCLIB) -lncurses -lU77
+CFLAGS = -Ae -O $(INCPATH) -DTBSCHK
+#else
+INCPATH = -I../tbs/src
+LCHOME  = /proj/phys/lclib/pro
+LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lncurses
+#endif
+############################################
+
+all::	tbschk
+#if !defined(hitachiArchitecture)
+tbschk: $(OBJS)
+	$(FF) $(FFLAGS) $(OBJS) $(LDFLAG) -o tbschk
+
+$(F_OBJS): $(F_SRCS)
+	$(FF) -c $(FFLAGS) -o $*.o $(TBSDIR)/$*.F
+
+$(UNIX_OBJS): $(UNIX_SRCS)
+	$(FF) -c $(FFLAGS) -o $*.o $(TBSDIR)/$*.F
+	
+lun_to_fileno.o: $(TBSDIR)/lun_to_fileno.F
+	$(FF) -c $(FFLAGS) -o $*.o $(TBSDIR)/$*.F
+
+lun_to_fileno_hp.o: $(TBSDIR)/lun_to_fileno_hp.F
+	$(FF) -c $(FFLAGS) -o $*.o $(TBSDIR)/$*.F
+
+lnblnk.o: $(TBSDIR)/lnblnk.F
+	$(FF) -c $(FFLAGS) -o $*.o $(TBSDIR)/$*.F
+#else
+tbschk: $(OBJS)
+	$(FF) $(FFLAGS) $(OBJS) $(LDFLAG) -o tbschk
+
+$(F_OBJS): $(F_SRCS)
+	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
+	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
+	rm -f tmp.$*.f
+	mv tmp.$*.o $*.o
+
+$(UNIX_OBJS): $(UNIX_SRCS)
+	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
+	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
+	rm -f tmp.$*.f
+	mv tmp.$*.o $*.o
+	
+lun_to_fileno.o: $(TBSDIR)/lun_to_fileno.F
+	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
+	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
+	rm -f tmp.$*.f
+	mv tmp.$*.o $*.o
+
+lun_to_fileno_hp.o: $(TBSDIR)/lun_to_fileno_hp.F
+	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
+	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
+	rm -f tmp.$*.f
+	mv tmp.$*.o $*.o
+
+lnblnk.o: $(TBSDIR)/lnblnk.F
+	$(CPP) -P  $(CPPOPT) $(INCPATH) $(TBSDIR)/$*.F  >  tmp.$*.f
+	$(FF) -c $(F77OPTS) -o $*.o tmp.$*.f
+	rm -f tmp.$*.f
+	mv tmp.$*.o $*.o
+#endif
+$(C_OBJS): $(C_SRCS)
+	$(CC) -c $(CFLAGS) -o $*.o $(TBSDIR)/$*.c
+
+#if defined(PPCArchitecture) || defined(MachTenPPCArchitecture)
+lun_to_fileno_ppc.o: $(TBSDIR)/lun_to_fileno_ppc.c
+	$(CC) -c $(CFLAGS) -o $*.o $(TBSDIR)/$*.c
+#endif
+
+#if defined(SUNArchitecture)
+fd_to_fileno.o: $(TBSDIR)/fd_to_fileno.c
+	$(CC) -c $(CFLAGS) -o $*.o $(TBSDIR)/$*.c
+#endif
+
+############################################
+
+install:: tbschk
+	cp tbschk ../../bin/tbschk
+
+clean::
+	rm -f $(OBJS) *~ core
+
+cleanall:: clean
+	rm -f tbschk *.bak

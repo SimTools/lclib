@@ -1,0 +1,103 @@
+C   22/06/88 810261624  MEMBER NAME  TEST     (FORT)     M  FORTRAN
+C
+C  Select member in full-screen
+C
+      SUBROUTINE CLSMEM( DSNAME, MEMBER, NMAX, CHOICE )
+C
+      CHARACTER * 44  DSNAME
+      INTEGER   *  4  NMAX
+      CHARACTER *  8  MEMBER(*)
+      CHARACTER *  1  CHOICE(*)
+C
+      PARAMETER( MAXSIZ=100 )
+      CHARACTER * 2000  TVBUF
+      INTEGER   * 4  AID, CSRPOS(2), NFIELD
+      INTEGER   * 4  FLDPOS(2,MAXSIZ), LENGTH(MAXSIZ), MODIFY(MAXSIZ)
+      CHARACTER * 6  BUFFER(MAXSIZ)
+      CHARACTER * 78  LINES, GUIDE1, BLANKS, STRING
+C
+       include '_key_def.inc'
+C
+      DO 10 I = 1, NMAX
+        CHOICE(I) = '.'
+10    CONTINUE
+      IOFS = 0
+      CALL TVCLR
+      CALL TVPUTL( 'WCC',TVBUF,LTV )
+      WRITE( LINES,'(78A1)' ) ('-',I=1,78)
+      WRITE( BLANKS,'(78A1)' ) (' ',I=1,78)
+      CALL TVPUTL( 'PL',TVBUF,LTV,1,1,LINES )
+      CALL TVPUTL( 'PL',TVBUF,LTV,2,1,'DATASET =' )
+      CALL TVPUTL( 'PH',TVBUF,LTV,2,11,DSNAME )
+      WRITE( STRING,* ) NMAX
+      L = LENRD( STRING )
+      CALL TVPUTL( 'PL',TVBUF,LTV,2,65-L,'TOTAL' )
+      CALL TVPUTL( 'PH',TVBUF,LTV,2,71-L,STRING(:L) )
+      CALL TVPUTL( 'PL',TVBUF,LTV,2,72,'MEMBERS' )
+      CALL TVPUTL( 'PL',TVBUF,LTV,3,1,LINES )
+      CALL TVPUTL( 'PL',TVBUF,LTV,24,1,LINES )
+      CALL TVPUTL( 'PUT',TVBUF,LTV )
+2000  CONTINUE
+      N = MIN( NMAX-IOFS,100 )
+      N1 = N / 5
+      N2 = N - N1 * 5
+      CALL TVPUTL( 'WCC',TVBUF,LTV )
+      DO 100 I = 0, N1-1
+        DO 110 J = 1, 5
+          K = I * 5 + J + IOFS
+          IX = (J-1)*15+1
+          IY = I+4
+          CALL TVPUTL( 'UH',TVBUF,LTV,IY,IX,CHOICE(K) )
+          CALL TVPUTL( 'PL',TVBUF,LTV,IY,IX+2,MEMBER(K) )
+110     CONTINUE
+100   CONTINUE
+      DO 120 J = 1, N2
+        K = N1 * 5 + J + IOFS
+        IX = (J-1)*15+1
+        IY = N1+4
+        CALL TVPUTL( 'UH',TVBUF,LTV,IY,IX,CHOICE(K) )
+        CALL TVPUTL( 'PL',TVBUF,LTV,IY,IX+2,MEMBER(K) )
+120   CONTINUE
+      IF( N2.GT.0 .AND. N2.LT.5 ) THEN
+        IX = N2*15+1
+        CALL TVPUTL( 'UL',TVBUF,LTV,IY,IX,BLANKS(:78-IX) )
+      END IF
+      DO 130 J = IY+1, 23
+        CALL TVPUTL( 'PL',TVBUF,LTV,J,1,BLANKS )
+130   CONTINUE
+      CALL TVPUTL( 'PUT',TVBUF,LTV )
+1000  CONTINUE
+      CALL TVLOC1( 4,2 )
+      CALL TVINPT( AID,CSRPOS,MAXSIZ,NFIELD,FLDPOS,LENGTH,BUFFER )
+      IF( NFIELD.GT.0 ) THEN
+        CALL TVPUTL( 'WCC',TVBUF,LTV )
+        DO 300 I = 1, NFIELD
+          IY = FLDPOS(1,I)
+          IX = FLDPOS(2,I)
+          K = (IX-1)/15+1+(IY-4)*5 + IOFS
+          IF( BUFFER(I)(1:1).EQ.'X' .OR. BUFFER(I)(1:1).EQ.'x' ) THEN
+            CHOICE(K) = '.'
+          ELSE
+            CHOICE(K) = 'S'
+          END IF
+          CALL TVPUTL( 'UH',TVBUF,LTV,IY,IX-1,CHOICE(K) )
+300     CONTINUE
+        CALL TVPUTL( 'PUT',TVBUF,LTV )
+      ELSE IF( AID.EQ.ENTER .OR. AID.EQ.PF8 ) THEN
+        IF( IOFS+100.LT.NMAX ) THEN
+          IOFS = IOFS+100
+          GOTO 2000
+        END IF
+        GOTO 1000
+      ELSE IF( AID.EQ.PF1 .OR. AID.EQ.PF7 ) THEN
+        IF( IOFS.GT.0 ) THEN
+          IOFS = MAX( IOFS-100,0 )
+          GOTO 2000
+        END IF
+        GOTO 1000
+      ELSE IF( AID.EQ.PF3 ) THEN
+        CALL TVCLR
+        RETURN
+      END IF
+      GOTO 1000
+      END

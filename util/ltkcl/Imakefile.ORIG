@@ -1,0 +1,55 @@
+#include "../../config/lclib.tmpl"
+
+INSTALLDIR = ../../lib
+
+LOCAL_LIB   =  libLTKCL.a
+OBJS = chkcls.o \
+		cmbblk.o \
+		cmbtrk.o \
+		fglcls.o \
+		gamtrk.o \
+		gtcdtk.o \
+		gtclid.o \
+		hadtrk.o \
+		hstcel.o \
+		inicls.o \
+		lpttrk.o \
+		prtcel.o \
+		prtcls.o \
+		rmvlpt.o \
+		ufclst.o \
+		usrtih.o
+LCLIB = ../..
+INCPATH = -I. \
+	  -I$(LCLIB)/util/lcfull/src \
+	  -I$(LCLIB)/simjlc/src \
+	  -I$(LCLIB)/util/fortlib/src 
+  
+LD = $(F77)
+all::	$(LOCAL_LIB) 
+
+$(LOCAL_LIB): $(OBJS)
+	rm -f $(LOCAL_LIB)
+	$(AR) rv  $(LOCAL_LIB) $(OBJS)
+	$(RANLIB) $(LOCAL_LIB)
+
+install:: $(LOCAL_LIB)
+	rm -f $(INSTALLDIR)/$(LOCAL_LIB)
+	cp -p $(LOCAL_LIB) $(INSTALLDIR)/$(LOCAL_LIB)
+
+clean::
+	rm -f *.o; rm -f *~
+
+cleanall::
+	rm -f *.o; rm -f *.a; rm -f *~
+
+cmbblk.o: cmbcut.inc
+fglcls.o: prjunk.inc
+gamtrk.o: prjunk.inc cmbcut.inc
+gtcdtk.o: prjunk.inc
+hadtrk.o: prjunk.inc cmbcut.inc
+hstcel.o: prjunk.inc
+lpttrk.o: prjunk.inc
+prtcel.o: prjunk.inc
+prtcls.o: prjunk.inc
+rmvlpt.o: prjunk.inc

@@ -1,0 +1,98 @@
+#!/bin/csh -f
+#
+# Convert upper case name of .f and .inc to lower case
+# .f is changed to .F
+#
+
+set fpref = ".f"
+set allconv = "no"
+
+foreach a ( $argv )
+  switch( $a )
+    case "-f":
+      set fpref = ".f" ; breaksw
+    case "-F":
+      set fpref = ".F" ; breaksw
+    case "-a":
+      set allconv = "yes" ; breaksw
+    case "help":
+    echo "rn_lclib  [options] "
+    echo 
+    echo "Function: Convert file name to lower case"
+    echo " Files with suffixes .f and .inc are converted."
+    echo 
+    echo "Options:"
+    echo "   -f  : suffix of .f file will be .f"
+    echo "   -F  : suffix of .f file will be .F (Default)"
+    echo "   -a  : change to lower case except Makefile, README, and Readme"
+    echo "   help : Print this message "
+    exit
+    breaksw
+  endsw
+  
+end
+
+
+foreach x (*)
+ switch( $x:e )
+   case f:
+     set fn = `echo $x:r | awk '{ s = tolower($0) ; print s }'`$fpref
+     if ( $x != $fn ) then
+       echo $x is renamed to $fn
+       mv $x $fn
+     endif
+     breaksw
+   case inc:
+     set fn = `echo $x | awk '{ s = tolower($0) ; print s }'`
+     if ( $x != $fn ) then
+       echo $x is renamed to $fn
+       mv $x $fn
+     endif
+     breaksw
+   default:
+     if ( $allconv == "yes" ) then
+       if ( $x != "Makefile" && $x != "README" && \
+	    $x != "Readme" && $x:e != "a" ) then
+         set fn = `echo $x | awk '{ s = tolower($0) ; print s }'`
+         if ( $x != $fn ) then
+           echo $x is renamed to $fn
+           mv $x $fn
+	 endif
+       endif
+     endif     
+ endsw
+end
+
+foreach x (*)
+ set nunds = `echo $x | grep -c "^_"`
+ if ( $nunds != 0 ) then
+   set nfn = `echo $x | sed -e 's/^_//'`
+   echo $x is renamed to $nfn
+   mv $x $nfn
+ endif
+end
+
+exit
+
+        
+
+# echo ABC | awk '{ s = tolower($0) ; print s }'
+#          h    Remove a trailing pathname component, leaving  the
+#               head.
+#          r    Remove a trailing suffix of the form `.xxx', leav-
+#               ing the basename.
+#          e    Remove all but the suffix.
+#          s/l/r[/]
+#               Substitute r for l.
+#          t    Remove all leading  pathname  components,  leaving
+#               the tail.
+#          &    Repeat the previous substitution.
+#          g    Apply the change to  the  first  occurrence  of  a
+#               match  in  each  word, by prefixing the above (for
+#               example, g&).
+#          p    Print the new command but do not execute it.
+#          q    Quote the substituted words, escaping further sub-
+#               stitutions.
+#          x    Like q, but break into words at each SPACE charac-
+#               ter, TAB or NEWLINE.
+ 

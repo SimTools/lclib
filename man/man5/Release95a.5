@@ -1,0 +1,182 @@
+.TH Release95a 5 "20 March 1995" "Release95a"
+.SH NAME
+Release95a \- Release note for lclib/95a
+.SH DESCRIPTION
+All files are converted from 94a.  Libraries have same subroutines
+with same functions ( except file I/O routines for TBS ),
+but aplied new organization rules.  lclib/95a are organized
+with the following rules.
+.RS
+.IP (1) 
+Use lower case for file names.
+.IP (2) 
+Use cpp ( C pre-processror ) for 
+.C #include 
+and conditional compiling.
+.C =EXPAND 
+to include files and remove function of build command, which 
+is used in 94a, are now supplied by cpp.  Note that 
+.C ==EXPAND 
+function availabe in the build command is not available any more.
+.IP (3) 
+Re-organized the directories under 95a.
+.RE
+.SH "UTILITY COMMANDS"
+To convert rograms written under 94a rules several commands are
+prepared.  They are in 95a/bin.  Their names and functions are as follows.
+.RS
+.TP 
+.IB rn_lclib
+Change file names of 
+.C .f 
+and 
+.C .inc 
+type to lower case. Under score prefix of 
+.C .inc 
+file is removed.
+.TP
+.IB exp2inc
+.C =EXPAND 
+statement is replaced with  
+.C #include 
+statement, the remove statements for the build command 
+with the statements for the conditional compiling.  
+.C ==EXPAND 
+is replced with 
+.C #include 
+file and 
+.C C= 
+lines in the EXPANDed file are appended below after removing 
+.C C=
+.  All 
+.C .f 
+files in the current directory are scanned
+and results are written with 
+.C .F 
+type.  Note that th original files are not deleted automatically.
+.TP 
+.IB .rn_include
+Rename file names in the INCLUDE statements of FORTRAN program.
+.PP
+.RE 0
+For more details about these command, please 
+put a directory, 
+.C /proj/phys/lclib/95a/man
+in your
+.C MANPATH
+and consult with man files in 
+95a. If you want to create a postscript file of man files
+for print out, do
+.RS
+.C groff -Tps -man 
+.IB
+man_file
+.C >
+.IB 
+man_file.ps
+.RE
+
+.SH cpp EXAMPLE
+cpp is executed automatically, when file type is 
+.C .F.
+Example to use cpp is as follows.
+Suppose we have a file, 
+.C calc.F, 
+whose content is as follows.
+
+c       test program
+.br
+#include "data.inc"
+         a = 1.
+         b = 2
+.br
+#ifdef ADATA
+         x = a
+.br
+#endif
+.br
+#ifdef BDATA
+         x = b
+.br
+#endif
+         print *,x
+         stop
+         end
+
+Then, 
+        f77 calc.F -DADATA -o calc 
+        calc
+.br
+will print
+.br
+        1.
+
+ On the otherhand,
+.br
+       f77 calc.F -DBDATA -o calc 
+        calc
+.br
+will print
+.br
+        2.
+
+Directory path for include file, say new/path for example, can be specified by
+
+        f77 calc.F -Inew/path -o calc
+
+For more details,  please refer to examples in 95a/examples.
+
+.SH DIRECTORIES
+Directory organization of 95a is as follows.
+.RS 
+.C 95a/doc  
+documentations.
+.br 
+.C 95a/lib
+Libraries ( libxxxx.a files )
+.br
+.C 95a/util
+Utilities specific for lclib routines.
+.br
+.C 95a/gen
+Generators and related utilities.
+.br
+.C 95a/bin
+Utility commands.
+.br
+.C 95a/examples
+Examples
+
+.SH CHANGES
+Main changes of lib files from 94a to 95a are as follows.
+.IP + 
+libGEN.a -> libGENUTIL.a
+.IP +
+libPROSTER.a, libMANAGER.a, libFULL.a -> merged to libLCFULL.a
+
+TBS is also changed.  The default disk I/O  format is to use program
+coded by C, though 94a uses FORTRAN read/write routine.
+This will improve the data compatibility among different
+vender machines. To read data written by old version program
+specify TYPE(FORT) in input command; For example,
+.br
+    input file(input.data) type(fort)
+.br
+
+
+.SH "See Also"
+rn_lclib(1), rn_include(1), exp2inc(1), lclib(5)
+
+.SH Files
+/proj/phys/lclib/95a/Release95a.ps
+
+.SH Author
+Akiya Miyamoto, Physics Department, KEK,
+E\-mail:miyamoto@kekux1.kek.jp
+
+
+       
+
+
+       
+

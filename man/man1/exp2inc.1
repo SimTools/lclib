@@ -1,0 +1,73 @@
+.TH EXP2INC 1 "20 March 1995" "EXP2INC"
+.SH NAME
+EXP2INC \- Modify FORTRAN statements using build command functions 
+to meet 95a standard.
+.SH SYNOPSIS
+.B exp2inc 
+.hy
+.SH DESCRIPTION
+This command is prepared to convert the statements for
+.I
+build
+command in the FORTRAN program to the format
+which can be processed using cpp command.
+Conversion rules are as follows.
+.RS
+.IP + 
+.C =EXPAND 'inc_file'
+are changed to 
+.C #include "inc_file".
+If a string inc_file 
+contains a character /, / and all charcters in front of it
+are removed.
+.IP +
+If first several columns of a line is for the
+remove command of build, like 
+.C CXXXXX, 
+a characters 
+.C CXXXXX
+are removed from the line and lines,
+.RS
+.RS
+.PP 
+.C #ifdef XXXXX
+and
+.C #endif XXXXX
+.RE
+.PP
+at before and after the line.
+.RE
+.IP +
+The statement 
+.C ==EXPAND 'inc_file' 
+is converted to the statement 
+.C #include "inc_file 
+and
+.C C= 
+lines in the 
+.C inc_file 
+are included below after
+.C C= 
+is replaced with blanks.
+.RE 0
+.PP
+All files with 
+.C .f 
+suffix in the current directory
+is processed and results are written after suffix is changed to 
+.C .F.
+Please do not forget to delete 
+.C .f 
+files before you compile the program.
+.SH FILES
+/proj/phys/lclib/95a/bin/exp2inc
+.TP
+/proj/phys/lclib/95a/man
+.SH "SEE ALSO"
+Release_Note(5)
+.SH AUTHORS
+Akiya Miyamoto, Physics Department, KEK.
+E\-mail:miyamoto@kekux1.kek.jp
+
+
+

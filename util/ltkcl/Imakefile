@@ -1,0 +1,50 @@
+#include "../../config/lclib.tmpl"
+
+INSTALLDIR = ../../lib
+
+OBJS = chkcls.o \
+		cmbblk.o \
+		cmbtrk.o \
+		fglcls.o \
+		gamtrk.o \
+		gtcdtk.o \
+		gtclid.o \
+		hadtrk.o \
+		hstcel.o \
+		inicls.o \
+		lpttrk.o \
+		prtcel.o \
+		prtcls.o \
+		rmvlpt.o \
+		ufclst.o \
+		usrtih.o
+LCLIB = ../..
+INCPATH = -I. \
+	  -I$(LCLIB)/util/lcfull/src \
+	  -I$(LCLIB)/simjlc/src \
+	  -I$(LCLIB)/util/fortlib/src 
+#ifndef DOSHRLIB
+LD = $(F77)
+#endif
+LIBNAME = LTKCL
+ALLOBJ = $(OBJS)
+
+#######################
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+InstallLibrary($(LIBNAME),$(INSTALLDIR))
+
+###
+cmbblk.o: cmbcut.inc
+fglcls.o: prjunk.inc
+gamtrk.o: prjunk.inc cmbcut.inc
+gtcdtk.o: prjunk.inc
+hadtrk.o: prjunk.inc cmbcut.inc
+hstcel.o: prjunk.inc
+lpttrk.o: prjunk.inc
+prtcel.o: prjunk.inc
+prtcls.o: prjunk.inc
+rmvlpt.o: prjunk.inc

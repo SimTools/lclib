@@ -1,0 +1,14 @@
+How to install
+
+(1) To install libFORTLIB.sl to the lclib standard directory, do
+	make install
+
+    This will compile source programs, create library and copy it
+    to the standard place.
+
+(2) To cleanup directory, do
+	make clean
+
+A.Miyamoto
+23-Aug-1996
+

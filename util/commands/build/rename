@@ -1,0 +1,9 @@
+#!/bin/sh
+list=`ls *.f *.F`
+for file in $list; do
+    typ=`echo $file | sed -e 's/.*\.\([fF]\)/\1/'`
+    new=`basename $file .$typ | tr [A-Z] [a-z]`.$typ
+    mv $file $new
+done
+exit 0
+

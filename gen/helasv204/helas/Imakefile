@@ -1,0 +1,27 @@
+#define LCLIB_TMPL "../../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+HOMEDIR = ../../..
+
+OBJS  =  boostx.o coup1x.o coup2x.o coup3x.o coup4x.o eaixxx.o \
+	 eaoxxx.o fsixxx.o fsoxxx.o fvixxx.o fvoxxx.o hioxxx.o \
+	 hsssxx.o hssxxx.o hvsxxx.o hvvsxx.o hvvxxx.o iosxxx.o \
+	 iovxxx.o ixxxxx.o j3xxxx.o jeexxx.o jioxxx.o jssxxx.o \
+	 jvssxx.o jvsxxx.o jvvxxx.o jw3wxx.o jwwwxx.o mom2cx.o \
+	 momntx.o oxxxxx.o rotxxx.o ssssxx.o sssxxx.o sxxxxx.o \
+	 vssxxx.o vvssxx.o vvsxxx.o vvvxxx.o vxxxxx.o w3w3xx.o \
+	 wwwwxx.o
+
+ALLOBJ  = $(OBJS) 
+
+LIBNAME	   = HELASV204
+INSTALLDIR = $(HOMEDIR)/lib
+
+
+#######################
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+InstallLibrary($(LIBNAME),$(INSTALLDIR))

@@ -1,0 +1,54 @@
+C   25/11/86 611251640  MEMBER NAME  CTEST    (FORT)     M  FORTRAN
+C
+      REAL * 8  R8
+      LOGICAL * 4  L4
+      CHARACTER * 64  CVAL,TVAL
+      CHARACTER * 1  TABLE(3)
+      DATA TABLE / '1','2','3' /
+      DATA NTABLE / 3 /
+C
+      CALL INTRD('INTRD',IVAL)
+      WRITE(6,*) IVAL
+      CALL INTRD('INTRD',IVAL,0,10)
+      WRITE(6,*) IVAL
+C     CALL OCTRD('OCTRD',IVAL)
+C     WRITE(6,*) IVAL
+C     CALL HEXRD('HEXRD',IVAL)
+C     WRITE(6,*) IVAL
+      CALL FLTRD('FLTRD',RVAL)
+      WRITE(6,*) RVAL
+      CALL FLTRD('FLTRD',RVAL,-1.0,1.0)
+      WRITE(6,*) RVAL
+C     CALL FDPRD('FDPRD',R8)
+C     WRITE(6,*) R8
+C     CALL LOGRD('LOGRD',L4)
+C     WRITE(6,*) L4
+      CALL TXTRD('TXTRD',CVAL)
+      WRITE(6,*) CVAL
+C     CALL TITRD('TITRD',TVAL)
+C     WRITE(6,*) TVAL
+      CALL KEYRD(1,'?Which Command',CVAL,TABLE,NTABLE,IT)
+      WRITE(6,*) IT
+      CALL FLARD(IFLG,IFCR)
+      WRITE(6,*) IFLG,IFCR
+      CALL FLGRD(IFLG,IFCR)
+      CALL LINRD(IFLG,IFCR)
+C     CALL LUNRD(1)
+      I = LENRD('THIS IS A TEST   ',LEN)
+      WRITE(6,*) I
+      CVAL = 'THIS IS A TEST.'
+      I = LKBRD(CVAL,0)
+      WRITE(6,*) I,CVAL
+C     I = INIRD('  3  ')
+C     WRITE(6,*) I
+C     CALL UPPER(CVAL,CVAL)
+C     CALL LOWER(CVAL,CVAL)
+C     CALL IOPEN()
+      CALL MSGER()
+      CALL MSGOUT()
+      CALL FILTYP()
+C      CALL DATIME()
+      CALL FILDAT()
+      CALL GETVER()
+      STOP
+      END

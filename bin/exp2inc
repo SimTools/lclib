@@ -1,0 +1,18 @@
+#!/bin/csh -f
+#
+# Convert fortran program using EXPAND statement to those using
+# #include statements
+#
+# Author : Ryosuke Itoh, Physics Division, KEK
+# Date : 12 - Dec - 1994
+#-
+foreach x (*.f)
+  set file=$x:r
+  set file=$file:t
+  set file=$file.F
+  awk -f /proj/phys/lclib/pro/bin/exp2inc.awk < $x > $file
+end
+#  awk -f /proj/phys/lclib/pro/bin/exp2inc.awk < flneru.f
+
+exit
+

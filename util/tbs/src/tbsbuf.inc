@@ -1,0 +1,6 @@
+      PARAMETER       (NSIZE = 1000)
+      PARAMETER       (MSIZE = 2000)
+      COMMON /TBSBUF/ IBUFF(NSIZE)
+      INTEGER*2       HBUFF(MSIZE)
+      REAL*4          RBUFF(NSIZE)
+      EQUIVALENCE     (IBUFF(1),HBUFF(1),RBUFF(1))

@@ -1,0 +1,20 @@
+#define LCLIB_TMPL "../../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+HOMEDIR = ../../..
+
+OBJS  =  helas_check.o
+
+ALLOBJ  = $(OBJS) 
+
+LIBNAME	   = HELASCHKV204
+INSTALLDIR = $(HOMEDIR)/lib
+
+
+#######################
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+InstallLibrary($(LIBNAME),$(INSTALLDIR))

@@ -1,0 +1,3 @@
+      COMMON /SWMRND/ ISEED
+      INTEGER*4       ISEED
+C=    DATA ISEED / 314159 /

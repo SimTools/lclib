@@ -1,0 +1,27 @@
+BUILD Command
+
+Syntax:
+  BUILD R(remove_string) OUTDD(output_ddn) EXP(expstring)
+	EEXP(e-exp_string) PROMPT(prompt)
+
+   remove_string :  If line start by Cremove_string, 
+	            Cremove_string is removed so that the line becomes
+	            non-commented line.
+   output_ddn : Output DD name where output is written
+   exp_string : =EXPAND string, which designate the files to be
+                expanded there.
+   e-exp_string : ==EXPAND string, which designate the files to be
+	          Extended-Expanded.
+
+       if first part of the columns equal to =EXPAND, the rest
+       is considered as the file name to be included there.
+	
+       if first par of the columns equal to ==EXPAND, the rest
+       is considered as the file name and included there,
+       If first two column is equal to "C=", is is replaced with "  "
+
+   prompt
+       if line contains the string like,
+	 x'...', where x=prompt
+       ask terminal to enter input.
+

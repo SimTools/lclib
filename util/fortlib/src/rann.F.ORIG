@@ -1,0 +1,47 @@
+CC*********************************************************************C
+C*                                                                     *
+C*=======================                                              *
+C* Function   RANN( ISEED)                                             *
+C*=======================                                              *
+C*  (Purpose)                                                          *
+C*     Function to generate normal random number with                  *
+C*       m      :  mean value = 0.0                                    *
+C*       sigma  :  s.d.       = 1.0.                                   *
+C*     Input ISEED is the seed for the randum variables.               *
+C*  (Relation)                                                         *
+C*     RAN is used to get uniform random numbers.                      *
+C*  (Author)                                                           *
+C*     A. Miyamoto            3-Dec-1984                               *
+C*                                                                     *
+CC**********************************************************************
+C  
+#ifdef  MSP
+        FUNCTION  RANN(ISEED)
+#endif
+#ifdef  SUN
+        FUNCTION  RANN(ISEED)
+#endif
+#ifdef  HIUXF77
+        FUNCTION  RANN(ISEED)
+#endif
+#ifdef  HP
+          FUNCTION  RANN_(ISEED)
+#endif
+C  
+#ifdef  MSP
+       RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
+#endif
+#ifdef  SUN
+       RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
+#endif
+#ifdef  HIUXF77
+       RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
+#endif
+#ifdef  HP
+        RANN_ = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
+#endif
+     >        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
+     >        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
+     >        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) - 6.0E0 )
+      RETURN
+      END

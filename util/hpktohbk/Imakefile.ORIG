@@ -1,0 +1,23 @@
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+HOMEDIR = ../..
+
+INCPATH =
+
+OBJL  = hpktohbk.o
+
+LIBNAME	      = HPKTOHBK
+
+INSTALLDIR = $(HOMEDIR)/lib
+
+ALLOBJ = $(OBJL) 
+
+#######################
+
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+
+install:: lib$(LIBNAME).a
+	rm -f $(INSTALLDIR)/lib$(LIBNAME).a
+	cp -p lib$(LIBNAME).a $(INSTALLDIR)/lib$(LIBNAME).a
+

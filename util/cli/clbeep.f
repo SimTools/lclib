@@ -1,0 +1,26 @@
+C   17/12/86 612172010  MEMBER NAME  CLBEEP   (FORT)     M  FORTRAN
+C+
+C (Entry  ) CLBEEP
+C (Purpose) Beep!
+C (Author ) A.Shirahashi, Univ. of Tokyo
+C (Date   ) 17-Dec-1986
+C-
+      SUBROUTINE CLBEEP
+C
+C VAR
+CMSP      CHARACTER * 1  STR
+CMSP      LOGICAL   * 1  LSTR
+CMSP      DATA LSTR / Z44 /
+CMSP      EQUIVALENCE( STR,LSTR )
+C
+C FUNC
+      LOGICAL * 4  IFTSS
+C
+C BEGIN
+      IF( .NOT.IFTSS() ) RETURN
+CMSP      CALL TPUT( STR,1,'F,W',IRET )
+CVMS
+      WRITE(6,'(1H$,A)') CHAR(7)
+CVMS
+      RETURN
+      END

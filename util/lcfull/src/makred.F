@@ -1,0 +1,113 @@
+C*******************************************************************
+C*
+C* ---------------------------=========================
+C*  Subroutine MAKRED(KEYLOK, KEYFND, NW, IBUF, NRET )
+C* ---------------------------========================
+C*(Function)
+C*  Look for file, whose first 16 character is KEYLOK.
+C*  and return its data.
+C*(Input)
+C*  KEYLOK : Search KEY.
+C*(Output)
+C*  KEYFND : Obtained KEY name.
+C*  NW     : Number of words in that record.
+C*  NRET   : < 0, when KEY is not found.
+C*(Author)
+C*  A. Miyamoto  10-June-1994
+C*
+C*******************************************************************
+C*
+      SUBROUTINE MAKRED(KEYLOK, KEYFND, NW, IBUF, NRET)
+C*
+      CHARACTER*(*) KEYLOK
+      CHARACTER*20 KEYFND
+      INTEGER*4    NW, IBUF(*), NRET
+      CHARACTER*20 KEYWRK
+      CHARACTER*200 FILNAM
+      CHARACTER*100 RNLDIR
+      CHARACTER*8   HOST
+      LOGICAL*4    EXIST
+      CHARACTER*20 INDSTR
+C
+      DATA NRPOS/0/
+      SAVE NRPOS
+C
+C
+C Fill blank with _
+C
+      KEYWRK=' '
+      KEYWRK=KEYLOK
+      LOK=LEN(KEYLOK)
+      DO 100 I = 1, 20
+         IF(KEYWRK(I:I).EQ.' ') KEYWRK(I:I)='_'
+         IF(KEYWRK(I:I).EQ.'.') KEYWRK(I:I)='/'
+ 100  CONTINUE
+C
+C  Search file in the index.
+C
+      IF(KEYWRK(1:1).NE.'_') NRPOS=0
+#ifdef  UNIX
+#ifndef HIUXF77
+      CALL GETENV('TOPAZ_RUNLIST_DIR',RNLDIR)
+#else
+      CALL GETENV('TOPAZ_RUNLIST_DIR',17,RNLDIR,100)
+#endif
+      IF( RNLDIR(1:3).EQ.'   ') THEN
+#ifdef  SUN
+        RNLDIR='/topaz2/toptape/TOPAZLIB/TOPAZDBS/'//
+     >          'RUNLIST/DBS'
+#endif
+#if defined(HP) || defined(HIUXF77) || defined(MACHTEN_PPC)
+        RNLDIR='/proj/phys/TOPAZ/94a/TOPAZDBS/'//
+     >          'RUNLIST/DBS'
+#endif
+      ENDIF
+#endif
+      IF( NRPOS .EQ. 0 ) THEN
+#ifdef  MSP
+          OPEN(89,FILE=FILNAM,STATUS='OLD')
+#endif
+#ifdef  UNIX
+         FILNAM = RNLDIR(:LNBLNK(RNLDIR))//'/INDEX'
+         OPEN(89,FILE=FILNAM,STATUS='OLD',IOSTAT=IOS)
+         IF( IOS.NE.0 ) THEN
+            PRINT *,'Error in MAKRED .. unable to open a file',
+     >               FILNAM(:LNBLNK(FILNAM))
+            PRINT *,'Set proper directory name in ',
+     >              ' TOPAZ_RUNLIST_DIR such as'
+            PRINT *,'setenv TOPAZ_RUNLIST_DIR ',
+     >    '/net/topaz2/toptape/TOPAZLIB/TOPAZDBS/RUNLIST/DBS'
+            STOP
+#endif
+#ifdef  UNIX
+      ENDIF
+#endif
+         ENDIF
+ 200  CONTINUE
+      INDSTR=' '
+      READ(89,'(A)',END=900) INDSTR
+      NRPOS=NRPOS+1
+      KEYFND=INDSTR
+      IF(KEYWRK(1:1).NE.'_'.AND.
+     >   KEYFND(:LOK).NE.KEYWRK(:LOK)) GO TO 200
+C
+      FILNAM=RNLDIR(:LNBLNK(RNLDIR))//'/'//KEYFND
+      CLOSE(89)
+      IU=57
+      OPEN(IU,FILE=FILNAM,FORM='UNFORMATTED')
+      READ(IU) NW,(IBUF(K),K=1,NW)
+      CLOSE(IU)
+      DO 400 I = 1, 20
+         IF(KEYFND(I:I).EQ.'_') KEYFND(I:I)=' '
+ 400  CONTINUE
+      RETURN
+ 
+ 900  CONTINUE
+      CLOSE(89)
+      NRET = -1
+      RETURN
+ 
+      END
+ 
+ 
+ 

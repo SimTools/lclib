@@ -1,0 +1,110 @@
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+OBJS = affirm.o ambrd.o cfargs.o clclos.o clopen.o chard.o clalia.o \
+       clatof.o clatoi.o clbeep.o clierr.o clmacr.o clpart.o clsmem.o \
+       clsubp.o clvtos.o clword.o echrd.o fdprd.o fltrd.o \
+       hexrd.o intrd.o iopen.o ispace.o keyrd.o ldsdsn.o \
+       lenrd.o  lkbrd.o \
+       logrd.o numrd.o printf.o qopen.o titrd.o tvclr.o \
+       tvmenu.o tvoins.o tvoptn.o tvpack.o tvslct.o tvwrtl.o txtrd.o \
+       miscunix.o
+
+COBJS = strupc.o
+
+LIBNAME	      = CLI
+INSTALLDIR = ../../lib
+
+ALLOBJ = $(OBJS) $(COBJS)
+
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+InstallLibrary($(LIBNAME),$(INSTALLDIR))
+
+affirm.o : affirm.f
+
+ambrd.o : ambrd.f
+
+cfargs.o : cfargs.F
+
+clclos.o : clclos.f
+
+clopen.o : clopen.F		# machine dependent
+
+chard.o : chard.F		# machine dependent
+
+clalia.o : clalia.f
+
+clatof.o : clatof.f
+
+clatoi.o : clatoi.f
+
+clbeep.o : clbeep.f
+
+clierr.o : clierr.f
+
+clmacr.o : clmacr.f
+
+clpart.o : clpart.f
+
+clsmem.o : clsmem.f
+
+clsubp.o : clsubp.f
+
+clvtos.o : clvtos.f
+
+clword.o : clword.f
+
+ctest.o : ctest.f
+
+echrd.o : echrd.f
+
+fdprd.o : fdprd.f           # machine dependent
+
+fltrd.o : fltrd.f           # machine dependent
+
+intrd.o : intrd.f           # machine dependent
+
+iopen.o : iopen.F		# machine dependent
+
+ispace.o : ispace.f
+
+keyrd.o : keyrd.f
+
+ldsdsn.o : ldsdsn.f
+
+lenrd.o : lenrd.f
+
+lkbrd.o : lkbrd.f
+
+logrd.o : logrd.f
+
+numrd.o : numrd.f
+
+printf.o : printf.f
+
+qopen.o : qopen.F		# machine dependent
+
+titrd.o : titrd.f
+
+tvclr.o : tvclr.F		# heavily machine dependent
+
+tvmenu.o : tvmenu.f
+
+tvoins.o : tvoins.f
+
+tvoptn.o : tvoptn.f
+
+tvpack.o : tvpack.f
+
+tvslct.o : tvslct.f
+
+tvwrtl.o : tvwrtl.f
+
+txtrd.o : txtrd.f
+
+strupc.o : strupc.c
+	cc $(CFLAGS) -c strupc.c

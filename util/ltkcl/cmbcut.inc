@@ -1,0 +1,5 @@
+      COMMON /CMBCUT/ ADXECT, ENSGEM, ENSGHD
+      REAL*4          ADXECT, ENSGEM, ENSGHD
+C=    DATA ADXECT /    20.0 /
+C=    DATA ENSGEM /     2.0 /
+C=    DATA ENSGHD /     2.0 /

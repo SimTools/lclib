@@ -1,0 +1,47 @@
+C   10/11/86 802161658  MEMBER NAME  CLCLOS   (FORT)     M  FORTRAN
+C
+C
+       SUBROUTINE CLCLOS( LUN,IERR )
+C
+C .... Close Command File for CLI
+C      by A.Shirahashi, 10-NOV-1986
+C
+C ARG
+       INTEGER LUN, IERR
+C
+C FUNC
+       LOGICAL * 4  IFTSS
+C
+C BEGIN
+       IERR = 0
+C%%    IF( IFTSS() ) THEN
+C%%      CALL CLFREE( LUN,IRET )
+C%%      IF( IRET.NE.0 ) GOTO 900
+C%%    ELSE
+         CLOSE( UNIT=LUN,ERR=900 )
+C%%    END IF
+       RETURN
+900    IERR = -1
+       RETURN
+C
+       END
+C
+C
+       SUBROUTINE CLFREE( LUN,IRET )
+C
+C ARG
+       INTEGER * 4  LUN, IRET
+C
+C VAR
+       CHARACTER * 80  CMDLIN
+C
+C BEGIN
+       WRITE( CMDLIN,1000 ) LUN
+1000   FORMAT( 'FREE DD(FT',I2.2,'F001)' )
+       LCMD = LENRD( CMDLIN )
+       CALL IPFCMD( IRET1,IRET2,CMDLIN,LCMD )
+       IRET = IRET1 + IRET2
+C
+       RETURN
+       END
+

@@ -1,0 +1,25 @@
+COPTIONS @OPTIONS  NODEBUG
+C   18/11/86 704151937  MEMBER NAME  FEXEVT   (FORT)     M  FORTRAN
+C+
+C File : FEXEVT
+C Description : Execute EVENT HANDLING ROUTINE
+C
+C Author : Ryosuke Itoh, Univ. of Tokyo
+C Date : 17 - NOV - 1986
+C-
+C
+        SUBROUTINE FEXEVT ( ADRS, RECID, ELEVEL, DLEVEL, QUALIT )
+C
+C ARGUMENTS
+C
+        EXTERNAL        ADRS
+        INTEGER * 4     RECID
+        INTEGER * 4     ELEVEL, DLEVEL
+        INTEGER * 4     QUALIT
+C
+C MAIN
+C
+        CALL ADRS ( RECID, ELEVEL, DLEVEL, QUALIT )
+C
+        RETURN
+        END

@@ -1,0 +1,35 @@
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+HOMEDIR = ../..
+
+
+OBJS   = dscsmr.o  dscswm.o  smrblk.o smrcbk.o  smrcht.o  smrcls.o \
+	 smrcvt.o  smremc.o  smrevt.o smrhdc.o  smrhle.o  smrhlx.o \
+	 smrjin.o  smrjtm.o  smrprd.o smrrin.o  smrrtm.o  smrsha.o \
+	 smrshw.o  smrtbg.o  smrvtx.o swmblk.o  swmjin.o \
+	 swmjtm.o  swmprd.o  swmrin.o swmrtm.o  uftvtk.o ulcvtk.o 
+
+INCPATH = -I$(HOMEDIR)/util/lcfull/src \
+	  -I$(HOMEDIR)/util/fortlib/src
+ 
+ALLOBJ  = $(OBJS) swmevt.o
+
+LIBNAME	   = SIMJLC
+INSTALLDIR = $(HOMEDIR)/lib
+
+
+#######################
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+InstallLibrary($(LIBNAME),$(INSTALLDIR))
+
+#######################
+
+#ifdef HPArchitecture
+swmevt.o: swmevt.F
+	f77 $< -c $(FFLAGSE) $(INCPATH) -o swmevt.o
+#endif

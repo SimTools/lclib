@@ -1,0 +1,2 @@
+      COMMON / JAKI   /  JAK1, JAK2, JAKP, JAKM, KTOM
+      INTEGER*4          JAK1, JAK2, JAKP, JAKM, KTOM

@@ -1,0 +1,6 @@
+      PARAMETER      ( MXxPT = 1000, LNxPT = 20, LNxHLX = 8 )
+      COMMON /PRJUNK/ IGEVNT, EBEAM, NPRTN, NPRTCL, IEPLST(MXxPT),
+     .                IGHEAD(MXxPT), RPLIST(LNxPT,MXxPT),
+     .                RHELIX(LNxHLX,MXxPT)
+      INTEGER*4       IGEVNT, NPRTN, NPRTCL, IGHEAD, IEPLST
+      REAL   *4       EBEAM, RPLIST, RHELIX

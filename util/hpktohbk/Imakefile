@@ -1,0 +1,22 @@
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+HOMEDIR = ../..
+
+INCPATH =
+
+OBJL  = hpktohbk.o
+
+LIBNAME	      = HPKTOHBK
+
+INSTALLDIR = $(HOMEDIR)/lib
+
+ALLOBJ = $(OBJL) 
+
+#######################
+#ifdef DOSHRLIB
+SharedLibraryTarget($(LIBNAME),$(SOREV),$(ALLOBJ),.,.)
+InstallSharedLibrary($(LIBNAME),$(SOREV),$(INSTALLDIR))
+#endif
+NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+InstallLibrary($(LIBNAME),$(INSTALLDIR))

@@ -1,0 +1,2 @@
+C*    Common to used in TBWRIT and TBCWRT
+      COMMON /TBSIOB/ NREC, NBEGIN(MAXELM), NFINAL(MAXELM)

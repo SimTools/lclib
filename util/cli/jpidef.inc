@@ -1,0 +1,8 @@
+C
+      PARAMETER( JPI$_MODE = 802 )
+C
+      PARAMETER( JPI$K_OTHER = 0 )                   
+      PARAMETER( JPI$K_NETWORK = 1 )
+      PARAMETER( JPI$K_BATCH = 2 )
+      PARAMETER( JPI$K_INTERACTIVE = 3 )  
+C
