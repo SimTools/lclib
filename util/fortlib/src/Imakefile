@@ -8,8 +8,8 @@ INCPATH = -I$(HOMEDIR)/util/lcfull/src \
 
 OBJL = 	 area.o curfit.o determ.o fchisq.o gqdriv.o \  @@\
 	 gqfunc.o iibits.o integ.o interp.o jibits.o linfit.o \  @@\
-	 matinv.o nucrmv.o polfit.o polft2.o pueloc.o \  @@\
-	 rueloc.o sueloc.o uabsv3.o uadd3.o uadd4.o \  @@\
+	 matinv.o nucrmv.o polfit.o polft2.o \  @@\
+	 pueloc.o rueloc.o sueloc.o uabsv3.o uadd3.o uadd4.o \  @@\
 	 ubasv3.o ubcpyh.o ubinit.o ubstbk.o \  @@\
 	 ubstfd.o ubtran.o ucdate.o ucdxda.o uchang.o uchiin.o \  @@\
 	 uchisq.o ucmach.o ucolln.o uconex.o uconf8.o \  @@\
