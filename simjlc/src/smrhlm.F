@@ -63,7 +63,7 @@ C--
       EN    = NHIT - 1
       ENP1  = NHIT
       TENP1 = 2*EN + 1
-#if 0
+#if 1
       EL    = EN*DSMP
 #else
       EL    = NHIT*DSMP
