@@ -7,6 +7,6 @@ install:
 clean:
 	(cd src ; make clean)
 	rm -f *~
-        (cd src ; make prmain )
+	(cd src ; make prmain )
 
 
