@@ -68,6 +68,11 @@ RANLIB = ranlib
 XCOMM ****************************************************************
 XCOMM PPCArchitecture
 XCOMM ****************************************************************
+#if defined(PowerPCArchitecture)
+#ifndef PPCArchitecture
+#define PPCArchitecture
+#endif
+#endif
 #if defined(PPCArchitecture)
 #ifndef ENABLESHARED
 #ifdef DOSHRLIB
