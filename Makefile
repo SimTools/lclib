@@ -5,7 +5,6 @@ install:
 	(cd gen    ; make install)
 	(cd simjlc ; make install)
 	(cd util   ; make install)
-#	(cd example ; make install )
 
 clean:
 	(cd gen    ; make clean)
@@ -18,9 +17,8 @@ cleanall: clean
 	(cd gen/basesv5.1/full ; rm -f Makefile)
 	(cd gen/basesv5.1/src  ; rm -f Makefile)
 	(cd gen/helasv204 ; rm -f */Makefile)
-	(cd gen/lund73 ; rm -f */Makefile)
+	(cd gen/luhadr ; rm -f */Makefile)
 	(rm -f gen/tauola/Makefile)
-	(rm -f gen/pythia55/Makefile)
 	(rm -f util/cli/Makefile)
 	(rm -f util/com/Makefile)
 	(rm -f util/commands/build/Makefile)
