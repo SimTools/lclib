@@ -68,6 +68,11 @@ OBJDEP = clock.o
 COBJECT = ran.o time.o date.o
 #endif
 
+#ifdef AIXArchitecture
+OBJDEP = clock.o
+COBJECT = time.o date.o
+#endif
+
 LIBNAME	      = FORTLIB
 INSTALLDIR = ../../../lib
 
@@ -97,7 +102,7 @@ rann.o: rann.F
 
 ran_.o: ran_.F
 	f77 ran_.F -c $(FFLAGSE) -o ran_.o
-#elif defined(PPCArchitecture) || defined(LinuxArchitecture)
+#elif defined(PPCArchitecture) || defined(LinuxArchitecture) || defined(AIXArchitecture) 
 rann.o: rann.F
 	$(F77) $(FFLAGS) -fno-underscoring -c rann.F
 

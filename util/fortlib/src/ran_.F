@@ -13,20 +13,11 @@ C*     A. Miyamoto            3-Dec-1984                               *
 C*                                                                     *
 CC**********************************************************************
 C  
-#ifdef  MSP
+#if defined(MSP) || defined(SUN) || defined(HP) || defined(MACHTEN_PPC)
         FUNCTION  RAN_(ISEED)
 #endif
-#ifdef  SUN
-        FUNCTION  RAN_(ISEED)
-#endif
-#ifdef  HIUXF77
+#if defined(HIUXF77) || defined(AIX)
         FUNCTION  RAN(ISEED)
-#endif
-#ifdef  HP
-          FUNCTION  RAN_(ISEED)
-#endif
-#ifdef  MACHTEN_PPC
-          FUNCTION  RAN_(ISEED)
 #endif
 C  
 #ifdef  MSP
@@ -47,6 +38,10 @@ C
 	  stop
 	endif
 	ran = x
+#endif
+#ifdef AIX
+	call ranmar(rndm,1)
+	ran = rndm
 #endif
 #if  defined(HP) || defined(MACHTEN_PPC)
         RAN_ = RAN(ISEED)

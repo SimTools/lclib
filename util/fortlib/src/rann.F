@@ -15,32 +15,17 @@ C*     A. Miyamoto            3-Dec-1984                               *
 C*                                                                     *
 CC**********************************************************************
 C  
-#ifdef  MSP
-	FUNCTION  RANN(ISEED)
-#endif
-#ifdef  SUN
-	FUNCTION  RANN(ISEED)
-#endif
-#ifdef  HIUXF77
+#if defined(MSP) || defined(SUN) || defined(HIUXF77) || defined(AIX)
 	FUNCTION  RANN(ISEED)
 #endif
 #if defined(HP) || defined(MACHTEN_PPC)
 	  FUNCTION  RANN_(ISEED)
 #endif
 C  
-#ifdef  MSP
+#if defined(MSP) || defined(SUN) || defined(HIUXF77) || defined(AIX)
        RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
 #endif
-#ifdef  SUN
-       RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-#endif
-#ifdef  HIUXF77
-       RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-#endif
-#ifdef  HP
-	RANN_ = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-#endif
-#ifdef  MACHTEN_PPC
+#if defined(HP) || defined(MACHTEN_PPC)
 	RANN_ = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
 #endif
      .        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
