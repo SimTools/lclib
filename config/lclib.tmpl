@@ -180,6 +180,7 @@ FDEBUGFLAGS =  -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
         -fno-globals -fugly-init -Wno-globals \
+	-fno-second-underscore \
         $(SHRLIBFLAGS) -DLITTLE_ENDIAN \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DG77_521_OR_GREATER \
          $(EXTRADEFINES) $(INCPATH)
