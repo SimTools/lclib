@@ -1,14 +1,13 @@
 SHELL	= /bin/sh
 MFLAGS	=
 CURRDIR	= .
-SUBDIRS	= basesv5.1 helasv204 lund73 tauola pythia55
+SUBDIRS	= basesv5.1 helasv204 luhadr tauola
 
 all:
 	@case '${MFLAGS}' in *[ik]*) set +e;; esac; \
 	for i in $(SUBDIRS); do \
 	(cd $$i; echo ``making'' all ``in $(CURRDIR)/$$i...''; \
-	if [ $$i = tauola ]; then xmkmf; fi; \
-	if [ $$i = pythia55 ]; then xmkmf; fi; \
+	if [ $$i = luhadr -o $$i = tauola ]; then xmkmf; fi; \
 	$(MAKE) $(MFLAGS) all); \
 	done
 install: all
