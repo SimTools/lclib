@@ -33,6 +33,13 @@ C*                           particles of our interest should decay
 C*                           inside the first measuring layer, thus
 C*                           these defects should be minor.
 C*
+C*    12/24/98  A.Miyamoto   Allow VTX space resolution less than
+C*                           pixel size/sqrt(12).  When NERRVX=2,
+C*                           hit point, RDATA(i,k), is smeared with 
+C*                           gaussian resolution given by ERRVX(1).
+C*                           Error of each hit points are saved in
+C*                           Production:VTX:Space_Point_Error, element
+C*                           corresponds to that of Production:VTX:Space_Point 
 C***********************************************************************
  
       SUBROUTINE SMRVTX(LEVEL,IDEBUG,IRET)
@@ -42,8 +49,9 @@ C***********************************************************************
 #include "smrvgo.inc"
 #include "unumcn.inc"
       PARAMETER     ( LNxVTX = 3 )
+      PARAMETER     ( LNeVTX = 2 )
       COMMON /SSWORK/ RDATA(LNxVTX,100), XV(3), PV(3), QV(3), EE(3,3),
-     .                RCY(2)
+     .                RCY(2), EDATA(LNeVTX,100)
       REAL   *4       RDATA, XV, PV, QV, EE, RCY
       CHARACTER*64    BKNAME / 'Production:VTX;Space_Point' /
       DATA CNSMS      / 14.1E-3 /
@@ -72,6 +80,7 @@ C--
          YPR = RPLIST(10,IPT)
          ZPR = RPLIST(11,IPT)
          RPR = SQRT(XPR*XPR+YPR*YPR)
+cccc         print *,' RPR and RCYVX(NSMPVX)=',RPR,RCYVX(NSMPVX)
          IF ( RPR.GT.RCYVX(NSMPVX) )             GO TO 1000
 C--
 C  Calculate R of the decay point.
@@ -101,6 +110,8 @@ C--
 C  If unstable, check if decay point inside the measuring layer.
 C  If yes, skip this particle.
 C--
+ccc            print *,' LYR=',LYR,' RCYVX(LYR)=',RCYVX(LYR)
+
             IF ( RDK.LT.RCYVX(LYR) )             GO TO 1000
 C--
 C  Check if production point outside the measuring layer.
@@ -112,21 +123,35 @@ C  Get hit point. If no intersection, go to next layer.
 C--
             RCY(1) = 1.E-2
             RCY(2) = RCYVX(LYR)
+cc            print *,' RCY =',RCY(1),RCY(2),
+cc     .  'zcyvx=',zcyvx(1,lyr),zcyvx(2,lyr)
             CALL UHLXCY(RCY,ZCYVX(1,LYR),EPSL,
      .                  RHELIX(1,IPT),PHI,XV,IRT)
+cc            print *,' Search intersection .. IRT=',IRT
             IF ( IRT.NE.1 )                      GO TO 100
 C--
 C  If LYR is a measuring layer, save this hit.
 C--
             RXV  = SQRT(XV(1)*XV(1)+XV(2)*XV(2))
+
+cc            print *,' RXV, LYR=',RXV,LYR,' NERRVX=',NERRVX
+
             IF ( LYR.GT.0 .AND. LYR.LT.NSMPVX ) THEN
                NHIT = NHIT + 1
-               DPHI = DPHIVX/RXV
-               IFXV = MOD(ATAN2(XV(2),XV(1))+x2PI,x2PI)/DPHI
-               IZXV = XV(3)/DZEEVX
                RDATA(1,NHIT) = RXV
-               RDATA(2,NHIT) = (IFXV+0.5)*DPHI
-               RDATA(3,NHIT) = (IZXV+SIGN(0.5,XV(3)))*DZEEVX
+               IF( NERRVX .EQ. 1 ) THEN
+                 DPHI = DPHIVX/RXV
+                 IFXV = MOD(ATAN2(XV(2),XV(1))+x2PI,x2PI)/DPHI
+                 IZXV = XV(3)/DZEEVX
+                 RDATA(2,NHIT) = (IFXV+0.5)*DPHI
+                 RDATA(3,NHIT) = (IZXV+SIGN(0.5,XV(3)))*DZEEVX
+               ELSE
+                 EDATA(1,NHIT) = ERRVX(1) 
+                 EDATA(2,NHIT) = ERRVX(1) 
+                 DPHI = ERRVX(1)/RXV*RANN(ISEED)
+                 RDATA(2,NHIT) = ATAN2(XV(2),XV(1))+DPHI
+                 RDATA(3,NHIT) = XV(3)+ERRVX(1)*RANN(ISEED)
+               ENDIF
             ENDIF
 C--
 C  Modify momentum according to multiple scattering.
@@ -158,7 +183,11 @@ C  TBPUT 'Production:VTX;Space_Point' where element# is IPT.
 C        RDATA(1,LYR) = r
 C             (2,LYR) = phi
 C             (3,LYR) = z
+C  TBPUT 'Production:VTX;Space_Point_Error' where element# is IPT.
+C        EDATA(1,LYR) = r*phi error
+C             (2,LYR) = z error
 C--
+cc         print *,' nhit is ',nhit
          IF ( NHIT.GT.0 ) THEN
             CALL TBPUT(1,BKNAME,IPT,LNxVTX*NHIT,RDATA(1,1),IRT)
             IF ( IRT.LT.0 ) THEN
@@ -167,6 +196,18 @@ C--
                IRET = IRT
                RETURN
             ENDIF
+            IF( NERRVX .GE. 2 ) THEN
+               CALL TBPUT(1,'Production:VTX;Space_Point_Error',
+     >              IPT, LNeVTX*NHIT, EDATA(1,1), IRT)
+               IF ( IRT.LT.0 ) THEN
+                 PRINT *, 'SMRVTX failed to TBPUT e#', IPT, ' of ',
+     >              'Production:VTX;Space_Point_Error'
+                 PRINT *, '    IRT = ', IRT
+                 IRET = IRT
+                 RETURN
+              ENDIF
+            ENDIF
+
          ENDIF
 1000  CONTINUE
 C--

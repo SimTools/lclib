@@ -129,6 +129,7 @@ C--
          SGHDE0   = SMRPRM(60)
          SGHDE    = SMRPRM(61)
 C--
+         NERRVX   = SMRPRM(70)
          NSMPVX   = SMRPRM(71)
          IF ( NSMPVX.GT.MXxVXL ) THEN
             PRINT *, ' >>>>>> Fatal error in SMRPRD >>>>> '
@@ -146,6 +147,11 @@ C--
             ZCYVX(2,LYR) = SMRPRM(3+IOFF)
             RDLVX(  LYR) = SMRPRM(4+IOFF)
 10       CONTINUE
+         IOFF = IOFF + 4
+         DO 11 I = 1, 5
+            ERRVX(I) = SMRPRM(IOFF+I)
+11       CONTINUE
+
 C--
 C  TBPUT smearing parameters in 'Smearing'.
 C--
@@ -189,6 +195,7 @@ C--
          SMRPRM(60) = SGHDE0
          SMRPRM(61) = SGHDE
 C--
+         SMRPRM(70) = NERRVX
          SMRPRM(71) = NSMPVX
          SMRPRM(72) = DPHIVX
          SMRPRM(73) = DZEEVX
@@ -199,7 +206,11 @@ C--
             SMRPRM(3+IOFF) = ZCYVX(2,LYR)
             SMRPRM(4+IOFF) = RDLVX(  LYR)
 20       CONTINUE
-         NPARMS = 4*NSMPVX + 77
+         IOFF = IOFF + 4
+         DO 21 I = 1, 5
+            SMRPRM(I+IOFF) = ERRVX(I)
+ 21      CONTINUE
+         NPARMS = 4*NSMPVX + 77 + 5
          CALL TBPUT(2,BKNAM2,2,NPARMS,SMRPRM,JRT)
       ELSE
 C--
@@ -258,6 +269,7 @@ C--
       WRITE(6,*) '        sigma_E/E pedestal (barrel)  ', SMRPRM(60)
       WRITE(6,*) '        sigma_E/E at 1 GeV (endcap)  ', SMRPRM(61)
       WRITE(6,*) ' Vertex detector paramters '
+      WRITE(6,*) '        Type of VTX Error assignment ', SMRPRM(70)
       WRITE(6,*) '        # sampling layer + 1         ', SMRPRM(71)
       WRITE(6,*) '        phi width                    ', SMRPRM(72)
       WRITE(6,*) '        zee width                    ', SMRPRM(73)
@@ -281,6 +293,8 @@ C--
       WRITE(6,*) '        Z_min of CDC inner wall      ', SMRPRM(IOFF+2)
       WRITE(6,*) '        Z_max of CDC inner wall      ', SMRPRM(IOFF+3)
       WRITE(6,*) '        thickness of CDC inner wall  ', SMRPRM(IOFF+4)
+      IOFF = IOFF + 4
+      WRITE(6,*) '        VTX Space point resolution   ', SMRPRM(IOFF+1)
       WRITE(6,*) '  '
       WRITE(6,*) '  '
 C--

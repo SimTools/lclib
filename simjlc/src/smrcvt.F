@@ -17,6 +17,8 @@ C*     Calls the following routines;
 C* (Updaterecord)
 C*     3/19/93  K.Fujii           Temporary version using track to
 C*                                particle pointers.
+C*    12/24/98  A.Miyamoto        Use only first and last VTX hit points
+C*                                for combined track fit.
 C*
 C***********************************************************************
  
@@ -78,23 +80,26 @@ C--
          IPT  = ICDTK(57)
          CALL TBGET(1,BKNAM2,IPT,NW,RVTHT,IRT)
          IF ( IRT.LT.0 ) NW = 0
-         NVHT = NW/3
+         NNVHT = NW/3
 C--
-         IF ( NVHT.GT.2 ) THEN
-            PRINT *, '>>>>>> Error in SMRCVT >>>>>>'
-            PRINT *, '   More than 2 VTX hits exist for track #', ITK
-            PRINT *, '   Cannot be handled with the presnt SMRCVT.'
+c         IF ( NVHT.GT.2 ) THEN
+c            PRINT *, '>>>>>> Error in SMRCVT >>>>>>'
+c            PRINT *, '   More than 2 VTX hits exist for track #', ITK
+c            PRINT *, '   Cannot be handled with the presnt SMRCVT.'
 C           PRINT *, '   Stop.'
 C           STOP
-         ENDIF
+c         ENDIF
 C--
 C  Branch on # VTX hits.
 C--
-         IF ( NVHT.EQ.2 ) THEN
+          NVHT = 2
+C--  When VTX Hit is more than 2, select only first and last hits for
+C--  Combined fitting.
+         IF ( NNVHT.EQ.2 ) THEN
 C--
 C  Set XVHT.
 C--
-            DO 10 IVHT = 1, NVHT
+            DO 10 IVHT = 1, NNVHT, (NNVHT-1)
                R   = RVTHT(1,IVHT)
                PHI = RVTHT(2,IVHT)
                Z   = RVTHT(3,IVHT)
@@ -107,6 +112,7 @@ C--
                XVHT(2,2,IVHT) = R*DPHIVX*ABS(CS)
                XVHT(2,3,IVHT) = DZEEVX
 10          CONTINUE
+
 C--
 C  Perform combined fit.
 C--

@@ -74,6 +74,7 @@ C--
       SMRPRM(60) = SGHDE0
       SMRPRM(61) = SGHDE
 C--
+      SMRPRM(70) = NERRVX
       SMRPRM(71) = NSMPVX
       SMRPRM(72) = DPHIVX
       SMRPRM(73) = DZEEVX
@@ -84,6 +85,10 @@ C--
          SMRPRM(3+IOFF) = ZCYVX(2,LYR)
          SMRPRM(4+IOFF) = RDLVX(  LYR)
 10    CONTINUE
+      IOFF = IOFF+4
+      DO 11 I=1, 5
+         SMRPRM(I+IOFF)= ERRVX(I)
+ 11   CONTINUE
 C--
 C  Read in input paramters.
 C--
@@ -167,6 +172,7 @@ C--
          PRINT *, '   Increase MXxVXL in /SMRVGO/.'
          STOP
       ENDIF
+      NERRVX   = SMRPRM(70)
       NSMPVX   = SMRPRM(71)
       DPHIVX   = SMRPRM(72)
       DZEEVX   = SMRPRM(73)
@@ -177,6 +183,11 @@ C--
          ZCYVX(2,LYR) = SMRPRM(3+IOFF)
          RDLVX(  LYR) = SMRPRM(4+IOFF)
 30    CONTINUE
+      IOFF = 4*(LYR+1)+73
+      DO 31 I = 1, 5
+         ERRVX(I) = SMRPRM(IOFF+1)
+ 31   CONTINUE
+
 C--
 C  Print out input paramters.
 C--
@@ -221,6 +232,7 @@ C--
       WRITE(6,*) '        sigma_E/E pedestal (barrel)  ', SMRPRM(60)
       WRITE(6,*) '        sigma_E/E at 1 GeV (endcap)  ', SMRPRM(61)
       WRITE(6,*) ' Vertex detector paramters '
+      WRITE(6,*) '        Type of Error assignment     ', SMRPRM(70)
       WRITE(6,*) '        # sampling layer + 1         ', SMRPRM(71)
       WRITE(6,*) '        phi width                    ', SMRPRM(72)
       WRITE(6,*) '        zee width                    ', SMRPRM(73)
@@ -244,6 +256,8 @@ C--
       WRITE(6,*) '        Z_min of CDC inner wall      ', SMRPRM(IOFF+2)
       WRITE(6,*) '        Z_max of CDC inner wall      ', SMRPRM(IOFF+3)
       WRITE(6,*) '        thickness of CDC inner wall  ', SMRPRM(IOFF+4)
+      IOFF = IOFF + 4
+      WRITE(6,*) '        VTX rphi/z error             ', SMRPRM(IOFF+1)
 C--
 C  That's it.
 C--
