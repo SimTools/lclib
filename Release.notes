@@ -7,6 +7,16 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-97a-3.2 27-Jul-1998  by A.Miyamoto
+*************************************************
+(1) Installation on HIUX is updated to use f90 compiler
+    and create shared library.  They are default on HIUX system.
+    Since FNUM.o for shared library is not available,
+    include lib/FNUM.o in your executable explicitly at link time.
+
+    
+
+*************************************************
 lclib-97a-3.1 10-April-1998  by A.Miyamoto
 *************************************************
 (1) Modified to run on Redhat 4.0 machine (jlcpc1).
