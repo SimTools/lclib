@@ -54,8 +54,8 @@ C--
 C  MXxSEG is the number of phi/theta segments to which a shower
 C  contributes.
 C--
-      PARAMETER      ( MXxNW = 100, MXxHSG = 2, MXxSEG = 2*MXxHSG+1,
-     .                 MXxPD = 10,
+      PARAMETER      ( MXxNW = 200, MXxHSG = 2, MXxSEG = 2*MXxHSG+1,
+     .                 MXxPD = 40,
      .                 MXxCEL = MXxSEG*MXxSEG, MXxCL = 5000,
      .                 MXxPHI = 500, MXxTHT = 200, MXxRAD = 100 )
       COMMON /SSWORK/ XP(3), RDATA(MXxNW,MXxCL), DXY(2), XY(2),
