@@ -37,6 +37,8 @@ C*
      .                NERRVX, ERRVX(5), NUMVTX
       INTEGER*4       NSMPVX
       REAL   *4       DPHIVX, DZEEVX, RCYVX, ZCYVX, RDLVX
+      INTEGER*4       NERRVX, NUMVTX
+      REAL*4          ERRVX
 C
 CC=    DATA    NSMPVX /    3  /
 C=    DATA    NSMPVX /    -3  /

@@ -37,10 +37,6 @@ C***********************************************************************
      .                HLXSTK(LNxSTK,2), HLXCSQ(2)
       REAL   *8       HELX8(8)
       PARAMETER      ( LHxTRK=LNxTRK/2, LHxSTK=LNxSTK/2)
-      REAL   *8       DCDTK(LHxTRK), DLXSTK(LHxSTK,2),
-     .                DCVTK(LHxTRK), DLXVTX(LHxTRK)
-      EQUIVALENCE    (DCDTK,RCDTK), (DLXSTK, HLXSTK), 
-     .               (DCVTK, RCVTK), (DLXVTX, HLXVTX)
       INTEGER*4       ICDTK(LNxTRK), ICVTK(LNxTRK)
       EQUIVALENCE    (ICDTK,RCDTK), (ICVTK,RCVTK)
       CHARACTER*64    BKNAM1 / 'Production:CDC;Track_Parameter'    /
@@ -121,6 +117,10 @@ C  in the VTX matrial, but this effect is not considered yet.
                HLXSTK(I-10,2)=HLXVTX(I)
                HLXSTK(I-10,1)=RCDTK(I)
  3010        CONTINUE
+
+             CALL SMRCMO(LNxSTK, HLXSTK(1,2), HLXSTK(1,1), IRT)
+             
+
              HLXSTK(LNxSTK,1)=0
              HLXSTK(LNxSTK,2)=0
              RCVTK(13)=0.0

@@ -8,7 +8,7 @@ OBJS   = dscsmr.o  dscswm.o  smrblk.o smrcbk.o  smrcht.o  smrcls.o \
 	 smrcvt.o  smremc.o  smrevt.o smrhdc.o  smrhle.o  smrhlx.o \
 	 smrjin.o  smrjtm.o  smrprd.o smrrin.o  smrrtm.o  smrsha.o \
 	 smrshw.o  smrtbg.o  smrvtx.o swmblk.o  swmjin.o \
-	 smrvhl.o \
+	 smrvhl.o  smrcmo.o \
 	 swmjtm.o  swmprd.o  swmrin.o swmrtm.o  uftvtk.o ulcvtk.o 
 
 INCPATH = -I$(HOMEDIR)/util/lcfull/src \

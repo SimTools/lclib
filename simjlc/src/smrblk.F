@@ -19,7 +19,7 @@
       DATA    ERRVX  / 4.E-4, 4*0.0/
       DATA    NUMVTX / 2/
 #include "smrvtp.inc"
-      DATA    NXMPCV /3/
+      DATA    NSMPCV /3/
       DATA    NSMPVT /4/
       DATA    DSMPVT /0.0/
       DATA    RCYVT  /2.4, 6.0/
