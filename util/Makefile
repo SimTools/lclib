@@ -3,8 +3,8 @@ MFLAGS	=
 CURRDIR	= .
 
 SUBDIR1	= commands fortlib genutil lcfull tbs
-SUBDIR2	= cli com hpktohbk ltkcl seedbk
-SUBDIRS = $(SUBDIR1) $(SUBDIR2) tbschk
+SUBDIR2	= cli com hpktohbk ltkcl seedbk tbschk
+SUBDIRS = $(SUBDIR1) $(SUBDIR2)
 
 all:
 	@case '${MFLAGS}' in *[ik]*) set +e;; esac; \
