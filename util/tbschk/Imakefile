@@ -84,7 +84,12 @@ LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lncurses
 #endif
 ############################################
 
+#if defined(AIXArchitecture)
+all::
+	@echo "*** tbschk is not supported in AIX ***"
+#else
 all::	$(OBJS)
+#endif
 #if !defined(hitachiArchitecture)
 tbschk: $(OBJS)
 	$(FF) $(FFLAGS) $(OBJS) $(LDFLAG) -o tbschk 
@@ -142,9 +147,13 @@ fd_to_fileno.o: $(TBSDIR)/fd_to_fileno.c
 
 ############################################
 
-
+#if defined(AIXArchitecture)
+install::
+	@echo "*** tbsch kis not supported on AIX ***"
+#else
 install:: tbschk
 	cp tbschk ../../bin/tbschk
+#endif
 
 clean::
 	rm -f $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
