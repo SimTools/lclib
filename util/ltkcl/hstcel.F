@@ -43,6 +43,13 @@ C  Check # cells in this calorimeter.
 C--
       CALL TBNOEL(1,BKNAME,NE,IELM)
       IF ( NE.LE.0 )                             GO TO 9999
+      IF ( NE.GT.LNxBUF ) THEN
+         print *,'Warning in Sub. HSTCEL of LTKCL..',
+     >  'Number of HDC Hit cell(',NE,') exceeds ',
+     >  'buffer size(',LNxBUF,')'
+         print *,'It is trancated to ',LNxBUF
+         NE=LNxBUF
+      endif
 C--
 C  Loop over cells.
 C--

@@ -44,6 +44,13 @@ C  Check # CDC tracks.
 C--
       CALL TBNOEL(1,BKNAME,NE,IELM)
       IF ( NE.LE.0 )                             GO TO 9999
+      IF ( NE.GT.MXxTRK ) THEN
+         print *,'Warning in Sub. GTCDTK of LTKCL..',
+     >  'Number of CDC Track(',NE,') exceeds ',
+     >  'buffer size(',MXxTRK,')'
+         print *,'It is trancated to ',MXxTRK
+         NE=MXxTRK
+      endif
 C--
 C  Loop over tracks.
 C--

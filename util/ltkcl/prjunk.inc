@@ -71,7 +71,8 @@ CC**********************************************************************
  
 CC      PARAMETER ( MXxZET=43, MXxPHI=77, MXxBD=(MXxZET+1)*(MXxPHI+1),
       PARAMETER ( MXxZET=90, MXxPHI=100,MXxBD=(MXxZET+1)*(MXxPHI+1),
-     .            MXxCLS=5000 ,MXxWRK=1000, LNxTRK = 100, MXxTRK = 500 )
+CC     .            MXxCLS=5000 ,MXxWRK=1000, LNxTRK = 100, MXxTRK = 500 )
+     .            MXxCLS=5000 ,MXxWRK=3000, LNxTRK = 100, MXxTRK = 500 )
       COMMON /PRJUNK/ NBNON, NCELLS, JBNPNT(0:MXxZET,0:MXxPHI),
      .                IBNPNT(2,MXxBD) , NCLIN(MXxBD), ICLPNT(5,MXxCLS),
      .                WORK(MXxWRK), NCDCTK, RTKBNK(LNxTRK,MXxTRK),

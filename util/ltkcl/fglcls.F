@@ -159,6 +159,16 @@ C>>>>
                NCLIN(JBN)       = 0
                IPNT             = IPNT + 3
 2           CONTINUE
+            IF( IPNT.GT.MXxWRK-10 ) THEN
+       PRINT *,'Fatal error in Subroutine FGLCLS in ',
+     >                 'util/ltkcl  directory'
+       PRINT *,'Number of Clusters will exceeds the buffer size.'
+       PRINT *,'Increase MXxWRK of in the file, util/ltkcl/prjunk.inc',
+     >         'and recompile/link program.'
+       PRINT *,'Program is forced to stop at this point'
+       stop
+            ENDIF
+
             IPT  = IPT  + 2
 20       CONTINUE
 200   CONTINUE
