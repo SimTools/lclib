@@ -143,6 +143,7 @@ C*                             has been wrong since the update
 C*                             on 92/06/11.
 C*  92/07/06  A.Miyamoto       Length of PNTBNK increased from 24 to 48
 C*  92/07/09  A.Miyamoto       A bug fixed.  in calculating cluster pos.
+C*  03/02/14  A.Miyamoto       Increase NCxBUF from 30 to 300
 C***********************************************************************
 C*
       SUBROUTINE SMRCBK( NDEV, NRET )
@@ -156,7 +157,7 @@ C      INCLUDE (@SMREGO)
 C      INCLUDE (@SMRHGO)
 C
       PARAMETER (MXxCEL=2000)
-      PARAMETER (NCxBUF=30)
+      PARAMETER (NCxBUF=300)
       PARAMETER (MXxCLS=1000)
       COMMON/SSWORK/ NOELM(MXxCEL), NHITDV(3), NTEMP(50),
      >               NHCELL(NCxBUF,MXxCEL,3), NSORT(MXxCEL),
@@ -200,8 +201,6 @@ C ---------------------------------------------------------------------
 C
 #ifdef DBG
       WRITE(6,'(1H1)')
-#endif 
-#ifdef DBG
       PRINT *,' SMRCBK called with NDEV=',NDEV
 #endif 
       NRET = 0
@@ -229,64 +228,37 @@ C
         IF( NTEMP(2) .GT. 1000000 ) ITYP = 2
         IF( NTEMP(2) .LT.-1000000 ) ITYP = 3
         NHITDV(ITYP) = NHITDV(ITYP) + 1
+#ifdef DBG
+        print *,'In 100 Loop  i=',I,' ITYP=',ITYP,' NHITDV=',
+     >          NHITDV(ITYP),'NW=',NW,' IC=',IC
+#endif
         DO 120 IW = 1, NW
           NHCELL(IW,NHITDV(ITYP),ITYP)= NTEMP(IW)
+#ifdef DBG
+          PRINT *,' NTEMP(',IW,')=',NTEMP(IW)
+#endif
 120     CONTINUE
         NHCELL(NCxBUF,NHITDV(ITYP),ITYP) = IC
 100   CONTINUE
  
 #ifdef DBG
       PRINT *,' NHITDV(1) =',NHITDV(1)
-#endif 
-#ifdef DBG
       PRINT *,'       (2) =',NHITDV(2)
-#endif 
-#ifdef DBG
       PRINT *,'       (3) =',NHITDV(3)
-#endif 
-#ifdef DBG
       PRINT *,' Barrel '
-#endif 
-#ifdef DBG
       DO 102 I = 1, NHITDV(1)
-#endif 
-#ifdef DBG
         PRINT *,I,NHCELL(1,I,1), NHCELL(2,I,1),' .. ',
-#endif 
-#ifdef DBG
      >            NHCELL(NCxBUF,I,1)
-#endif 
-#ifdef DBG
 102   CONTINUE
-#endif 
-#ifdef DBG
       PRINT *,' Endcap(+Z)'
-#endif 
-#ifdef DBG
       DO 103 I = 1, NHITDV(2)
-#endif 
-#ifdef DBG
         PRINT *,I,NHCELL(1,I,2), NHCELL(2,I,2),' .. ',
-#endif 
-#ifdef DBG
      >            NHCELL(NCxBUF,I,2)
-#endif 
-#ifdef DBG
 103   CONTINUE
-#endif 
-#ifdef DBG
       PRINT *,' Endcap(-Z)'
-#endif 
-#ifdef DBG
       DO 104 I = 1, NHITDV(3)
-#endif 
-#ifdef DBG
         PRINT *,I,NHCELL(1,I,3), NHCELL(2,I,3),' .. ',
-#endif 
-#ifdef DBG
      >            NHCELL(NCxBUF,I,3)
-#endif 
-#ifdef DBG
 104   CONTINUE
 #endif 
 C
@@ -340,8 +312,6 @@ C
 C
 #ifdef DBG
         PRINT *,' LTHA =',LTHA,' LPHI =',LPHI
-#endif 
-#ifdef DBG
         PRINT *,' IP =',IP
 #endif 
  
@@ -351,29 +321,13 @@ C
  
 #ifdef DBG
         PRINT *,' '
-#endif 
-#ifdef DBG
         PRINT *,' After Clustering...'
-#endif 
-#ifdef DBG
         PRINT *,' # Cluster =',INOCLS(ID)
-#endif 
-#ifdef DBG
         DO 202 I = 1, INOCLS(ID)
-#endif 
-#ifdef DBG
            PRINT *,' Cluster # ',I
-#endif 
-#ifdef DBG
            DO 203 J = NCLSPT(1,I,ID), NCLSPT(2,I,ID)
-#endif 
-#ifdef DBG
              PRINT *,' J=',J, (NCDATA(K,J,ID),K=1,3)
-#endif 
-#ifdef DBG
   203        CONTINUE
-#endif 
-#ifdef DBG
   202     CONTINUE
 #endif 
 C
@@ -420,8 +374,6 @@ C
  
 #ifdef C
          PRINT *,' J =',J,' ICELL =',ICELL,' IPHI,ITHA=',IPHI,ITHA,
-#endif 
-#ifdef C
   >                       ' ENG =',ENG
 #endif 
 C
@@ -435,16 +387,16 @@ C ... Store Contributing Cell and Track information.
      >                        .EQ. NHCELL(3+IT,IPTRK,ID) ) GO TO 320
 330           CONTINUE
               NOTRK = NOTRK + 1
-              IF( NOTRK .GT. 80 ) THEN
+              IF( NOTRK .GT. NCxBUF-4 ) THEN
                 IF( IPRINT .EQ. 1 ) THEN
                 PRINT *,'%Warning..SMRCBK  Too many generator track ',
      >              'contributing to this cluster..Track Information',
-     >              ' is trancated at 80 Track.'
+     >              ' is trancated at ',NCxBUF-4, ' Track.'
                 PRINT *,' In ',DEVNAM(NDEV),';Cluster'
                 NRET = 1
                 IPRINT = 0
                 ENDIF
-                NOTRK = 80
+                NOTRK = NCxBUF-4
               ENDIF
               NCLSDT(15+NOTRK) = NHCELL(3+IT,IPTRK,ID)
 320         CONTINUE
