@@ -102,7 +102,7 @@ CDEBUGFLAGS = -O2
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
-GNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
+	-DGNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
 FDEBUGFLAGS =  -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
