@@ -150,6 +150,11 @@ CBAT       CHARACTER*8    JOBNAM
 CBAT       IJOBC = 1
       DATA NOUNIT/1/
       CHARACTER*255  TMPDSN
+
+#ifdef HIUXF77
+      logical fileex
+#endif
+
 C  
 C=============<  Entry Point >==========================================
 C
@@ -241,11 +246,21 @@ C
 C  Check Existence and Read permision of the file.
 C
       TMPDSN=ATCDSN(0)(:LATCDS(0))//MEMSTK(ISTK)
+#ifdef HIUXF77
+      INQUIRE(file=TMPDSN,exist=fileex)
+      if( fileex) then
+         ill=0
+      else
+         ill=1
+      endif
+#endif
+#ifndef HIUXF77
 #ifdef MACHTEN_PPC
       print *, 'TMPDSN=',TMPDSN(:LEN(TMPDSN))
       ILL = 1
 #else
       ILL = access(TMPDSN,'r')
+#endif
 #endif
       
       IF(ILL.EQ.0) THEN
