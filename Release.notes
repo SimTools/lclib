@@ -7,6 +7,16 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-98a-3 Update since 6-January-1998  by A.Miyamoto
+*************************************************
+(1) gen/tauola/tauola.F
+    The variable PWB
+    used in tauola.F is automatically replaced by 1 when compiled by f77 
+    command, becaus PWB is defined by cpp preprocessor. ( see man cpp ).
+
+    So add -WF,-UPWB option for HP compiler in the config/lclib/tmpl
+
+*************************************************
 lclib-98a-2 6-January-1998  by A.Miyamoto
 *************************************************
 (1) Several changes in simjlc/src to allow VTX layer more than 2.
