@@ -7,6 +7,13 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-98a-5-1 7-April-1999  by A.Miyamoto
+*************************************************
+(1) In smrcmo.F, when calculating the multiple scattering angle,
+    value is devided by Sqrt(Radiation-length) instead of multiply.
+(2) In smrcmo.F, radiation length for inclined track was not considered. 
+
+*************************************************
 lclib-98a-5 9-April-1999  by A.Miyamoto
 *************************************************
 (1) Typo in smrblk.F.  NXMPCV is changed to NSMPCV
