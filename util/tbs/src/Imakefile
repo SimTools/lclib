@@ -68,7 +68,11 @@ install::
 	cp -f FNUM.o.hiuxf77 $(INSTALLDIR)/FNUM.o
 #endif
 #endif
+#if defined(hitachiArchitecture)
+NormalLibraryTarget($(LIBNAME), $(FNUMUNIX) $(ALLOBJ) )
+#else
 NormalLibraryTarget($(LIBNAME), $(ALLOBJ) )
+#endif
 InstallLibrary($(LIBNAME),$(INSTALLDIR))
 
 
