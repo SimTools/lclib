@@ -79,7 +79,8 @@ C ..  XRAD
 C     Thickness per cm in unit of radiation length
 C     Value given here is for CO2/C4H10 90/10 % ( from JLC-I report ) 
       REAL*4 XRAD
-      DATA XRAD/0.000055/
+C**      DATA XRAD/0.000055/
+      DATA XRAD/0.000015/
 C
 C========< Entry Point >================================================
 C
