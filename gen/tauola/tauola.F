@@ -84,6 +84,15 @@ C JAK=0 INCLUSIVE:  JAK=1,2,3,4,5,6,7,8
       REAL  PDUM1(4),PDUM2(4),PDUM3(4),PDUM4(4),PDUM5(4),HDUM(4)
       REAL  PDUMX(4,9)
       DATA IWARM/0/
+
+#ifdef PYTHIA6
+      CHARACTER PYTHIA6VERSION*128
+      DATA  PYTHIA6VERSION/"Compiled with PYTHIA6 "/
+#else
+      CHARACTER PYTHIA5VERSION*128
+      DATA  PYTHIA5VERSION/"Compiled with PYTHIA5 "/
+#endif
+
       KTOM=KTO
       IF(KTO.EQ.-1) THEN
 C     ==================
