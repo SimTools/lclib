@@ -1,5 +1,42 @@
 SOREV = 98a
 
+
+XCOMM ****************************************************************
+XCOMM AIXArchitecture
+XCOMM ****************************************************************
+#if defined(AIXArchitecture)
+/* 01/01/19  A.Miyamoto for jlc.cc        */
+/* #define DOSHRLIB */
+#ifndef ENABLESHARED
+#ifdef DOSHRLIB
+#undef DOSHRLIB
+#endif
+#else
+#ifndef DOSHRLIB
+#define DOSHRLIB
+#endif
+#endif
+SHRLIBFLAGS = 
+.SUFFIXES: .F
+.F.o :
+	$(FF) -c $(FFLAGS) $(INCPATH) $*.F -o $*.o
+CDEBUGFLAGS = -O
+CFLAGS	= $(CDEBUGFLAGS) -DAIX -DKEK -DUNIX -DJLC \
+	$(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
+FDEBUGFLAGS = -O3 -qstrict -qarch=pwr3 -qextname -qfixed -qsave  -qinitauto
+FFLAGS	= $(FDEBUGFLAGS) -WF,-DKEK,-DUNIX,-DJLC,-DAIX \
+	$(EXTRADEFINES)  $(SHRLIBFLAGS)
+FFLAGSE	= $(EXTRADEFINES) $(SHRLIBFLAGS) 
+CC      = cc
+FF	= f90
+RANLIB  = /usr/bin/ranlib
+INSTALL = cp
+INSTALLFLAGS = 
+INSTLIBFLAGS = 
+#endif
+
+
+
 XCOMM ****************************************************************
 XCOMM HPArchitecture
 XCOMM ****************************************************************
@@ -33,7 +70,6 @@ FF	= f77
 RANLIB  = /bin/ranlib
 INSTALL = install
 #endif
-
 
 XCOMM ****************************************************************
 XCOMM hitachiArchitecture
