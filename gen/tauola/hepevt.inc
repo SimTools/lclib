@@ -1,19 +1,10 @@
-#if defined(PYTHIA6)
-      INTEGER NMXHEP
-      PARAMETER (NMXHEP=4000)
-      COMMON/HEPEVT/NEVHEP,NHEP,ISTHEP(NMXHEP),IDHEP(NMXHEP),
-     &JMOHEP(2,NMXHEP),JDAHEP(2,NMXHEP),PHEP(5,NMXHEP),VHEP(4,NMXHEP)
-      DOUBLE PRECISION PHEP,VHEP
-C
-#else
-      INTEGER NMXHEP
-      PARAMETER ( NMXHEP = 2000 )
+#include "nmxhep.inc"
+#define HEPEVT HEP_EVT
       COMMON /HEPEVT/ NEVHEP, NHEP, ISTHEP(NMXHEP), IDHEP(NMXHEP),
      .                JMOHEP(2,NMXHEP), JDAHEP(2,NMXHEP),
      .                PHEP(5,NMXHEP), VHEP(4,NMXHEP)
-#if !defined(JETSET73)
+C#if !defined(JETSET73)
       REAL*8          PHEP, VHEP
-#else
-      REAL*4          PHEP, VHEP
-#endif
-#endif
+C#else
+C      REAL*4          PHEP, VHEP
+C#endif

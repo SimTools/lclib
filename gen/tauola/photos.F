@@ -123,12 +123,7 @@ C.                Z. Was                          Last Update: 10/08/93
 C.
 C.----------------------------------------------------------------------
 C--   IMPLICIT NONE
-      INTEGER NMXHEP
-#if defined(PYTHIA6)
-      PARAMETER (NMXHEP=4000)
-#else
-      PARAMETER (NMXHEP=2000)
-#endif
+#include "nmxhep.inc"
       LOGICAL QEDRAD
       COMMON/PHOQED/QEDRAD(NMXHEP)
       INTEGER PHLUN
@@ -796,12 +791,7 @@ C--   IMPLICIT NONE
      &JMOPHO(2,NMXPHO),JDAPHO(2,NMXPHO),PPHO(5,NMXPHO),VPHO(4,NMXPHO)
       LOGICAL CHKIF
       COMMON/PHOIF/CHKIF(NMXPHO)
-      INTEGER NMXHEP
-#if defined(PYTHIA6)
-      PARAMETER (NMXHEP=4000)
-#else
-      PARAMETER (NMXHEP=2000)
-#endif
+#include "nmxhep.inc"
       LOGICAL QEDRAD
       COMMON/PHOQED/QEDRAD(NMXHEP)
       INTEGER JFIRST

@@ -13,7 +13,7 @@ BASEDIR = ../..
 
 OBJS  = choice.o dcdmas.o formf.o glibk.o inimas.o iniphy.o \
 	initdk.o lunpik.o pachep.o photos.o taudec.o taufil.o \
-	tauint.o tauola.o taurdf.o tautrm.o tralo4.o
+	tauint.o tauola.o taurdf.o tautrm.o tralo4.o luhepc.o pyhepc.o
 
 SRCS  = $(patsubst %.o,%.F,$(OBJS))
 
