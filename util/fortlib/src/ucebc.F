@@ -26,10 +26,10 @@ C*
 C*
       CHARACTER*(*) STRING
       CHARACTER*1   TABLE(0:255)
-      CHARACTER*4  TABDAT(4,0:15)
-      EQUIVALENCE  (TABDAT(1,0),TABLE(0))
 C
 #ifdef G77_521_OR_GREATER
+      CHARACTER*4  TABDAT(4,0:15)
+      EQUIVALENCE  (TABDAT(1,0),TABLE(0))
       DATA ((TABDAT(J,K),J=1,4),K=0,15)
 C                 N S S F       D
 C                 U O T T   H   E       V F C S S
@@ -76,6 +76,8 @@ C                 0 1 2 3 4 5 6 7 8 9 \ \ \ \ \ L
 C
 C
 #else
+      CHARACTER*4  TABDAT(0:15)
+      EQUIVALENCE  (TABDAT(0),TABLE(0))
 C
       DATA (TABDAT(K),K=0,15)
 C                 N S S F       D
