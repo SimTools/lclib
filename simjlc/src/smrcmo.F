@@ -17,6 +17,7 @@ C* (Output)
 C*   HLXCDC(*) : CDC track parameter ( pivot is moved)
 C*   IRET      : =-1 when failed to move pivot.  
 C*   IRET      : =-2 when CDC track does not reach VTX inner most layer.
+C*   IRET      : =-3 when inconsistency in the calculation of intersection
 C*              If IRET is not zero, CDC helix parameter is not changed.
 C* (Relation)
 C*   Called by SMRCVT
@@ -77,7 +78,7 @@ C---
          CDCT(I)=HLXCDC(I)
  210  CONTINUE
       CTR=PTOR/CDCT(3)
-      CTRA=ABS(CTR)
+c      CTRA=ABS(CTR)
       CTXC=CDCT(6)+(CDCT(1)+CTR)*DCOS(CDCT(2))
       CTYC=CDCT(7)+(CDCT(1)+CTR)*DSIN(CDCT(2))
       CTCR=DSQRT(CTXC**2+CTYC**2)
@@ -108,7 +109,7 @@ C... same as VTX track parameter
          XPVOT=CVR*COS(THPIV)
          YPVOT=CVR*SIN(THPIV)
 
-         CH=SIGN(1.0, CDCT(3))
+         CH=SIGN(1.0, HLXCDC(3))
          PHIA=CDCT(2)+(1.0+CH)*xPID/2.0
 
 C... Deflaection angle is in the range, -90 to 90 degree
@@ -119,7 +120,7 @@ C... Deflaection angle is in the range, -90 to 90 degree
      >       ' and track charge is inconsistent.'
             PRINT *,' Layer=',IL,' DEF-Angle=',DEFA,
      >               ' Kappa=',CDCT(3)
-            NRET=-2
+            IRET=-3
             RETURN
           ENDIF
 
@@ -136,7 +137,7 @@ C  with Multiple scattering.
 C ---
 
       PCDC=SQRT(1.0+CDCT(5)**2)/ABS(CDCT(3))
-      BETA=1.0
+C      BETA=1.0
       DO 300 IL = NLAST, NFIRST, -1
          CALL UTRKMO(LNxHLX, HLXCDC, PIVOT(1,IL), HELOUT)
          SIGMS=0.0141/PCDC/SQRT(RDLVX(IL))*
