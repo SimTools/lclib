@@ -12,7 +12,7 @@ OBJL  =  beamfn.o beamgn.o beamin.o boostd.o dbgbos.o decay2.o \
 	 pythiaif.o  rcovev.o spbegn.o spblst.o spcall.o spfunc.o \
 	 spgpar.o spjbtm.o sprnin.o sut2pd.o thrust.o u2vang.o \
 	 ud4mas.o udph2b.o udph3b.o udphmm.o udsetf.o udsetr.o \
-	 udsrch.o udtran.o uf2uxj.o uh4mas.o uhdmod.o uhph2b.o \
+	 udtran.o uf2uxj.o uh4mas.o uhdmod.o uhph2b.o \
 	 uhph3b.o uhph4b.o uhphmm.o uhsetf.o uhsetr.o ulghed.o \
 	 ulgprt.o up4mas.o widhig.o widtop.o widw.o widwd.o \
 	 widz.o widzd.o \
