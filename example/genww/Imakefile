@@ -1,0 +1,68 @@
+#
+# Make file for e+e- -> W+W- event generator, simulator, and analysis.
+# This makefile is to create three program,
+#      nod    ;  bases for e+e- -> W+W- without W decay.
+#      bases  ;  bases for e+e- -> W+W- includeing W decay, for simulator
+#      anal   ;  make FULL program for spring and analysis.
+#
+# A. Miyamoto  29-Sep-1994  First official version on HP-UX
+#              21-Nov-1994  Modified for use with BASESV5.1
+#              16-Feb-1996  For demo at Nagoya Univ. Nakanishi's Lab.
+#               8-Dec-1997  To Run on HI-UX
+#
+
+#define LCLIB_TMPL "../../config/lclib.tmpl"
+#include LCLIB_TMPL
+
+LCDIR  = ../..
+LCLIB  = $(LCDIR)/lib
+HBOOK_LIB = /cern/95a/lib
+
+INCPATH = -I./ \
+	  -I$(LCDIR)/util/lcfull/src \
+	  -I$(LCDIR)/util/com \
+	  -I$(LCDIR)/util/cli \
+	  -I$(LCDIR)/util/tbs/src
+
+MAIN  = $(LCDIR)/util/lcfull/src/prmain.o
+
+ANALOBJ   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
+	    coupla.o boost0.o bs51cm.o bshget.o 
+
+
+ANALLIB   = -Wl,-L$(LCLIB) -lLCFULL -lGENUTIL -lLUND73 -lTAUOLA \
+	    -lHELASV204 -lBASESV5.1 -lSIMJLC -lFORTLIB  -lCOM -lCLI \
+	    -lTBS -lLCFULL -lGENUTIL  \
+	    -lHPKTOHBK -lFORTLIB -lCOM -lCLI \
+	    -Wl,-L$(HBOOK_LIB) -lpacklib $(MYLDOPT)
+
+#ifdef HPArchitecture
+MYLDOPT = -lvec -lU77 -Wl,-a,arvhice
+#endif
+#ifdef hitachiArchitecture
+MYLDOPT = -lmsl2
+#endif
+
+
+all : anal
+
+anal   : $(ANALOBJ) 
+	 f77 $(FFLAGS) $(MAIN) $(ANALOBJ) $(ANALLIB) -o wwanal.ex \
+	 -Wl,-y,time_
+
+clean ::
+	rm -f *.o core *~
+	rm -f Makefile Makefile.bak BASES.WW.TBS wwanal.ex dis.wwanl ft.01
+
+help  ::
+	@echo "This is a Makefile to create e+e- ->W+W- generator."
+	@echo "Following commands are recognized. Read Readme file for more details."
+	@echo "    make anal      ; create spring/simulator/analysis job"
+	@echo "    make celan     ; cleanup directory "
+	@echo "    make           ; get this help "
+	@echo "                                       A.Miyamoto  29-Sep-1994"
+
+
+
+
+

@@ -1,0 +1,53 @@
+#!/bin/csh
+# **********************************************************
+#
+#  Example of script for event generation using BASES V5.1
+#
+#  Coded by A.Miyamoto   19-Oct-1994
+#
+# *********************************************************
+#
+
+set dir=.
+set program=$dir/wwanal.ex
+
+
+#
+# ==============================================================
+# ==============================================================
+# First run: Do BASES, then SPRING and event generation.
+# ==============================================================
+# ==============================================================
+#
+$program << eof 
+@!                                                                      
+@!*************************************************                     
+@! Input section for Steering part.                                     
+@!*************************************************                     
+@!                                                                      
+STEERING                                                                
+   EVENT GEN(2)     ! Number of event is just a dummy.
+   STEERING DEBUG(3)  ! Standard debug level.
+   OUTFILE FILE(BASES.WW.TBS)   ! Output file for BASES data
+   ANAL SEQ(BASES) !  Define only BASES
+EXIT                                                                    
+@!                                                                      
+@!*************************************************                     
+@! Input section for Spring part.                                       
+@!*************************************************                     
+@!                                                                      
+BASES
+  HELP    !  for PRINT command help
+  GETB 0  !  Do BASES
+  PUTB 1  !  BASES results are written to the bank.
+  DOSP 0  !  Does not Run spring. 
+EXIT                                                                 
+@!
+@!                                                                      
+@!*************************************************                     
+@! Start execution.                                                     
+@!*************************************************                     
+@!                                                                      
+GO                                                                      
+eof
+
