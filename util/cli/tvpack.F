@@ -389,7 +389,11 @@ C
        include '_tvcomm.inc'
 C     COMMON /TVCOMM/ AREA(2,2),WINDOW(2,2),I1,I2,IFONT,TSIZE,IFLUSH
 C
+#ifdef HIUXF77
+      LOGICAL*1 LTXT(N)
+#else
       BYTE*1 LTXT(N)
+#endif
       INTEGER ITXT
       CHARACTER*80 PSTR,SSTR
       CHARACTER*11 CSIZ
