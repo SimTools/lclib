@@ -12,7 +12,7 @@ C..... SHOW A TABLE OF OPTIONS
 C
        NVAL = ABS(MVAL)
        IF (ICOMER.LT.0) GOTO LABEL
-       IF (LUNCOM.EQ.0) CALL INICOM('BUG')
+       IF (LUNCOM.EQ.0) CALL INICOM('CMD')
  3     RESP = ' '
        NLEN = LEN(NAMES(1))
  1     CONTINUE

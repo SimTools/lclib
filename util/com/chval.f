@@ -37,7 +37,7 @@ C FUNC
 C
 C BEGIN
        IF( ICOMER .LT. 0 ) GOTO LABEL
-       IF( LUNCOM .EQ. 0 ) CALL INICOM( 'BUG' )
+       IF( LUNCOM .EQ. 0 ) CALL INICOM( 'CMD' )
 C
        IF( NVAL .GT. MAXENT ) THEN
          WRITE( LUNCOM,1000 ) NVAL

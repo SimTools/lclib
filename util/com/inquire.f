@@ -18,7 +18,7 @@ C
 C..... ASK THE USER TO SELECT ONE OR MORE OPTIONS
 C
        IF (ICOMER.LT.0) GOTO LABEL
-       IF (LUNCOM.EQ.0) CALL INICOM ('BUG')
+       IF (LUNCOM.EQ.0) CALL INICOM ('CMD')
        NLEN = LEN(NAMES(1))
  3     RESP = ' '
        PROMPT = '?'//COMPRM//'> '

@@ -34,7 +34,7 @@ C..... MODIFY A TABLE OF VALUES (L*4, I*4, R*4 OR CHAR)
 C      Support for CHAR type was temporary removed in FACOM vers. (RSI)
 C
        IF (ICOMER.LT.0) GOTO LABEL
-       IF (LUNCOM.EQ.0) CALL INICOM('BUG')
+       IF (LUNCOM.EQ.0) CALL INICOM('CMD')
 C@@@   ITYPE = IAND ( ISHFT(DESCR(1),-16), 255 )
        IF (VARTYP .NE. 'L' .AND. VARTYP .NE. 'I' .AND.
      &     VARTYP .NE. 'R' ) THEN
