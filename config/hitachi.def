@@ -55,7 +55,7 @@ XCOMM  F77FORTRAN
 XCOMM  ************************
 #if defined(F77FORTRAN)
 #define HitachiFortranCompiler(dir)  @\
-$(CPP) -P  $(CPPOPT) $(INCPATH) dir/$*.F  >  tmp.$*.f   @@\
+$(CPP) -P  $(CPPOPT) $(INCPATH) -DJETSET73 dir/$*.F  >  tmp.$*.f   @@\
 $(FC) -c $(F77OPTS) -o $*.o tmp.$*.f                @@\
 rm -f tmp.$*.f                                      @@\
 mv tmp.$*.o $*.o
@@ -88,8 +88,8 @@ XCOMM  ************************
 FF      = $(FC)
 CC	= cc
 CPP     = /lib/cpp
-CPPOPT  = -DHIUXF77 -DKEK -DUNIX -DJLC -DJETSET73 $(EXTRADEFINES) 
-CFLAGS  = -O -DHIUXF77 -DKEK -DUNIX -DJLC -DJETSET73 $(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
+CPPOPT  = -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) 
+CFLAGS  = -O -DHIUXF77 -DKEK -DUNIX -DJLC $(EXTRADEFINES) $(SHRLIBFLAGS) $(INCPATH)
 RANLIB  = /bin/ranlib
 INSTALL = install
 #endif
