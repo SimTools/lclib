@@ -7,6 +7,40 @@ To recompile and create libs, do
 in this directory.
 
 
+
+*************************************************
+lclib-98a-1 24-December-1998  by A.Miyamoto
+*************************************************
+(1) Include several patches by K.Fujii.  Thoese are,
+-------------------------------------------------------------------------------
+98/12/22  K.Fujii	Modifications for 98a
+-------------------------------------------------------------------------------
+
+Makefile		gen/pythia55: removed
+			gen/lund73:   renamed to gen/luhadr
+config/hitachi.def	-DJETSET73
+      /lclib.def	-fno-second-underscore for PPC
+example			removed
+gen/Makefile		lund73:	renamed to luhadr
+			pythia55: removed
+gen/lund73		moved to gen/luhadr
+gen/luhadr/Makefile	removed 
+          /jetset73	removed
+          /full/*	moved to ..
+          /full		removed
+          /Imakefile	jetset73 part removed
+gen/pythia55		removed
+gen/tauola/hepevt.inc	#ifndef JETSET73 .....
+          /tauola.F        to change precision of PHEP,VHEP in /HEPEVT/
+          /photos.F
+util/cli/ldsdsn.F	removed MAIN__
+    /genutil/Imakefile  udsrch: removed
+	    /udsrch.F	removed
+    /lcfull/src/Imakefile	prmain.o removed
+    /tbs/src/tb_buflib.c	removed PPC treatment for second underscore
+ 
+
+
 *************************************************
 lclib-97a-3.5 20-October-1998  by A.Miyamoto
 *************************************************
