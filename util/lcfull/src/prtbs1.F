@@ -64,7 +64,7 @@ C
          GO TO 9000
       ENDIF
 C
-      CALL TBALOC('Event',   1, 75, 2400, 400000, IRET)
+      CALL TBALOC('Event',   1, 75, 6400, 400000, IRET)
       IF(IRET.LT.0) THEN
          WRITE(MESAGE,'(''Error to TBALOC "Event"...IRET='',
      >                    I5,)') IRET
