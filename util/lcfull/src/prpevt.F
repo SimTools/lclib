@@ -51,7 +51,10 @@ C
 #ifdef  UNIX
       SAVE  NOPNFL
 #endif
- 
+#ifdef G77_521_OR_GREATER 
+      LOGICAL IEXIST
+#endif
+
 C===========================<< Entry point >>==========================
 C
 C----------------------------------------------------------------------
@@ -100,23 +103,19 @@ C900213            CALL SSDBNK( 2, ' ', ' ')
             CALL PRDBNK( 2, ' ', ' ')
 #ifdef  UNIX
             IF( NOPNFL.EQ.0 .AND. NOFALL.NE.0  ) THEN
-#endif
-#ifdef  UNIX
                NOPNFL = NOPNFL + 1
-#endif
-#ifdef  UNIX
+#ifdef G77_521_OR_GREATER 
+               INQUIRE(FILE=OUTFIL(NOPNFL),EXIST=IEXIST)
+               IF( IEXIST) GO TO 9010
+               OPEN(NOTUNI,FILE=OUTFIL(NOPNFL),FORM='UNFORMATTED',
+     >              ERR=9010)
+c  status=new is forced in the case of g77 to aviod trouble.
+#else
                OPEN(NOTUNI,FILE=OUTFIL(NOPNFL),FORM='UNFORMATTED')
 #endif
-#ifdef  UNIX
                CALL TBWRIT( NOTUNI, 2, NRET )
-#endif
-#ifdef  UNIX
             ELSE
-#endif
-#ifdef  UNIX
                NRET = 0
-#endif
-#ifdef  UNIX
             ENDIF
 #endif
 #ifdef  MSP
@@ -140,29 +139,21 @@ C900213      CALL SSDBNK(NRECID, ' ', ' ')
       CALL PRDBNK(NRECID, ' ', ' ')
 #ifdef  UNIX
           IF( NOFALL.NE.0 ) THEN
-#endif
-#ifdef  UNIX
              IF(NOPNFL.EQ.0 ) THEN
-#endif
-#ifdef  UNIX
                NOPNFL = NOPNFL + 1
-#endif
-#ifdef  UNIX
+#ifdef G77_521_OR_GREATER 
+               INQUIRE(FILE=OUTFIL(NOPNFL),EXIST=IEXIST)
+               IF( IEXIST) GO TO 9010
+               OPEN(NOTUNI,FILE=OUTFIL(NOPNFL),FORM='UNFORMATTED',
+     >              ERR=9010)
+c  status=new is forced in the case of g77 to aviod trouble.
+#else
                OPEN(NOTUNI,FILE=OUTFIL(NOPNFL),FORM='UNFORMATTED')
 #endif
-#ifdef  UNIX
              ENDIF
-#endif
-#ifdef  UNIX
              CALL TBWRIT( NOTUNI, NRECID, NRET )
-#endif
-#ifdef  UNIX
           ELSE
-#endif
-#ifdef  UNIX
              NRET = 0
-#endif
-#ifdef  UNIX
           ENDIF
 #endif
 #ifdef  MSP
@@ -206,32 +197,25 @@ C
 #endif
 #ifdef  UNIX
             IF( NOFALL.EQ.0 ) THEN
-#endif
-#ifdef  UNIX
                ENDFILE NOTUNI
-#endif
-#ifdef  UNIX
             ELSEIF( NOPNFL .LT. NOFALL ) THEN
+#ifdef G77_521_OR_GREATER 
+               call closelcfull(notuni)
 #endif
-#ifdef  UNIX
                CLOSE(NOTUNI)
-#endif
-#ifdef  UNIX
                NOPNFL = NOPNFL + 1
-#endif
-#ifdef  UNIX
+#ifdef G77_521_OR_GREATER 
+               INQUIRE(FILE=OUTFIL(NOPNFL),EXIST=IEXIST)
+               IF( IEXIST) GO TO 9010
+               OPEN(NOTUNI,FILE=OUTFIL(NOPNFL),FORM='UNFORMATTED',
+     >              STATUS='NEW',ERR=9010)
+c  status=new is forced in the case of g77 to aviod trouble.
+#else
                OPEN(NOTUNI,FILE=OUTFIL(NOPNFL),FORM='UNFORMATTED')
 #endif
-#ifdef  UNIX
             ELSE
-#endif
-#ifdef  UNIX
                PRINT *,'In PRPEVT .. no more output file space.'
-#endif
-#ifdef  UNIX
                NRET = -2100
-#endif
-#ifdef  UNIX
             ENDIF
 #endif
  
@@ -241,4 +225,11 @@ C
       CALL UCTLSZ(-1, TAPSIZ, DSKSIZ)
  
       RETURN
+#ifdef G77_521_OR_GREATER 
+ 9010 continue
+      print *,'The job terminated since the output file '
+      print *,'   ', OUTFIL(NOPNFL)(:LNBLNK(OUTFIL(NOPNFL)))
+      print *,'can not be opened.  It may be exists already.'
+      stop
+#endif
       END
