@@ -67,6 +67,7 @@ C--
          print *,'Error in SMRCMO .. no matching layer was found'
          PRINT *,' RPVVTX=',RPVVTX
          PRINT *,' RCYVX=',(RCYVX(K),K=0,NSMPVX)
+         PRINT *,' HLXVTX=',(HLXVTX(KK),KK=1,8)
          IRET = -1
          RETURN
       ENDIF

@@ -28,6 +28,7 @@ C*     Called by SMRVTX.
 C*     Calls the following routines;
 C* (Updaterecord)
 C*     29/3/99   A.Miyamoto       Original version, duplicating SMRHLX
+C*      9/4/99   A.Miyamoto       Does not move the pivot.
 C*
 C***********************************************************************
  
@@ -149,15 +150,19 @@ C--
 C--
 C  Move the pivot from the production point to the 1-st
 C  measured point.
+C
+C  We do not move the pivot, since we start from the helix 
+C  parameter at the first VTX layer.
 C--
       CALL UVCOPY(8,HLXCT,HLSMR)
-      IF ( R1.EQ.RCY1 ) THEN
-         RCY(1) = 1.E-2
-         RCY(2) = RCYVT(1)
-         CALL UHLXCY(RCY,ZCYVT,EPSL,HLXCT,PHI,XV,IRT)
-         HLSMR(2) = FI0 + PHI
-         CALL UVCOPY(3,XV(1),HLSMR(6))
-      ENDIF
+C      IF ( R1.EQ.RCY1 ) THEN
+C         RCY(1) = 1.E-2
+C         RCY(2) = RCYVT(1)
+C         CALL UHLXCY(RCY,ZCYVT,EPSL,HLXCT,PHI,XV,IRT)
+C         HLSMR(2) = FI0 + PHI
+C         CALL UVCOPY(3,XV(1),HLSMR(6))
+C
+C      ENDIF
 C--
 C  Calculate inverse error matrix and smear helix parameters.
 C--
