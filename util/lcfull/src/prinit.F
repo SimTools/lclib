@@ -13,6 +13,7 @@ C*       A. Miyamoto    02-Apr-1987  Original version.                 *
 C*       A. Miyamoto    03-Jun-1987  Fixed a bug to count output size. *
 C*       A. Miyamoto    08-Sep-1989  To FULLnize simulator.            *
 C*                                   call PRTBSI after reading param.  *
+C*       A. Miyamoto     5-Aug-1989  To joint use with root.           *
 C*                                                                     *
 CC**********************************************************************
 C
@@ -20,10 +21,16 @@ C
 C
 #include "prjenv.inc"
 #include "clibuf.inc"
- 
+#include "prroot.inc"
 C
 C==================<<  Entry Point  >>================================
 C
+      NFLSGROOT=0
+      GOTO 100
+
+      ENTRY PRINIT_ROOT
+      NFLAGROOT=1
+ 100  CONTINUE
 C
 C ------------------- Write Job heading
 C

@@ -18,6 +18,7 @@ C*           PRUSJI : User Option job initialization.                  *
 C*  (Author)                                                           *
 C*       A. Miyamoto    26-Aug-1985                                    *
 C*       A. Miyamoto     8-Sep-1989  To FULLnize simulator.            *
+C*       A. Miyamoto     5-Aug-1998  To run within  ROOT.              *
 C*                                                                     *
 CC**********************************************************************
 C
@@ -25,11 +26,13 @@ C
 C
 #include "prjenv.inc"
 #include "prgenf.inc"
+#include "prroot.inc"
 C
       CHARACTER*8  VDATE
 C
 C==================<<  Entry Point  >>================================
 C
+      if( nflagroot .eq. 1 ) go to 200
 C
 C -------------------------------------------------------------------- C
 C     Read job parameters.                                             C
@@ -55,6 +58,7 @@ C --------------------------------------------------------------------
 C (2) Obtain job execution status, etc.
 C --------------------------------------------------------------------
 C
+ 200  continue
       IUMGEN    = 0
       NEXTYP(1) = 0
       NEXTYP(2) = 0

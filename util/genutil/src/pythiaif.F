@@ -6,7 +6,7 @@ C*(Author) A. Miyamoto   19-Oct-1992   Original version, prepared based.
 C*                                     on T#GN.G#LUND73.FORT(JETSETIF)
 C*         A. Miyamoto   23-Mar-1995   Modified P55FILL. 
 C*                                     IP = MSTI(4) is primary.
-C*
+C*         A. Miyamoto    5-Aug-1998   Add P55COM_ROOT to allow link with root.
 C******************************************************************
 C*
 C
@@ -36,6 +36,7 @@ CMSP =EXPAND 'T#TP.COM.FORT(COMODE)'
 #ifdef UNIX
 #include "comode.inc"
 #endif 
+      COMMON /P55ROOT/ NFLAGROOT
 C
 C CONSTANTS
 C
@@ -123,8 +124,44 @@ C ---------------------
 C
       CALL PYINIT(FRAME, BEAM, TARGET, ECM )
       INIT = 1
+      NFLAGROOT=0
 C
       RETURN
+C
+C 
+C  ENTRY P55COM_ROOT( XECM, IPLUND, IISEED, ISAVELU)
+C
+
+      ENTRY P55COM_ROOTI(XECM)
+      ECM=XECM
+      PLUND=0
+      ISEED=0
+      SAVELU=0
+      GO TO 880
+
+      ENTRY P55COM_ROOT( XECM, IPLUND, IISEED, ISAVELU)
+
+      ECM    = XECM
+      PLUND  = IPLUND
+      ISEED  = IISEED
+      SAVELU = ISAVELU
+
+      IF ( ISEED .NE. 0 ) THEN
+        MRLU( 1 ) = ISEED
+        MRLU( 2 ) = 0
+      ENDIF
+
+ 880  CONTINUE
+      FRAME='CMS'
+      BEAM='e-'
+      TARGET='e+'
+
+      CALL PYINIT(FRAME, BEAM, TARGET, ECM )
+      INIT = 1
+      NFLAGROOT=1
+
+      RETURN
+
       END
 C
 C----------
@@ -159,6 +196,10 @@ C
       INTEGER * 4      IBUF
       REAL * 4         RBUF ( 20000 )
       EQUIVALENCE      ( IBUF, RBUF )
+
+C
+      COMMON /P55ROOT/ NFLAGROOT
+
 C
 C CONSTANTS
 C
@@ -339,6 +380,12 @@ C
 C FUNCTIONS
 C
 C      INTEGER * 4      KLU
+
+      IF( NFLAGROOT .EQ. 1 ) THEN
+         CALL TBCRTE(1,'Generator:Parton_List',0,0,IRET)
+         CALL TBCRTE(1,'Generator:Particle_List',0,0,IRET)
+         CALL TBCRTE(1,'Generator:Header',0,0,IRET)
+      ENDIF
 C
 C MAIN
 C
