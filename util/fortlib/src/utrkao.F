@@ -1,8 +1,10 @@
 CC********************************************************************CC
 C*                                                                    *C
 C*===========================================----------------===      *C
-C*  Subroutine UTRKAV(NTRK,LNxHLX,HELX,HELXAV,CHI2,PCHI2,IRET)        *C
+C*  Subroutine UTRKAO(NTRK,LNxHLX,HELX,HELXAV,CHI2,PCHI2,IRET)        *C
 C*=====================================----------------------===      *C
+C*  Same as utrkav.F, except format of error matrix is that for
+C*  LCLIB                                                             *C
 C*                                                                    *C
 C* (Purpose)                                                          *C
 C*    Convolutes multi-track segments into a single helx.             *C
@@ -30,10 +32,12 @@ C*                            error in DSFACT, since it won't work when
 C*                            determinant is less than 1.e-17.
 C*                            Does not change Helix charge when HELXAV(3)
 C*                            is 0.          
+C*    3/30/99  A.Miyamoto     This version is created for LCLIB error
+C*                            matrix format
 C*                                                                    *C
 CC********************************************************************CC
    
-      SUBROUTINE UTRKAV(NTRK,LNxHLX,HELX,HELXAV,CHI2,PCHI2,IRET)
+      SUBROUTINE UTRKAO(NTRK,LNxHLX,HELX,HELXAV,CHI2,PCHI2,IRET)
    
       IMPLICIT   REAL*8 ( A-H, O-Z )
    
@@ -48,8 +52,8 @@ CC********************************************************************CC
      .               EPSS(5,5,MXxTRK)
       REAL   *4      HELXWK(38), HELXIN(5,MXxTRK), CHRG
       EQUIVALENCE   (HELXWK(9),ERRMAT(1))
-      DATA  IFLIP  / 1,-1, 1,-1, 1,  1,-1, 1,-1,  1,-1, 1,  1,-1,  1 /
-   
+C      DATA  IFLIP  / 1,-1, 1,-1, 1,  1,-1, 1,-1,  1,-1, 1,  1,-1,  1 /
+      DATA  IFLIP  / 1,-1,1, 1,-1,1,  -1,1,-1,1,  1,-1,1,-1,1 /
       EXTERNAL       UCONST, PRBLK1
 C  
 C  
@@ -100,7 +104,7 @@ C--
                ERRMAT(N) = IFLIP(N)*ERRMAT(N)
 100         CONTINUE
          ENDIF
-         CALL UTRKMV(38,HELXWK,HELXAV(6),HELXWK)
+         CALL UTRKMO(38,HELXWK,HELXAV(6),HELXWK)
 C--
 C  Save this converted helix parameters to HELXIN.
 C--
@@ -110,7 +114,8 @@ C  Invert converted helix error matrix.
 C--
          N = 0
          DO 200 J = 1, 5
-            DO 20 I = J, 5
+C            DO 20 I = J, 5
+            DO 20 I = 1, J
                N        = N + 1
                EPS(I,J) = ERRMAT(N)
                EPS(J,I) = EPS(I,J)
@@ -181,7 +186,8 @@ C  Fill output array.
 C--
       IJ = 0
       DO 700 J = 1, 5
-         DO 70 I = J, 5
+CC         DO 70 I = J, 5
+         DO 70 I = 1, J
             IJ         = IJ + 1
             ERRMAT(IJ) = EE(I,J)
 70       CONTINUE
