@@ -101,7 +101,7 @@ C... Sign of THX is ambiguous.  Take the one in the direction
 C... same as VTX track parameter
          DIF1 = ATAN2(DIFY+DIFX*TAN(THX),DIFX-DIFY*TAN(THX))
          DIF2 = ATAN2(DIFY-DIFX*TAN(THX),DIFX+DIFY*TAN(THX))
-         IF( ABS(DIF2) < ABS(DIF1) ) THX = -THX
+         IF( ABS(DIF2) .LT. ABS(DIF1) ) THX = -THX
 
          THPIV=ATAN2( CTXC*TAN(THX)+CTYC, 
      >                CTXC - CTYC*TAN(THX))
@@ -115,7 +115,7 @@ C... same as VTX track parameter
 C... Deflaection angle is in the range, -90 to 90 degree
          DEFA=DATAN((-YPVOT+CTYC -(-XPVOT+CTXC)*TAN(PHIA))/
      >             (-XPVOT+CTXC +(-YPVOT+CTYC)*TAN(PHIA)))
-         IF( DEFA*CDCT(3) < 0.0) THEN
+         IF( DEFA*CDCT(3) .LT. 0.0) THEN
             PRINT *,'Error in SMRCMO .. Deflection angle',
      >       ' and track charge is inconsistent.'
             PRINT *,' Layer=',IL,' DEF-Angle=',DEFA,
