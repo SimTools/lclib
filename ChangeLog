@@ -1,0 +1,20 @@
+lclib update log
+
+******************
+Tag:lclib-97a-2.1
+******************
+By A.Miyamoto
+Several changes in Imakefile's so that 97a-2 can run run HP(jlcux1)
+and linuxppc.
+
+*******************
+Tag:lclib-97a-2
+*******************
+Installed by A.Miyamoto
+lclib were updated to run on ccjlc1, and include example and doc
+directories.
+
+*******************
+Tag: lclib 
+*******************
+ Original version installed by K.Fujii
