@@ -7,6 +7,12 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-97a-3.3 14-October-1998  by A.Miyamoto
+*************************************************
+(1) Implement minar  changes to run lclib with JSF
+    So far confirmed to run well on Redhat5.1 and HI-UX
+
+*************************************************
 lclib-97a-3.2 27-Jul-1998  by A.Miyamoto
 *************************************************
 (1) Installation on HIUX is updated to use f90 compiler
