@@ -7,7 +7,34 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
-lclib-98a-5-1 7-April-1999  by A.Miyamoto
+lclib-98a-6 27-May-1999  by A.Miyamoto
+*************************************************
+--------------------------
+27-May-1999 Akiya Miyamoto
+--------------------------
+  (1) smrvhl.F, smrhlx.F, smrhlm.F are modified to include
+      the effect of multiple scattering in smearing of helix parameters.
+  (2) smrvgo.inc, smrvtp.inc, smrvtx.F are modified to allow up to
+      20 VTX layers of VTX + IMT layers.
+
+--------------------------
+1999/05/26  K.Fujii 	
+--------------------------
+  (1) Create archives with a PIC flag.
+
+--------------------------
+17-May-1999 
+--------------------------
+  (1) IDA=1000022 is treated as LSP in luhadr.F
+  
+--------------------------
+14-May-1999
+--------------------------
+  (1) A number of CDC hits of curled up tracks are not counted properly
+      and it was fixed.
+
+*************************************************
+lclib-98a-5-1 7-May-1999  by A.Miyamoto
 *************************************************
 (1) In smrcmo.F, when calculating the multiple scattering angle,
     value is devided by Sqrt(Radiation-length) instead of multiply.
