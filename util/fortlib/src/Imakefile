@@ -60,12 +60,12 @@ COBJECT =
 
 #ifdef PPCArchitecture
 OBJDEP = clock.o
-COBJECT = ran.o time.o date.o
+COBJECT = time.o date.o
 #endif
 
 #ifdef LinuxArchitecture
 OBJDEP = clock.o
-COBJECT = ran.o time.o date.o
+COBJECT = time.o date.o
 #endif
 
 #ifdef AIXArchitecture
@@ -97,17 +97,7 @@ InstallLibrary($(LIBNAME),$(INSTALLDIR))
 #if defined(HPArchitecture)
 #
 # These definition valid only for HP-UX
-rann.o: rann.F
-	f77  rann.F -c $(FFLAGSE) -o rann.o
-
-ran_.o: ran_.F
-	f77 ran_.F -c $(FFLAGSE) -o ran_.o
 #elif defined(PPCArchitecture) || defined(LinuxArchitecture) || defined(AIXArchitecture) 
-rann.o: rann.F
-	$(F77) $(FFLAGS) -fno-underscoring -c rann.F
-
-ran_.o: ran_.F
-	$(F77) $(FFLAGS) -fno-underscoring -c ran_.F
 
 time.o: ppc/time.c
 	$(CC) $(CFLAGS) -c ppc/time.c -o time.o

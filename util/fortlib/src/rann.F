@@ -12,24 +12,14 @@ C*  (Relation)                                                         *
 C*     RAN is used to get uniform random numbers.                      *
 C*  (Author)                                                           *
 C*     A. Miyamoto            3-Dec-1984                               *
-C*                                                                     *
+C*     A. Miyamoto           11-Oct-2001  RNORML of CERNLIB is used    *
+C*$Id$
 CC**********************************************************************
 C  
-#if defined(MSP) || defined(SUN) || defined(HIUXF77) || defined(AIX)
-	FUNCTION  RANN(ISEED)
-#endif
-#if defined(HP) || defined(MACHTEN_PPC)
-	  FUNCTION  RANN_(ISEED)
-#endif
-C  
-#if defined(MSP) || defined(SUN) || defined(HIUXF77) || defined(AIX)
-       RANN = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-#endif
-#if defined(HP) || defined(MACHTEN_PPC)
-	RANN_ = (RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-#endif
-     .        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-     .        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) +
-     .        RAN(ISEED) + RAN(ISEED) + RAN(ISEED) - 6.0E0 )
+      FUNCTION  RANN(ISEED)
+      real*4  val(10)
+      call rnorml( val, 1)
+      rann=val(1)
+
       RETURN
       END
