@@ -60,9 +60,7 @@ C
 C     NC = 14
 C     DO 100 I = 1, 14
 C       NOELM(I) = I
-#ifdef 00
-  CONTINUE
-#endif 
+C 100   CONTINUE
 C     RETURN
 C     END
 C     BLOCK DATA SMRBLK
