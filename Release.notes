@@ -1,0 +1,17 @@
+*************************************************
+How to install lclib.
+*************************************************
+
+To recompile and create libs, do
+  make install
+in this directory.
+
+*************************************************
+lclib-97a-3 7-April-1998  by A.Miyamoto
+*************************************************
+1) lclib was installed in Redhat 5.0 for i386.linux,
+using egcs-1.0.1 release.
+2) A Bug are found in example/genww and modified.
+3) Some problem in OPEN/CLOSE statement to use with g77.
+   prpevt.F and prcevt.F are modified accordingly.
+
