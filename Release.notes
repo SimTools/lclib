@@ -8,6 +8,16 @@ in this directory.
 
 
 ------------------------------------------------
+13-April-2003  Akiya Miyamoto
+------------------------------------------------
+Following modifications are made.
+(1) Modified so as not to use Imakefile.  Now machine dependances
+are handled by if switches of gnu make command.
+(2) Several arrays in simjlc and ltkcl are increased so as
+to avoid errors which happens at high energy simulation.
+
+
+------------------------------------------------
 8-May-2002  Akiya Miyamoto
 ------------------------------------------------
 TAUOLA and others are modified to run with Pythia6.

@@ -1,38 +1,30 @@
 How to install
 
-0) Before install, this package has been tested on
-        Redhat 5.1/5.2/6.0/6.1  Linux
-        MkLinux
-        HP-UX 10.2
-        HI-UX 
- 
-   You may need  X11R6.3/config  to run  xmkmf .
+0) This package has been tested on RedHat 8.0
 
-1) Do
+1) Before build
 	setenv CERN_ROOT <<cern directory>>
 	setenv LCLIBROOT <<lclib directory>>
-	set path=(. $JSFROOT/bin $ROOTSYS/bin $path)
-	setenv IMAKEINCLUDE "-I$JSFROOT -I$LCLIBROOT"
+	set path=(. $path)
 
-2) According to the version number of Pythia library, 5 or 6, 
-   set configure parameters in $LCLIBROOT/config/configure.in.
-   Together with the version number, location of the library and
-   compiler switch must be set as shown in the file, configure.in.
+2) To build,
+
+    $ cd $LCLIBROOT
+    $ ./configure
+    $ gmake
+    $ gmake install
+
+   Valid configurable switches are shown by
+    $ ./configure --help
 
    Please note that lib/libLUHADR.a is not compatible with Pythia6.
    In that case, JSF version of hadronization, JSFHadronizer, must be
    used.  lib/libTAUOLA.a is not up-to-date, but it is compatible 
    with Pythia6.
 
-2) do 
-	cd $LCLIBROOT
-	make all
-	make install
+3) To build and run example program , do
 
-This will create library in $LCLIBROOT/lib.
-Then 
-
-	cd $LCLIBROOT/example/genww
+    $  cd $LCLIBROOT/example/genww
 	
 and read a file, Readme, there to run example.
 

@@ -1,36 +1,46 @@
+
+include $(LCLIBROOT)/config/Makefile.lclib
+
+.PHONY: include depend 
+
+SUBDIRS = util gen simjlc
+# SUBDIRS = gen
+
+TARGETS = include install depend clean distclean
+
 all: install
 
-dir:	
-	@./bin/make.libdir
+include:: 
+	mkdir -p $(includedir)
 
-install: dir
-	(cd gen; make install)
-	(cd simjlc; make install)
-	(cd util  ; make install)
+install:: include depend 
+	@echo "Installing lib for Pythia Version $(PYTHIA_VERSION)"
+	@echo "libdir =$(libdir)"
+	mkdir -p $(libdir)
 
-clean:
-	(cd gen; make clean)
-	(cd simjlc; make clean)
-	(cd util  ; make clean)
+liball: depend include
+	for v in 5 6 ; do \
+	  ( for i in clean install ; do \
+	    ( make libdir=$(LCLIBROOT)/lib$$v PYTHIA_VERSION=$$v $$i ); \
+	    done ; ) ; \
+	done
+	ln -s lib6 lib
+
+clean::
+	(cd config ; $(MAKE) clean)
+	(cd example ; $(MAKE) clean )
 	rm -f *~
 
-cleanall: clean
-	rm -f jobout.install
-	(cd gen/basesv5.1/full ; rm -f Makefile)
-	(cd gen/basesv5.1/src  ; rm -f Makefile)
-	(cd gen/helasv204 ; rm -f */Makefile)
-	(cd gen/luhadr ; rm -f */Makefile)
-	(rm -f gen/tauola/Makefile)
-	(rm -f util/cli/Makefile)
-	(rm -f util/com/Makefile)
-	(rm -f util/commands/build/Makefile)
-	(rm -f util/fortlib/*/Makefile)
-	(rm -f util/genutil/src/Makefile)
-	(rm -f util/hpktohbk/Makefile)
-	(rm -f util/lcfull/src/Makefile)
-	(cd util/tbs/src ; rm -f Makefile)
-	(cd util/tbschk ; rm -f Makefile tbschk)
-	(cd util/lcfull/src ; rm -f prmain.o )
+cleanall:: distclean
+
+distclean:: clean
 	(cd bin; rm -f tbschk build)
-	(cd lib; rm -f *.a)
+	(rm -rf $(libdir))
+	(rm -rf $(includedir))
+	(rm -rf lib5 lib6)
+
+$(TARGETS)::
+	for i in $(SUBDIRS); do \
+	( cd $$i ; $(MAKE) $@ ); \
+	done
 
