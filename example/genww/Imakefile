@@ -9,7 +9,7 @@
 #              21-Nov-1994  Modified for use with BASESV5.1
 #              16-Feb-1996  For demo at Nagoya Univ. Nakanishi's Lab.
 #               8-Dec-1997  To Run on HI-UX
-#
+#              24-Dec-1998  To use with cernlib/98a
 
 #define LCLIB_TMPL "../../config/lclib.tmpl"
 #include LCLIB_TMPL
@@ -31,11 +31,12 @@ ANALOBJ   = wwspr.o flanli.o wwdcy.o wwamp.o wwanl.o \
 	    coupla.o boost0.o bs51cm.o bshget.o 
 
 
-ANALLIB   =  -Wl,-L$(LCLIB) -lLCFULL -lGENUTIL -lLUND73 -lTAUOLA \
+ANALLIB   =  -Wl,-L$(LCLIB) -lLCFULL -lLUHADR -lGENUTIL -lTAUOLA \
 	    -lHELASV204 -lBASESV5.1 -lSIMJLC -lFORTLIB  -lCOM -lCLI \
 	    -lTBS -lLCFULL -lGENUTIL  \
 	    -lHPKTOHBK -lFORTLIB -lCOM -lCLI \
-	    $(CERNLIBOPT) -Wl,-L$(HBOOK_LIB) -lpacklib $(MYLDOPT)
+	    $(CERNLIBOPT) -Wl,-L$(HBOOK_LIB) -lpacklib \
+	    -ljetset74 $(MYLDOPT)
 
 #ifdef HPArchitecture
 MYLDOPT = -lvec -lU77 -Wl,-a,archive -Wl,-L/lib -lm
@@ -45,7 +46,7 @@ MYLDOPT = -lmsl2
 #ifdef F90FORTRAN
 # MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
 MYLDOPT = -lmsl2 -L/lib/pa1.1 -lm
-HBOOK_LIB = /cern/95a_f90/lib
+HBOOK_LIB = /cern/97a_nog/lib
 CERNLIBOPT = -Wl,-a,archive 
 #endif
 #endif
