@@ -7,6 +7,14 @@ To recompile and create libs, do
 in this directory.
 
 *************************************************
+lclib-2000-1 25-Jan-2000  by A.Miyamoto
+*************************************************
+(1) Dtector parameter set for 3 Tesla solenod is added in
+    in simjlc/param/jlc3T.com.  Since Calorimeter segmentation is changed,
+    /PRJUNK/ common used by Track-Cluster link was replaced.
+(2) There are some minar changes in Y2K related problem and Imakefiles
+
+*************************************************
 lclib-98a-5-1 26-May-1999  by K.Fujii
 *************************************************
 (1) config/lclib.tmpl modified to compile everything with a PIC flag
