@@ -40,6 +40,7 @@ C -------------------------------------------------------------------- C
 C
       IDBG = MOD( NJBDBG(2,1), 10 )
       IF( IDBG .EQ. 0 ) RETURN
+      IF( IDBG .NE. 0 ) RETURN
 C
       WRITE(6, 100)
       WRITE(6, 105) NEVMAX

@@ -27,6 +27,11 @@ C
       CALL DATE(HIZUKE)
       CALL UTIME(JIKAN)
       CALL PRGVRS(NVERS, NVERSL, VDATE)
+
+      PRINT *,'******* LCFULL Analysis initialized ********* '
+      IRET=0
+      IF( IRET .EQ. 0 ) RETURN
+
       WRITE(6,100) PRGNAM, NVERS, NVERSL, VDATE, HIZUKE, JIKAN
 100   FORMAT(1H1,///,
      > ' ************************************************',
