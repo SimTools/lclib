@@ -53,7 +53,7 @@ UNIX_SRCS = $(patsubst %.o,$(TBSDIR)/%.F,$(UNIX_OBJS))
 OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS)
 #endif
 #ifdef hitachiArchitecture
-OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) FNUM.o
+OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(HP_OBJS) $(UNIX_OBJS) ../tbs/src/FNUM.o.hiuxf77
 #endif
 #ifdef PPCArchitecture
 OBJS	      = $(TBSCHKOBJS) $(F_OBJS) $(C_OBJS) $(PPC_OBJS) $(UNIX_OBJS)
@@ -66,6 +66,10 @@ JLCLIB = /jlc/local/lib
 LDFLAG = -Wl,-L$(LCHOME)/lib -lFORTLIB \
 	-Wl,-L$(JLCLIB) -lncurses -lU77
 CFLAGS = -Ae -O $(INCPATH) -DTBSCHK
+#else if hitachiArchitecture
+INCPATH = -I../tbs/src
+LCHOME  = /proj.hi/phys/lclib/pro
+LDFLAG  = -L$(LCHOME)/lib -lFORTLIB -lcurses
 #else
 INCPATH = -I../tbs/src
 LCHOME  = /proj/phys/lclib/pro
@@ -140,6 +144,7 @@ fd_to_fileno.o: $(TBSDIR)/fd_to_fileno.c
 #endif
 
 ############################################
+
 
 install:: tbschk
 	cp tbschk ../../bin/tbschk
