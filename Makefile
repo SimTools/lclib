@@ -1,6 +1,7 @@
 all: install
 
 install:
+	./bin/make.libdir
 	(cd gen    ; make install)
 	(cd simjlc ; make install)
 	(cd util   ; make install)
