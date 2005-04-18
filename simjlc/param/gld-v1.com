@@ -1,8 +1,4 @@
 @!
-@! jlc3T.com prepared in 25-January-2000
-@!   JLC detector parameter for 3 Tesla Solenoid field.
-@!   5 layers of intremideate tracker is also included.
-@!
 @!(Description)
 @!  This is a sample input stream for the JLC quick detector simulator.
 @!  Major detector parameters of this file are as follows.
