@@ -74,6 +74,9 @@ C>>>
       DATA  ETHRHD    / 5.E-2 /
 C>>>
 C>>>>
+C .. to output particle info. at HDC entrance.
+      REAL*4  HDPARTHIT(12), kinv
+      INTEGER*4  NHDPARTHIT     
 #ifdef TIME
       PARAMETER ( MXxTIM = 20 )
 #endif 
@@ -105,6 +108,7 @@ C--
 C--
 C  Zero cluster data.
 C--
+      NHDPARTHIT=0
       NHDCLS = 0
       CALL UVZERO(MXxNW*MXxCL,RDATA)
       CALL UVZERO((MXxPHI+1)*(MXxTHT+1),IBPINT)
@@ -155,6 +159,34 @@ C--
             CALL ULINCY(RCYHD,ZCYHD,EPSL,RHELIX(1,IPT),PHI,XP,IRT)
          ENDIF
          IF ( IRT.LE.0 )                         GO TO 30000
+C
+C ... Generator Particle number
+         NHDPARTHIT=NHDPARTHIT+1
+         HDPARTHIT(1) = NHDPARTHIT
+         HDPARTHIT(2) = IPT
+         HDPARTHIT(3) = RPLIST( 2,IPT)   
+         HDPARTHIT(4) = RPLIST( 4,IPT) 
+C ... 5-8 = Px, Py,Pz, E
+         if ( ichg.ne.0 ) then
+            kinv =  1.0/RHELIX(3,IPT) 
+            HDPARTHIT(5) = -kinv*sin(rhelix(2,ipt)+phi)
+            HDPARTHIT(6) =  kinv*cos(rhelix(2,ipt)+phi)
+            HDPARTHIT(7) =  kinv*rhelix(5,ipt)
+         else 
+            HDPARTHIT(5) = RPLIST(5,IPT)
+            HDPARTHIT(6) = RPLIST(6,IPT)
+            HDPARTHIT(7) = RPLIST(7,IPT)
+         endif
+         HDPARTHIT(8) = RPLIST( 8,IPT)
+C ... 9-11 = X, Y, Z
+         HDPARTHIT(9)  = XP(1)
+         HDPARTHIT(10) = XP(2)
+         HDPARTHIT(11) = XP(3)
+
+         call tbput(1,'Production:HDC;Hit_Track',
+     >                 NHDPARTHIT,11,HDPARTHIT,IRT)
+C--
+
 C--
 C  Create cluster data.
 C        RDATA(    1, ICL ) = E

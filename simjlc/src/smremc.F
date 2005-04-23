@@ -70,6 +70,11 @@ C--
       CHARACTER*64    BKNAM2 / 'Production:EMC;Hit_Pad'  /
       PARAMETER       ( LNxEMC = 3 )
       DATA  EPSL      / 0.1 /
+C
+C .. to output particle info. at EMC entrance.
+      REAL*4  EMPARTHIT(12) , kinv
+      INTEGER*4  NEMPARTHIT     
+
 C>>>
       DATA  ETHREM    / 5.E-2 /
 C>>>
@@ -105,6 +110,7 @@ C--
 C--
 C  Zero cluster data.
 C--
+      NEMPARTHIT=0
       MEMCLS = 0
       NEMCLS = 0
       CALL UVZERO(MXxNW*MXxCL,RDATA)
@@ -155,6 +161,31 @@ C--
             CALL ULINCY(RCYEM,ZCYEM,EPSL,RHELIX(1,IPT),PHI,XP,IRT)
          ENDIF
          IF ( IRT.LE.0 )                         GO TO 40000
+C
+C ... Generator Particle number
+         NEMPARTHIT=NEMPARTHIT+1
+         EMPARTHIT(1) = NEMPARTHIT
+         EMPARTHIT(2) = IPT
+         EMPARTHIT(3) = RPLIST( 2,IPT)   
+         EMPARTHIT(4) = RPLIST( 4,IPT) 
+C ... 5-8 = Px, Py,Pz, E
+         if ( ichg.ne.0 ) then
+            kinv =  1.0/RHELIX(3,IPT) 
+            EMPARTHIT(5) = -kinv*sin(rhelix(2,ipt)+phi)
+            EMPARTHIT(6) =  kinv*cos(rhelix(2,ipt)+phi)
+            EMPARTHIT(7) =  kinv*rhelix(5,ipt)
+         else 
+            EMPARTHIT(5) = RPLIST(5,IPT)
+            EMPARTHIT(6) = RPLIST(6,IPT)
+            EMPARTHIT(7) = RPLIST(7,IPT)
+         endif
+         EMPARTHIT(8) = RPLIST( 8,IPT)
+C ... 9-11 = X, Y, Z
+         EMPARTHIT(9)  = XP(1)
+         EMPARTHIT(10) = XP(2)
+         EMPARTHIT(11) = XP(3)
+         call tbput(1,'Production:EMC;Hit_Track',
+     >                 NEMPARTHIT,11,EMPARTHIT,IRT)
 C--
 C  Update cluster data.
 C        RDATA(1,    ICL ) = E
