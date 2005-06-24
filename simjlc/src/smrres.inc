@@ -1,9 +1,14 @@
       COMMON /SMRRES/  SIGRF , SIGZE,
      .                 SGEMB0, SGEMB, SGEME0, SGEME, SGHDB0, SGHDB,
-     .                 SGHDE0, SGHDE
+     .                 SGHDE0, SGHDE,
+     .                 XRAD_CDC
       REAL*4           SIGRF , SIGZE,
      .                 SGEMB0, SGEMB, SGEME0, SGEME, SGHDB0, SGHDB,
-     .                 SGHDE0, SGHDE
+     .                 SGHDE0, SGHDE,
+     .                 XRAD_CDC
+C
+C  Chamber gas thickness per cm in unit of radiation length
+C=    DATA             XRAD_CDC  /0.000015/ 
 C--
 C  Tracking resolution. Unit in cm.
 C     Sigma_(r-phi,Z)

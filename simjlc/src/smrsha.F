@@ -20,14 +20,17 @@ C*     Called by SMREMC and SMRHDC.
 C*     Calls no subroutines.
 C* (Updaterecord)
 C*     3/29/93  K.Fujii           Original version.
+C*     6/22/05  A.Miyamoto        Shower shape parameters are obtained
+C*                                from common /smrclp/
 C*
 C***********************************************************************
  
       SUBROUTINE SMRSHA(ITYP,MXxHSG,DXY,XY,EXY)
  
+#include "smrclp.inc"
       INTEGER*4  ITYP, MXxHSG
       REAL   *4  DXY(2), XY(2), EXY(-MXxHSG:MXxHSG,-MXxHSG:MXxHSG)
-      REAL   *4  ANM(2,2), ALM(2,2), PXY(-20:20,2)
+      REAL   *4  PXY(-20:20,2)
       DATA NCALL /0/
 C
 C========< Entry Point >================================================
@@ -38,17 +41,6 @@ C     f(x) = ANM(1,i)*EXP(-!x!/ALM(1,i)) + ANM(2,i)*EXP(-!x!/ALM(2,i))
 C                   core part                 peripheral part
 C  where i = (1,2) = (EM,HD).
 C--
-      IF ( NCALL.EQ.0 ) THEN
-         NCALL = 1
-         ANM(1,1) = 0.14/1.263/2
-         ANM(2,1) = 1.00/1.263/2
-         ALM(1,1) = 0.45
-         ALM(2,1) = 1.20
-         ANM(1,2) = 2.00/11.40/2
-         ANM(2,2) = 1.00/11.40/2
-         ALM(1,2) = 2.20
-         ALM(2,2) = 7.00
-      ENDIF
 C--
 C  Decide calorimeter type.
 C--
@@ -58,10 +50,10 @@ C--
          PRINT *, '     STOP.'
          STOP
       ENDIF
-      AL1 = ALM(1,ITYP)
-      AL2 = ALM(2,ITYP)
-      A1  = AL1*ANM(1,ITYP)
-      A2  = AL2*ANM(2,ITYP)
+      AL1 = CLSSH_ALM(1,ITYP)
+      AL2 = CLSSH_ALM(2,ITYP)
+      A1  = AL1*CLSSH_ANM(1,ITYP)
+      A2  = AL2*CLSSH_ANM(2,ITYP)
 C--
 C  Integrate f(x)*f(y) over the cell.
 C--

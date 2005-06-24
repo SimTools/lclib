@@ -120,11 +120,35 @@ C--
       NMOD = 0
 100   IADR = 0
       CALL INTRD('SMRPRD Address ? ', IADR )
-      IF( IADR .GT.1000 ) THEN
+      IF( IADR .GT.1000 .AND. IADR .LT. 1100 ) THEN
         IP = MOD(IADR-1001,5) + 1
         JP = (IADR-1001)/5 + 1
         CALL FLTRD(' Value ? ', CLSPAR(IP,JP) )
         NMOD = NMOD + 1
+        GO TO 100
+      ENDIF
+
+      IF( IADR .GT.1100 .AND. IADR .LT. 1200 ) THEN
+        IP = MOD(IADR-1100,100)
+        JP = IP/10 + 1
+        IP = MOD(IP,10)
+        IF(IP.EQ.1.OR.IP.EQ.2) THEN
+           CALL FLTRD(' Value ? ', CLSSH_ANM(IP,JP))
+           NMOD = NMOD + 1
+        ELSE IF(IP.EQ.3.OR.IP.EQ.4 ) THEN
+           CALL FLTRD(' Value ? ', CLSSH_ALM(IP-2,JP))
+           NMOD = NMOD + 1
+        ENDIF
+        GO TO 100
+      ENDIF
+C      DATA (CLSSH_ANM(I,1),I=1,2)/ 0.055424, 0.395883/
+C      DATA (CLSSH_ALM(I,1),I=1,2)/ 0.45,  1.20 /
+C      DATA (CLSSH_ANM(I,2),I=1,2)/ 0.0877193, 0.043860/
+C      DATA (CLSSH_ALM(I,2),I=1,2)/ 2.20,  7.00/
+      
+      IF( IADR .EQ. 2001 ) THEN
+        CALL FLTRD(' Value ? ',XRAD_CDC ) 
+        NMOD = NMOD + 1 
         GO TO 100
       ENDIF
  
@@ -318,6 +342,15 @@ C--
        IOFF = IOFF + 4
        WRITE(6,*)'        VTX rphi/z error             ',SMRPRM(IOFF+1)
       ENDIF
+
+      WRITE(6,*) ' CDC thickness per cm in X0 unit     ',XRAD_CDC
+
+      WRITE(6,*) ' Cal. shower shape parameter         '
+      WRITE(6,*) '      EM: a1,  a2    ', CLSSH_ANM(1,1), CLSSH_ANM(2,1)
+      WRITE(6,*) '          b1,  b2    ', CLSSH_ALM(1,1), CLSSH_ALM(2,1)
+      WRITE(6,*) '      HD: a1,  a2    ', CLSSH_ANM(1,2), CLSSH_ANM(2,2)
+      WRITE(6,*) '          b1,  b2    ', CLSSH_ALM(1,2), CLSSH_ALM(2,2)
+
 C--   
 C  That's it.
 C--

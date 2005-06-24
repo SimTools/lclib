@@ -46,6 +46,8 @@ C*                                the effect of multiple-scattering
 C*     5/28/01  K.Fujii		  Limit NHIT less or equal to NSMPTK
 C*				  also in MODE=1.
 C*				  Fixed a bug in RDK calculation.
+C*     6/22/05  A.Miyamoto        XRAD is defined by XRAD_CDC given by 
+C*                                common /SMRRES/
 C*
 C***********************************************************************
  
@@ -83,10 +85,11 @@ C     Thickness per cm in unit of radiation length
 C     Value given here is for CO2/C4H10 90/10 % ( from JLC-I report ) 
       REAL*4 XRAD
 C**      DATA XRAD/0.000055/
-      DATA XRAD/0.000015/
+C**      DATA XRAD/0.000015/  This is defined by input parameter
 C
 C========< Entry Point >================================================
 C
+      XRAD = XRAD_CDC
 C--
 C  Reset return flag.
 C--

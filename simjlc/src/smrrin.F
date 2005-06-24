@@ -33,6 +33,7 @@ C***********************************************************************
 #include "smrrnd.inc"
 #include "smrfld.inc"
 #include "prfeld.inc"
+#include "smrclp.inc"
       PARAMETER      ( LNxPRM = 200 )
       INTEGER*4       IMRPRM(LNxPRM)
       REAL   *4       SMRPRM(LNxPRM)
@@ -356,6 +357,13 @@ C--
        WRITE(6,*)'        VTX Space point resolution   ',SMRPRM(IOFF+1)
       ENDIF
       WRITE(6,*) '  '
+      WRITE(6,*) ' CDC thickness per cm in X0 unit     ',XRAD_CDC
+
+      WRITE(6,*) ' Cal. shower shape parameter         '
+      WRITE(6,*) '      EM: a1,  a2    ', CLSSH_ANM(1,1), CLSSH_ANM(2,1)
+      WRITE(6,*) '          b1,  b2    ', CLSSH_ALM(1,1), CLSSH_ALM(2,1)
+      WRITE(6,*) '      HD: a1,  a2    ', CLSSH_ANM(1,2), CLSSH_ANM(2,2)
+      WRITE(6,*) '          b1,  b2    ', CLSSH_ALM(1,2), CLSSH_ALM(2,2)
       WRITE(6,*) '  '
 C--
 C  That's it.
