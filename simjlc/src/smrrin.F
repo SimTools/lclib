@@ -44,7 +44,7 @@ C--
 C
 C========< Entry Point >================================================
 C
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL SMRBLK
 #endif
 C--

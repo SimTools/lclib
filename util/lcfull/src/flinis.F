@@ -30,7 +30,11 @@ C      DO 10 I = 1, NPROG
           CALL FEXSUB ( ENTINI(LI) )
 #endif
 #ifdef  UNIX
+#if !defined(__GFORTRAN__)
           CALL FEXSUB (%VAL(ENTINI(LI)) )
+#else
+          CALL cFEXSUB (ENTINI(LI) )
+#endif
 #endif
         END IF
 10    CONTINUE

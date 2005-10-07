@@ -45,7 +45,14 @@ C
       DATA       NOPNFL/0/
       SAVE       NOPNFL
       DATA  NODFIL/ 0 /
+#if !defined(__GFORTRAN__)
       CHARACTER*1 NULL/X'00'/
+#else
+      character*1  null
+      integer  *1 inull
+      equivalence (null, inull)
+      data iNULL /x'00'/
+#endif
  
 C===========================<< Entry point >>==========================
 #ifdef MSP

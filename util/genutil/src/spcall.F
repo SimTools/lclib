@@ -55,7 +55,11 @@ C
 #ifdef TAYM
              CALL SPRING( FUNC, MXTRY, IRET)
 #endif 
+#if !defined(__GFORTRAN__)
              CALL SPRING( %VAL(NADSPF), MXTRY, IRET)
+#else
+             CALL SPRINGwrapper(IRET)
+#endif
 C
              CALL BSTIME( TIME2, 1 )
 C

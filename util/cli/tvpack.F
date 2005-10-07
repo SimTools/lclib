@@ -389,7 +389,7 @@ C
        include '_tvcomm.inc'
 C     COMMON /TVCOMM/ AREA(2,2),WINDOW(2,2),I1,I2,IFONT,TSIZE,IFLUSH
 C
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       LOGICAL*1 LTXT(N)
 #else
       BYTE*1 LTXT(N)

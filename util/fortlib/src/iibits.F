@@ -33,10 +33,10 @@ C
           .            Z1FFF, Z3FFF, Z7FFF, ZFFFF/
 #endif
 #ifdef  UNIX
-            DATA MASK / '0001'X,'0003'X,'0007'X,'000F'X,
-     .           '001F'X,'003F'X,'007F'X,'00FF'X,
-     .           '01FF'X,'03FF'X,'07FF'X,'0FFF'X,
-     .           '1FFF'X,'3FFF'X,'7FFF'X,'FFFF'X/
+            DATA MASK / x'0001',x'0003',x'0007',x'000F',
+     .           x'001F',x'003F',x'007F',x'00FF',
+     .           x'01FF',x'03FF',x'07FF',x'0FFF',
+     .           x'1FFF',x'3FFF',x'7FFF',x'FFFF'/
 #endif
 C  
 #if defined(HIUXF77) || defined(JavaVM)

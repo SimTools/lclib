@@ -3,7 +3,7 @@
 #
 
 CC      = gcc
-FC      = g77
+FC      = gfortran
 RANLIB  = ranlib
 DllSuf  = so
 INSTALLFLAGS = -c
@@ -13,7 +13,7 @@ ObjSuf  = o
 
 ifdef $(ENABLESHARED)
    DOSHRLIB = 1
-   REQUIREDLIBS = -lg2c -lm -lc
+   REQUIREDLIBS = -lgfortran -lgfortranbegin -lm -lc
 else
    DOSHRLIB =
 endif
@@ -23,15 +23,15 @@ CDEBUGFLAGS = -O
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
-        -Dlinux -DPPC -D__powerpc__ \
+        -Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ \
         -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)   
 FDEBUGFLAGS =  -O
-FFLAGS = $(FDEBUGFLAGS) \
-        -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
-        -fno-globals -fugly-init -Wno-globals \
+FFLAGS = $(FDEBUGFLAGS) -ftree-vectorize \
+        -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
         $(SHRLIBFLAGS) $(JAVAVMFLAG) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
+        -D__GFORTRAN__ \
         $(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
 
 

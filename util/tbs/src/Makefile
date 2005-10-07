@@ -56,7 +56,8 @@ ifeq ($(LCLIB_PLATFORM),hiux)
 endif
 
 ifeq ($(LCLIB_PLATFORM),darwin)
-  SHROBJ  = $(F_OBJS) $(C_OBJS) $(PPC_OBJS)
+#  SHROBJ  = $(F_OBJS) $(C_OBJS) $(PPC_OBJS)
+  SHROBJ  = $(F_OBJS) $(C_OBJS) $(LNX_OBJS)
   ALLOBJ  = $(SHROBJ)
 endif
 
@@ -84,7 +85,9 @@ install: lib$(LIBNAME).$(LibSuf)
 
 
 ifeq ($(LCLIB_PLATFORM),darwin)
-lun_to_fileno_ppc.o: lun_to_fileno_ppc.c
+#lun_to_fileno_ppc.o: lun_to_fileno_ppc.c
+lun_to_fileno_lnx.o: lun_to_fileno_lnx.F
+	$(FC) $(FFLAGS) -fno-underscoring -c $*.F
 endif
 
 ifeq ($(LCLIB_PLATFORM),linux)

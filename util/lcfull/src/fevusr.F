@@ -134,7 +134,11 @@ CCC     IF ( FBLCHK(LI) .AND. FBLCRE(LI) ) THEN
           CALL FEXEVT ( ENTEVT(LI), IDREC, LEVEL ,NDEBUG, IRET )
 #endif
 #ifdef  UNIX
+#if !defined(__GFORTRAN__)
         CALL FEXEVT(%VAL(ENTEVT(LI)), IDREC, LEVEL ,NDEBUG, IRET )
+#else
+        CALL cFEXEVT(ENTEVT(LI), IDREC, LEVEL ,NDEBUG, IRET )
+#endif
 #endif
  
           CALL CLOCKM ( IETIME )

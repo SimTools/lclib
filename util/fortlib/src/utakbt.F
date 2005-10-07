@@ -47,28 +47,28 @@ C
      .            Z1FFFFFFF, Z3FFFFFFF, Z7FFFFFFF, ZFFFFFFFF /
 #endif
 #ifdef  UNIX
-       DATA MASK /'00000001'X,'00000003'X,'00000007'X,'0000000F'X,
+       DATA MASK /x'00000001',x'00000003',x'00000007',x'0000000F',
 #endif
 #ifdef  UNIX
-     .           '0000001F'X,'0000003F'X,'0000007F'X,'000000FF'X,
+     .           x'0000001F',x'0000003F',x'0000007F',x'000000FF',
 #endif
 #ifdef  UNIX
-     .           '000001FF'X,'000003FF'X,'000007FF'X,'00000FFF'X,
+     .           x'000001FF',x'000003FF',x'000007FF',x'00000FFF',
 #endif
 #ifdef  UNIX
-     .           '00001FFF'X,'00003FFF'X,'00007FFF'X,'0000FFFF'X,
+     .           x'00001FFF',x'00003FFF',x'00007FFF',x'0000FFFF',
 #endif
 #ifdef  UNIX
-     .           '0001FFFF'X,'0003FFFF'X,'0007FFFF'X,'000FFFFF'X,
+     .           x'0001FFFF',x'0003FFFF',x'0007FFFF',x'000FFFFF',
 #endif
 #ifdef  UNIX
-     .           '001FFFFF'X,'003FFFFF'X,'007FFFFF'X,'00FFFFFF'X,
+     .           x'001FFFFF',x'003FFFFF',x'007FFFFF',x'00FFFFFF',
 #endif
 #ifdef  UNIX
-     .           '01FFFFFF'X,'03FFFFFF'X,'07FFFFFF'X,'0FFFFFFF'X,
+     .           x'01FFFFFF',x'03FFFFFF',x'07FFFFFF',x'0FFFFFFF',
 #endif
 #ifdef  UNIX
-     .           '1FFFFFFF'X,'3FFFFFFF'X,'7FFFFFFF'X,'FFFFFFFF'X/
+     .           x'1FFFFFFF',x'3FFFFFFF',x'7FFFFFFF',x'FFFFFFFF'/
 #endif
 C  
       IPRT = ISHFT(IX,-ILO)

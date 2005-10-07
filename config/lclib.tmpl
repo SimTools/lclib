@@ -159,7 +159,7 @@ XCOMM ****************************************************************
 #endif
 
 #ifdef DOSHRLIB
-REQUIREDLIBS = -lg2c -lm -lc
+REQUIREDLIBS = -lgfortran -lgfortranbegin -lm -lc
 #endif
 
 SHRLIBFLAGS = -fPIC
@@ -170,14 +170,15 @@ CFLAGS = $(CDEBUGFLAGS) \
 	-Dlinux -DPPC -D__powerpc__ \
 	-DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
 FDEBUGFLAGS =  -O
-FFLAGS = $(FDEBUGFLAGS) -fPIC \
-        -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
-        -fno-globals -fugly-init -Wno-globals \
+FFLAGS = $(FDEBUGFLAGS) -fPIC -ftree-vectorize \
+        -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
+	-D__GFORTRAN__ \
 	$(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
 CC = cc
-FF = g77
+FC = gfortran
+FF = $(FC)
 RANLIB = ranlib
 INSTALLFLAGS = -c
 #endif

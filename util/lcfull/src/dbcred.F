@@ -115,7 +115,11 @@ C
        CALL DBCSEX(CMDNAM, NDBCTL(4,ICMD))
 #endif
 #ifdef  UNIX
+#ifndef __GFORTRAN__
        CALL DBCSEX(CMDNAM, %VAL(NDBCTL(4,ICMD)))
+#else
+       CALL cdbcsex(cmdnam, ndbctl(4,icmd))
+#endif
 #endif
       ENDIF
 C

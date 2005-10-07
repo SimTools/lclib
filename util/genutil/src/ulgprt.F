@@ -30,8 +30,8 @@ C
 
       WRITE(LU,110) NTRK
 110   FORMAT(1H ,'*** Generator:Particle_List *** ',I4,' tracks',/,
-C      x123x234567x23456x23x234567890x234567890x234567890
-     >' Ser#  PID  Mass Chg   Px(GeV)   Py(GeV)   Pz(GeV)',
+C      x123x234567x23456789x23x234567890x234567890x234567890
+     >' Ser#  PID  Mass    Chg   Px(GeV)   Py(GeV)   Pz(GeV)',
 C      x234567890x2345678x2345678x2345678x23x234x234',
      >'   E(GeV)   Vx(cm)  Vy(cm)  Vz(cm) #D Pnt Mot',
 C      x2345678x234567890x234567890
@@ -48,7 +48,7 @@ C
          NMO  = RBUF(14)
          WRITE(LU,200) ISER, IPID, RBUF(3), ICRG, (RBUF(K),K=5,11),
      >   NDOU, NPD, NMO, (RBUF(K2),K2=15,17)
- 200     FORMAT(1X,I3,I7,F6.4,I3,4F10.4,3F8.3,I3,I4,I4,F8.2,2F10.5)
+ 200     FORMAT(1X,I3,I7,F9.4,I3,4F10.4,3F8.3,I3,I4,I4,F8.2,2F10.5)
  100  CONTINUE
       NRET = 0
       RETURN

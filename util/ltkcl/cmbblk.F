@@ -1,4 +1,4 @@
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       SUBROUTINE CMBBLK
 #else
       BLOCK DATA CMBBLK

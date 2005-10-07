@@ -25,7 +25,7 @@ C
 CCC   DATA LSTR/Z43,Z11,Z40,Z40,Z3C,Z5D,Z7F,Z00/
 CMSP      DATA LSTR/Z40,Z11,Z40,Z40,Z3C,Z5D,Z7F,Z00/
 C
-D     PRINT *, '*TVCLR'
+C     PRINT *, '*TVCLR'
       CALL TPUT(STR,8,'F,W',IRET)
 C%%%  PRINT *, '***** TVCLR *****'
       RETURN
@@ -33,7 +33,7 @@ C
 C
       ENTRY TVHOME
 C
-D     PRINT *, '*TVHOME'
+C     PRINT *, '*TVHOME'
       CALL TPUT(STR,4,'F,W',IRET)
       RETURN
       END
@@ -55,10 +55,10 @@ C COOMON
       EXTERNAL TVBLK
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL TVBLK
 #endif
-D     PRINT *, '*TVLOC'
+C     PRINT *, '*TVLOC'
       ROWS = MIN( ROW + 1, 24 )
       COLS = MIN( COL + 1, 79 )
       CALL TVLOC1( ROWS, COLS )
@@ -86,7 +86,7 @@ C VAR
       INTEGER * 4  LOC, L1, L2
 C
 C BEGIN
-D     PRINT *, '*TVLOC1'
+C     PRINT *, '*TVLOC1'
 C     ... write control code
       LBUF(1) = LWCC
 C     ... set buffer address
@@ -124,11 +124,11 @@ C VAR
       INTEGER   *  4  LS, LP
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL TVBLK
 #endif
 
-D     PRINT *, '*TVPROM'
+C     PRINT *, '*TVPROM'
 C     ... locate cursor
       IF( LTVLOC ) CALL TVLOC1( ROWS,COLS )
 C     ... put a prompt string
@@ -181,11 +181,11 @@ C VAR
       INTEGER   *  4  CSRPOS(2), NFIELD, FLDPOS(2)
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL TVBLK
 #endif
 
-D     PRINT *, '*TVEDIT'
+C     PRINT *, '*TVEDIT'
 C     ... locate cursor
       IF( LTVLOC ) CALL TVLOC1( ROWS,COLS )
 C     ... put a string
@@ -214,11 +214,11 @@ C VAR
       CHARACTER * 80  WORKS
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL TVBLK
 #endif
 
-D     PRINT *, '*TVPEDT'
+C     PRINT *, '*TVPEDT'
       LS = 0
       WORKS(LS+1:) = WCC
       LS = LS + 1
@@ -262,7 +262,7 @@ C VAR
       EQUIVALENCE( CBUF,LBUF )
 C
 C BEGIN
-D     PRINT *, '*TVCEOL'
+C     PRINT *, '*TVCEOL'
       LS = 0
       LBUF(LS+1) = LWCC
       LS = LS + 1
@@ -301,7 +301,7 @@ C VAR
       INTEGER * 4  LOC, L1, L2
 C
 C BEGIN
-D     PRINT *, '*TVADRS'
+C     PRINT *, '*TVADRS'
       LOC = (ROW - 1) * 80 + COL - 1
       L1 = LOC / 64
       L2 = LOC - L1 * 64
@@ -319,7 +319,7 @@ C ARG
       INTEGER * 4  ROW, COL
 C
 C BEGIN
-D     PRINT *, '*TVSRDA'
+C     PRINT *, '*TVSRDA'
 CMSP      L1 = MOD( BAH,16 ) + ( MOD( BAH/16,8 ) - 4 ) * 16
 CMSP      L2 = MOD( BAL,16 ) + ( MOD( BAL/16,8 ) - 4 ) * 16
 CMSP      LOC = L1 * 64 + L2
@@ -341,7 +341,7 @@ C CONST
        include '_tvcmd.inc'
 C
 C BEGIN
-D     PRINT *, '*TVPUTL'
+C     PRINT *, '*TVPUTL'
       IF( MODE .EQ. 'WCC' ) THEN
         BUF(1:1) = WCC
         LBUF = 1
@@ -393,7 +393,7 @@ C CONST
 C
 C VAR
       CHARACTER * 1024  CBUF
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       LOGICAL      * 1     LBUF(1024)
 #else
       BYTE      * 1     LBUF(1024)
@@ -401,9 +401,9 @@ C VAR
       EQUIVALENCE( CBUF,LBUF )
 C
 C BEGIN
-D     PRINT *, '*TVINPT'
+C     PRINT *, '*TVINPT'
       CALL TGET( CBUF,1024,'A,W',IRET,LAST )
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       AID = LBUF(1)
 #else
       AID = INT(LBUF(1))
@@ -448,7 +448,7 @@ C VAR
       CHARACTER * 80  WORKS
 C
 C BEGIN
-D     PRINT *, '*TVMLIN'
+C     PRINT *, '*TVMLIN'
       CALL TVADRS( ROW,COL,BAH1,BAL1 )
       CALL TVADRS( ROW,COL+LEN(FIELD1)+1,BAH2,BAL2 )
       WORKS = WCC//SBA//BAH1//BAL1//SF//UNPL//FIELD1
@@ -458,8 +458,8 @@ D     PRINT *, '*TVMLIN'
       RETURN
       END
 C
-#ifdef HIUXF77
-	SUBROUTINE TVBLK
+#if defined(HIUXF77) || defined(__GFORTRAN__)
+      SUBROUTINE TVBLK
 #else
       BLOCK DATA TVBLK
 #endif

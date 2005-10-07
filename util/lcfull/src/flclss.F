@@ -23,7 +23,11 @@ C      DO 10 I = 1, NPROG
           CALL FEXSUB ( ENTTER(LI) )
 #endif
 #ifdef  UNIX
+#if !defined(__GFORTRAN__)
           CALL FEXSUB ( %VAL(ENTTER(LI)) )
+#else
+          CALL cFEXSUB (ENTTER(LI) )
+#endif
 #endif
         END IF
 10    CONTINUE

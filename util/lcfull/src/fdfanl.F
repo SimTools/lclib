@@ -84,8 +84,12 @@ C
 #ifdef  MSP
              CALL FEXSUB ( LOCDIA )
 #endif
+#if !defined(__GFORTRAN__)
 #ifdef  UNIX
              CALL FEXSUB ( %VAL(LOCDIA) )
+#endif
+#else
+             call cfexsub (LOCDIA)
 #endif
              DONE( ILOC )   = .TRUE.
              LENTMP = LENRD ( NAMCOM(ILOC) )

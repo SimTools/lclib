@@ -128,7 +128,7 @@ C*  A. Miyamoto  15-Aug-1990   Original version.                       *
 C*                                                                     *
 C***********************************************************************
 C
-      REAL FUNCTION   FUNC*8( X )
+      REAL*8 FUNCTION   FUNC( X )
 C
       IMPLICIT REAL*4 (A-B,D-H,O-Z)
       IMPLICIT COMPLEX*8  (C)

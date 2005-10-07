@@ -32,7 +32,11 @@ C       DO 10 I = 1, NPROG
             CALL FEXPRN ( ENTERU(LI), EXELVL(LI), DBGLVL(LI) )
 #endif
 #ifdef  UNIX
+#if !defined(__GFORTRAN__)
            CALL FEXPRN ( %VAL(ENTERU(LI)), EXELVL(LI), DBGLVL(LI) )
+#else
+           call cfexprn ( ENTERU(LI), EXELVL(LI), DBGLVL(LI) )
+#endif
 #endif
           END IF
 10      CONTINUE

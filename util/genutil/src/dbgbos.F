@@ -227,7 +227,7 @@ C*                                                                    *C
 CC********************************************************************CC
 C
 C ==========================
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       SUBROUTINE DBGBOD
 #else
       BLOCK DATA DBGBOD
@@ -350,7 +350,7 @@ C
 C
 C ======< Entry Point >=================================================
 C
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GOFRTRAN__)
       CALL DBGBOD
 #endif
 C

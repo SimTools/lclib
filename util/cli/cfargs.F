@@ -22,7 +22,7 @@ C VAR
       LOGICAL * 4  INPAR
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL CLARGB
 #endif
       LENGTH = LEN( LINE )
@@ -145,7 +145,7 @@ C COMMON
       EXTERNAL STACKB
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       CALL STACKB
 #endif
       IF( STACKP .GE. MAXSTK ) THEN
@@ -180,8 +180,8 @@ C
       END
 C
 C
-#ifdef HIUXF77
-	SUBROUTINE CLARGB
+#if defined(HIUXF77) || defined(__GFORTRAN__)
+      SUBROUTINE CLARGB
 #else
       BLOCK DATA CLARGB
 #endif
@@ -194,8 +194,8 @@ C
       END
 C
 C
-#ifdef HIUXF77
-	SUBROUTINE STACKB
+#if defined(HIUXF77) || defined(__GFORTRAN__)
+      SUBROUTINE STACKB
 #else
       BLOCK DATA STACKB
 #endif

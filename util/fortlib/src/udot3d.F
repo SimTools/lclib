@@ -18,7 +18,7 @@ C*         9/27/86 TKSF Double precision version.                     *C
 C*                                                                    *C
 CC********************************************************************CC
    
-      REAL FUNCTION UDOT3D*8(X,Y)
+      REAL*8 FUNCTION UDOT3D(X,Y)
    
       REAL*8  X(3),Y(3)
    

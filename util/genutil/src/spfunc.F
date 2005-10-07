@@ -24,6 +24,8 @@ C
 C
 #if defined(AIX)
       NADSPF = LOC(MFUNC)
+#elif defined(__GFORTRAN__)
+      call addfunc(mfunc)
 #else
       NADSPF = %LOC(MFUNC)
 #endif

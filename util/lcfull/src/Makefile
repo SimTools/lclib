@@ -27,6 +27,9 @@ OBJS  = dbcanl.o dbcini.o dbcopr.o dbcred.o dbcsex.o dbcsub.o dbxadc.o \
 # prlrnl.o prtrgt.o prtrg1.o prtrg2.o  prinfo.o
 
 OBJC =  closelcfull.o
+ifeq ($(shell uname),Darwin)
+OBJC += dbcwrapper.o
+endif
 
 OBJF =  extsub.o fbkdel.o fblchk.o fblcre.o fdfanl.o fdoevt.o \
 	fendrn.o fevusr.o fexevt.o fexprn.o fexsub.o finirn.o flclss.o \

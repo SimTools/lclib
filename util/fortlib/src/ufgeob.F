@@ -1,4 +1,4 @@
-#if defined(HIUXF77) || defined(JavaVM)
+#if defined(HIUXF77) || defined(JavaVM) || defined(__GFORTRAN__)
       SUBROUTINE UFGEOB
 #else
       BLOCK DATA UFGEOB

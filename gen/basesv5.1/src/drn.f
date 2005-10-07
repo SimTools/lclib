@@ -55,7 +55,7 @@ C*  ISEED: Seed                                                       *
 C*                                                                    *
 C**********************************************************************
  
-      REAL FUNCTION DRN*8(ISEED)
+      REAL*8 FUNCTION DRN(ISEED)
  
       COMMON/RANDM/RDM(31),RM1,RM2,IA1,IC1,M1,IX1,
      .                             IA2,IC2,M2,IX2,

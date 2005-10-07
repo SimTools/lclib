@@ -1,4 +1,4 @@
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
       SUBROUTINE SMRBLK
 #else
       BLOCK DATA SMRBLK

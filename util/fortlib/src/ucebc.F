@@ -29,8 +29,9 @@ C*
 C
 #if defined(G77_521_OR_GREATER) || defined(HIUXF77) || defined(JavaVM)
       CHARACTER*4  TABDAT(4,0:15)
-      EQUIVALENCE  (TABDAT(1,0),TABLE(0))
-      DATA ((TABDAT(J,K),J=1,4),K=0,15)
+      integer  *4 iTABDAT(4,0:15)
+      EQUIVALENCE  (TABDAT(1,0),TABLE(0),iTABDAT(1,00))
+      DATA ((iTABDAT(J,K),J=1,4),K=0,15)
 C                 N S S F       D
 C                 U O T T   H   E       V F C S S
 C00-0F            L H X X \ T \ L \ \ \ T F R O I

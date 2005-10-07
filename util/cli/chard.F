@@ -80,7 +80,7 @@ C FUNC
        LOGICAL  IFTSS, IFATN
 C
 C BEGIN
-#ifdef HIUXF77
+#if defined(HIUXF77) || defined(__GFORTRAN__)
        CALL CLIBLK
 #endif
        IF( IPNT.GT.LAST ) GOTO 880
@@ -660,7 +660,7 @@ C
 C ----------
 C   CLILVL
 C ----------
-       INTEGER FUNCTION CLILVL*4( IDUMMY )
+       INTEGER*4 FUNCTION CLILVL( IDUMMY )
 C
        include '_unitrd.inc'
        include '_flagrd.inc'
@@ -1035,8 +1035,8 @@ C      RETURN
 C      END
 C
 C
-#ifdef HIUXF77
-	SUBROUTINE CLIBLK
+#if defined(HIUXF77) || defined(__GFORTRAN__)
+       SUBROUTINE CLIBLK
 #else
       BLOCK DATA CLIBLK
 #endif

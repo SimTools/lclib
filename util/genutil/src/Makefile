@@ -24,6 +24,10 @@ OBJL  =  beamfn.o beamgn.o beamin.o boostd.o dbgbos.o decay2.o \
 
 ALLOBJ = $(OBJL) 
 
+ifeq ($(shell uname),Darwin)
+ALLOBJ += springwrapper.o
+endif
+
 INCS = $(wildcard *.inc)
 
 EPROBINC = $(wildcard beaminc/eprob.blk.*)
