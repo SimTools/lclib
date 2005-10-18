@@ -3,7 +3,11 @@
 #
 
 CC      = gcc
+ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
 FC      = gfortran
+else
+FC      = g77
+endif
 RANLIB  = ranlib
 DllSuf  = so
 INSTALLFLAGS = -c
@@ -13,19 +17,24 @@ ObjSuf  = o
 
 ifdef $(ENABLESHARED)
    DOSHRLIB = 1
+ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
    REQUIREDLIBS = -lgfortran -lgfortranbegin -lm -lc
+else
+   REQUIREDLIBS = -lg2c -lm -lc
+endif
 else
    DOSHRLIB =
 endif
 
 SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O
+FDEBUGFLAGS =  -O
+ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
         -Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ \
         -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)   
-FDEBUGFLAGS =  -O
 FFLAGS = $(FDEBUGFLAGS) -ftree-vectorize \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
@@ -33,5 +42,18 @@ FFLAGS = $(FDEBUGFLAGS) -ftree-vectorize \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
         -D__GFORTRAN__ \
         $(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
+else
+CFLAGS = $(CDEBUGFLAGS) \
+        -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
+        -Dlinux -DPPC -D__powerpc__ \
+        -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)
+FFLAGS = $(FDEBUGFLAGS) \
+        -fdollar-ok -fno-backslash -fno-automatic \
+        -fno-second-underscore \
+        $(SHRLIBFLAGS) $(JAVAVMFLAG) \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
+        $(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
+endif
 
 
