@@ -24,7 +24,7 @@ OBJL  =  beamfn.o beamgn.o beamin.o boostd.o dbgbos.o decay2.o \
 
 ALLOBJ = $(OBJL) 
 
-ifeq ($(shell uname),Darwin)
+ifeq ($(FC),gfortran)
 ALLOBJ += springwrapper.o
 endif
 

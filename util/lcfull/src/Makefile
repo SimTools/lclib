@@ -27,7 +27,7 @@ OBJS  = dbcanl.o dbcini.o dbcopr.o dbcred.o dbcsex.o dbcsub.o dbxadc.o \
 # prlrnl.o prtrgt.o prtrg1.o prtrg2.o  prinfo.o
 
 OBJC =  closelcfull.o
-ifeq ($(shell uname),Darwin)
+ifeq ($(FC),gfortran)
 OBJC += dbcwrapper.o
 endif
 
