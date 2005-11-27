@@ -18,7 +18,7 @@ OBJS   = dscsmr.o  dscswm.o  smrblk.o smrcbk.o  smrcht.o  smrcls.o \
 	 smrvhl.o  smrcmo.o  smrhlm.o \
 	 swmjtm.o  swmprd.o  swmrin.o swmrtm.o  uftvtk.o ulcvtk.o 
 
-INCPATH = -I. -I$(BASEDIR)/util/lcfull/src \
+INCPATH += -I. -I$(BASEDIR)/util/lcfull/src \
 	  -I$(BASEDIR)/util/fortlib/src
 
 ALLOBJ  = $(OBJS) swmevt.o

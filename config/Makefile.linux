@@ -3,7 +3,7 @@
 #
 
 CC      = gcc
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 FC      = gfortran
 else
 FC      = g77
@@ -16,7 +16,7 @@ ObjSuf  = o
 
 ifdef $(ENABLESHARED)
    DOSHRLIB = 1
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
    REQUIREDLIBS = -lgfortran -lgfortranbegin -lm -lc -rdynamic
 else
    REQUIREDLIBS = -lg2c -lm -lc -rdynamic
@@ -27,7 +27,8 @@ endif
 
 SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O2
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+INCPATH     = -I.
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN -D__GFORTRAN__ \

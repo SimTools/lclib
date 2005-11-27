@@ -8,7 +8,7 @@
 
 include $(LCLIBROOT)/config/Makefile.lclib
 
-INCPATH = -I../../lcfull/src \
+INCPATH += -I../../lcfull/src \
 	  -I../../fortlib/src  \
 	  -I../../tbs/src
 

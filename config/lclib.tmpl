@@ -161,7 +161,7 @@ XCOMM ****************************************************************
 #endif
 
 #ifdef DOSHRLIB
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 REQUIREDLIBS =  -lgfortran -lgfortranbegin -lm -lc
 else
 REQUIREDLIBS =  -lg2c -lm -lc
@@ -171,7 +171,7 @@ endif
 SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O
 FDEBUGFLAGS =  -O
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 CFLAGS = $(CDEBUGFLAGS) \
 	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
@@ -219,7 +219,7 @@ XCOMM ****************************************************************
 #endif
 #endif
 #ifdef DOSHRLIB
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 REQUIREDLIBS =  -lgfortran -lgfortranbegin -lm -lc -rdynamic
 else
 REQUIREDLIBS = -lg2c -lm -lc -rdynamic
@@ -227,7 +227,7 @@ endif
 #endif
 SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O2
-ifneq ($(shell which gfortran | grep -v 'no gfortran' | grep -c gfortran),0)
+ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \

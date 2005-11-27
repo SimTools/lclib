@@ -18,7 +18,7 @@ SRCS  = $(patsubst %.o,%.F,$(OBJS))
 
 ALLOBJ  = $(OBJS) 
 
-INCPATH = -I$(BASEDIR)/util/lcfull/src \
+INCPATH += -I$(BASEDIR)/util/lcfull/src \
 	  -I$(BASEDIR)/util/com 
 
 # -------------------------------------------------

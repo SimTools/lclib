@@ -11,7 +11,7 @@ include $(LCLIBROOT)/config/Makefile.lclib
 BASEDIR = ../../..
 LIBNAME = BASESV5.1
 
-INCPATH = -I$(BASEDIR)/util/lcfull/src \
+INCPATH += -I$(BASEDIR)/util/lcfull/src \
 	  -I$(BASEDIR)/util/com 
 SRCDIR	= ../src
 

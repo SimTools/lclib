@@ -64,7 +64,7 @@ INCS = $(wildcard *.inc)
 
 ALLOBJ = $(OBJL) rann.o ran_.o $(OBJASM) $(OBJDEP) $(COBJECT) $(OBJSSL2)
 
-INCPATH = -I../../lcfull/src  -I./
+INCPATH += -I../../lcfull/src  -I./
 
 # -------------------------------------------------
 

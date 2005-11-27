@@ -32,7 +32,7 @@ INCS = $(wildcard *.inc)
 
 EPROBINC = $(wildcard beaminc/eprob.blk.*)
 
-INCPATH = -I../../lcfull/src  -I../../com
+INCPATH += -I../../lcfull/src  -I../../com
 
 # -------------------------------------------------
 

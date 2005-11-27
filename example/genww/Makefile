@@ -16,7 +16,7 @@ include $(LCLIBROOT)/config/Makefile.lclib
 LCLIB   = $(LCLIBROOT)/lib
 CERNLIB = $(CERN_ROOT)/lib
 
-INCPATH = -I$(LCLIBROOT)/include
+INCPATH += -I$(LCLIBROOT)/include
 
 MAIN  = $(LCLIBROOT)/util/lcfull/src/prmain.o
 

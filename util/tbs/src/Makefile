@@ -41,7 +41,7 @@ C_OBJS	      = tb_buflib.o tbvopn.o tbvred.o
 
 INCS = $(wildcard *.inc)
 
-INCPATH = -I../../lcfull/src  -I../../com
+INCPATH += -I../../lcfull/src  -I../../com
 
 SRCS = $(subst .o,.F,$(F_OBJS))
 

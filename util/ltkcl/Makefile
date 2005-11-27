@@ -16,7 +16,7 @@ OBJS = chkcls.o cmbblk.o cmbtrk.o fglcls.o gamtrk.o \
 
 INCS = $(wildcard *.inc)
 
-INCPATH = -I. -I../../util/lcfull/src -I../../simjlc/src \
+INCPATH += -I. -I../../util/lcfull/src -I../../simjlc/src \
 	  -I../../util/fortlib/src 
 
 ALLOBJ = $(OBJS)
