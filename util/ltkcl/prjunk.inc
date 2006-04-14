@@ -77,17 +77,24 @@ CC      PARAMETER ( MXxZET=90, MXxPHI=100,MXxBD=(MXxZET+1)*(MXxPHI+1),
 CC     .            MXxCLS=5000 ,MXxWRK=1000, LNxTRK = 100, MXxTRK = 500 )
 CC     .            MXxCLS=5000 ,MXxWRK=3000, LNxTRK = 100, MXxTRK = 500 )
      .        MXxCLS=10000 ,MXxWRK=20000, LNxTRK = 100, MXxTRK = 500 )
+      PARAMETER (MXTKPNT=30000)
+C  divide by 20 means to assume 5% occupany in calorimeter at max
 #else
       PARAMETER ( MXxZET=300, MXxPHI=1600, MXxBD=(MXxZET+1)*(MXxPHI+1),
+CC     .        MXxCLS=5000, MXxWRK=1000, LNxTRK = 100, MXxTRK = 500 )
      .        MXxCLS=10000, MXxWRK=20000, LNxTRK = 100, MXxTRK = 500 )
+      PARAMETER (MXTKPNT=30000)
 #endif
       COMMON /PRJUNK/ NBNON, NCELLS, JBNPNT(0:MXxZET,0:MXxPHI),
      .                IBNPNT(2,MXxBD), NCLIN(MXxBD), ICLPNT(5,MXxCLS),
      .                WORK(MXxWRK), NCDCTK, RTKBNK(LNxTRK,MXxTRK),
      .                KBNPNT(0:MXxZET,0:MXxPHI), NTKIN(MXxBD),
-     .                ITKPNT(MXxTRK,MXxBD), KCNTRK(MXxTRK)
+     .                ITKPNT(MXxTRK,MXTKPNT), KCNTRK(MXxTRK)
+CC     .                ITKPNT(MXxTRK,MXxBD), KCNTRK(MXxTRK)
       INTEGER*4       NBNON, NCELLS, JBNPNT, IBNPNT, NCLIN, ICLPNT,
-     .                NCDCTK, KBNPNT, NTKIN, ITKPNT, KCNTRK
+     .                NCDCTK, KBNPNT, NTKIN, KCNTRK
+CC     .                NCDCTK, KBNPNT, NTKIN, ITKPNT, KCNTRK
+      INTEGER*2       ITKPNT
       REAL   *4       WORK, RTKBNK
 C--
       INTEGER*4       IWORK(MXxWRK), ITKBNK(LNxTRK,MXxTRK)

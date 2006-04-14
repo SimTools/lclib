@@ -89,6 +89,16 @@ C--
                JTKBN = KBNPNT(IZT,IFI)
             ENDIF
             NTKIN(JTKBN)    = NTKIN(JTKBN) + 1
+C
+            IF( JTKBN .GT. MXTKPNT ) THEN
+                  PRINT *,'Fatal error: JTKBN exceeded the ',
+     >           ' buffer size(', MXTKPNT, 
+     >           ') in the subroutine gtctrk at ',
+     >           ' at LCLIBROOT/util/ltkcl/gtctrk.F'
+                  PRINT *,'Please consider to increase ',
+     >               'the buffer size defined in prjunc.inc'
+                  STOP
+            ENDIF
             ITKPNT(NTKIN(JTKBN),JTKBN) = IE
 100      CONTINUE
 1000  CONTINUE
