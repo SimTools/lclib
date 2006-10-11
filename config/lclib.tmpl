@@ -5,6 +5,11 @@ XCOMM PYTHIA_FLAGS =
 
 SOREV = 05a
 
+ifeq (X$(shell uname -m),Xi386)
+MYENDIANFLAG    = -DITTLE_ENDIAN
+else
+MYENDIANFLAG    = 
+endif
 
 XCOMM ****************************************************************
 XCOMM AIXArchitecture
@@ -175,7 +180,7 @@ ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 CFLAGS = $(CDEBUGFLAGS) \
 	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
-	-Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ \
+	-Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ $(MYENDIANFLAG) \
 	-DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
 FFLAGS = $(FDEBUGFLAGS) -fPIC \
         -fdollar-ok -fno-backslash -fno-automatic \
@@ -233,13 +238,13 @@ CDEBUGFLAGS = -O2
 ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
-        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(MYENDIANFLAG) \
 	-DGNU_SOURCE -D__GFORTRAN__ -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
 FDEBUGFLAGS =  -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
-        $(SHRLIBFLAGS) -DLITTLE_ENDIAN \
+        $(SHRLIBFLAGS) $(MYENDIANFLAG) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DG77_521_OR_GREATER \
 	-D__GFORTRAN__ \
 	$(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
@@ -247,14 +252,14 @@ FC = gfortran
 else
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
-        -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
+        -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(MYENDIANFLAG) \
 	-DGNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
 FDEBUGFLAGS =  -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
         -fno-globals -fugly-init -Wno-globals \
 	-fno-second-underscore \
-        $(SHRLIBFLAGS) -DLITTLE_ENDIAN \
+        $(SHRLIBFLAGS) $(MYENDIANFLAG) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DG77_521_OR_GREATER \
 	$(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
 FC = g77
@@ -264,3 +269,14 @@ FF = $(FC)
 RANLIB = ranlib
 #endif
 
+ifeq ($(FC),gfortran)
+GCCMAJVER = $(shell gcc -dumpversion 2>/dev/null | sed -e 's;\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\);\1;')
+GCCMINVER = $(shell gcc -dumpversion 2>/dev/null | sed -e 's;\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\);\2;')
+ifeq ($(GCCMAJVER),4)
+ifneq ($(GCCMINVER),0)
+ifneq ($(GCCMINVER),1)
+FFLAGS += -fno-range-check
+endif
+endif
+endif
+endif
