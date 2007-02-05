@@ -184,8 +184,13 @@ C ... 9-11 = X, Y, Z
          EMPARTHIT(9)  = XP(1)
          EMPARTHIT(10) = XP(2)
          EMPARTHIT(11) = XP(3)
+#if 0
          call tbput(1,'Production:EMC;Hit_Track',
      >                 NEMPARTHIT,11,EMPARTHIT,IRT)
+#else
+         call tbput(1,'Production:EMC;Hit_Track',
+     >                 NEMPARTHIT,11,EMPARTHIT,jRT)
+#endif
 C--
 C  Update cluster data.
 C        RDATA(1,    ICL ) = E

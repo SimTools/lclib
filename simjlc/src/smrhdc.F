@@ -183,8 +183,13 @@ C ... 9-11 = X, Y, Z
          HDPARTHIT(10) = XP(2)
          HDPARTHIT(11) = XP(3)
 
+#if 0
          call tbput(1,'Production:HDC;Hit_Track',
      >                 NHDPARTHIT,11,HDPARTHIT,IRT)
+#else
+         call tbput(1,'Production:HDC;Hit_Track',
+     >                 NHDPARTHIT,11,HDPARTHIT,jRT)
+#endif
 C--
 
 C--
