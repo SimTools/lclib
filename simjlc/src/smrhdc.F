@@ -124,6 +124,10 @@ C--
          IPID = ABS(RPLIST( 2,IPT))
          IF ( IPID.EQ.11 .OR. IPID.EQ.12 .OR. IPID.EQ.13 .OR.
      .        IPID.EQ.14 .OR. IPID.EQ.16 .OR. IPID.EQ.22 .OR.
+#if 1
+     .       (IPID.GE.1 .AND. IPID.LE.10).OR. IPID.EQ.21 .OR.
+     .       (IPID.GE.23.AND. IPID.LE.100)               .OR.
+#endif
      .        IPID.GT.100000 )                   GO TO 30000
 C--
 C  Check if decay point inside the calorimeter inner wall.

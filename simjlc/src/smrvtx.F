@@ -85,6 +85,15 @@ C--
          ICHG = RPLIST(4,IPT)
          IF ( ICHG.EQ.0 )                        GO TO 1000
 C--
+C  Skip virtual particles.
+C--
+#if 1
+         IPID = ABS(RPLIST(2,IPT))
+         IF ( (IPID.GE.1 .AND. IPID.LE.10) .OR. 
+     .         IPID.EQ.21                  .OR.
+     .        (IPID.GE.23.AND. IPID.LE.100) )    GO TO 1000
+#endif
+C--
 C  Calculate R of the production point.
 C--
          XPR = RPLIST( 9,IPT)
