@@ -40,9 +40,9 @@ CFLAGS = $(CDEBUGFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
         -Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ \
         -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)   
-FFLAGS = $(FDEBUGFLAGS) -ftree-vectorize \
+FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic \
-	-fno-second-underscore \
+	-fno-second-underscore -fno-range-check \
         $(SHRLIBFLAGS) $(JAVAVMFLAG) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
         -D__GFORTRAN__ \

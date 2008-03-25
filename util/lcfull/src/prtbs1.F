@@ -31,6 +31,7 @@ C940211      PARAMETER( MXxTBS = 700000, MXxSSW = 200000 )
       PARAMETER( MXxTBS = 900000, MXxSSW = 200000 )
       COMMON /TBSBUF/ IBUFF( MXxTBS)
       COMMON /SSWORK/ KBUFF( MXxSSW)
+      character*128 MESAGE
 C>>>
 C
 C==================<<  Entry Point  >>================================
@@ -53,21 +54,21 @@ C
       CALL TBALOC('Begin_Run', 2, 15, 40,10000, IRET )
       IF(IRET.LT.0) THEN
          WRITE(MESAGE,'(''Error to TBALOC "Begin_run"...IRET='',
-     >                    I5,)') IRET
+     >                    I5)') IRET
          GO TO 9000
       ENDIF
 C
       CALL TBALOC('End_Run', 8,10,  20,5000, IRET )
       IF(IRET.LT.0) THEN
          WRITE(MESAGE,'(''Error to TBALOC "End_run"...IRET='',
-     >                    I5,)') IRET
+     >                    I5)') IRET
          GO TO 9000
       ENDIF
 C
       CALL TBALOC('Event',   1, 75, 6400, 400000, IRET)
       IF(IRET.LT.0) THEN
-         WRITE(MESAGE,'(''Error to TBALOC "Event"...IRET='',
-     >                    I5,)') IRET
+        WRITE(MESAGE,'(''Error to TBALOC "Event"...IRET='',
+     >                    I5)') IRET
          GO TO 9000
       ENDIF
 C
