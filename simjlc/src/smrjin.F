@@ -86,6 +86,9 @@ C--
          SIGZEV   = ERRVX(2)
          DSMPVT   = (RCYVT(2)-RCYVT(1))/(NUMVTX-1)
          VTXDEN   = 0.
+#if 1
+         NSMPVT   = NUMVTX
+#endif
          DO 11 I = 1, NUMVTX
            VTXDEN = VTXDEN + RDLVX(I)
  11      CONTINUE
