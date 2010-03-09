@@ -177,12 +177,12 @@ SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O
 FDEBUGFLAGS =  -O
 ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
-CFLAGS = $(CDEBUGFLAGS) \
+CFLAGS = -m32 $(CDEBUGFLAGS) \
 	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
 	-Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ $(MYENDIANFLAG) \
 	-DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
-FFLAGS = $(FDEBUGFLAGS) -fPIC \
+FFLAGS = -m32 $(FDEBUGFLAGS) -fPIC \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore /* -ftree-vectorize */ \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
