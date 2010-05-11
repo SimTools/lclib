@@ -1,3 +1,6 @@
+XCOMM ****************************************************************
+XCOMM * Start lclib/config/lclib.tmpl
+XCOMM ****************************************************************
 #include "config/configure.in"
 XCOMM PYTHIA_VERSION = 5
 XCOMM PYTHIA_LIB = -L$(CERN_ROOT)/lib -ljetset74
@@ -214,6 +217,7 @@ XCOMM ****************************************************************
 XCOMM LinuxArchitecture
 XCOMM ****************************************************************
 #if !defined(PPCArchitecture) && defined(LinuxArchitecture)
+JSFCONFIGFC = $(shell jsf-config --fc)
 #ifndef ENABLESHARED
 #ifdef DOSHRLIB
 #undef DOSHRLIB
@@ -225,7 +229,6 @@ XCOMM ****************************************************************
 #endif
 #ifdef DOSHRLIB
 
-JSFCONFIGFC = $(shell jsf-config --fc)
 XCOMM ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 ifeq ($(JSFCONFIGFC),gfortran)
 REQUIREDLIBS =  -lgfortran -lgfortranbegin -lm -lc -rdynamic
@@ -234,13 +237,14 @@ REQUIREDLIBS = -lg2c -lm -lc -rdynamic
 endif
 #endif
 SHRLIBFLAGS = -fPIC
-CDEBUGFLAGS = -O2
-ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
+CDEBUGFLAGS = -O2 -m32
+XCOMM ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
+ifeq ($(JSFCONFIGFC),gfortran)
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(MYENDIANFLAG) \
 	-DGNU_SOURCE -D__GFORTRAN__ -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
-FDEBUGFLAGS =  -O2
+FDEBUGFLAGS =  -O2 -m32
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
@@ -254,7 +258,7 @@ CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(MYENDIANFLAG) \
 	-DGNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
-FDEBUGFLAGS =  -O2
+FDEBUGFLAGS =  -O2 -m32
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
         -fno-globals -fugly-init -Wno-globals \
@@ -280,3 +284,6 @@ endif
 endif
 endif
 endif
+XCOMM ****************************************************************
+XCOMM * ENd of lclib/config/lclib.tmpl
+XCOMM ****************************************************************
