@@ -191,7 +191,7 @@ FFLAGS = -m32 $(FDEBUGFLAGS) -fPIC \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
 	-D__GFORTRAN__ \
 	$(PYTHIA_FLAGS) $(EXTRADEFINES) $(INCPATH)
-FC = gfortran-32
+FC = gfortran
 else
 CFLAGS = $(CDEBUGFLAGS) \
 	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
