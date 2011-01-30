@@ -6,9 +6,9 @@ ifeq (X$(shell uname -m),Xi386)
 EXTRADEFINES += -DLITTLE_ENDIAN
 endif
 
-CC      = gcc-32
+CC      = gcc
 ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
-FC      = gfortran-32
+FC      = gfortran
 else
 FC      = g77
 endif
