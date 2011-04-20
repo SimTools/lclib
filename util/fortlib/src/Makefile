@@ -7,6 +7,11 @@
 # -----------------------------------------------
 
 include $(LCLIBROOT)/config/Makefile.lclib
+ifeq ($(JSFCONFIGFC),gfortran)
+  ifeq ($(BUILDBITS),-m64)
+    FFLAGS += -fno-range-check
+  endif
+endif
 
 LIBNAME = FORTLIB
 
