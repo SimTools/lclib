@@ -14,6 +14,8 @@ else
 MYENDIANFLAG    = 
 endif
 
+BUILDBITS = $(shell jsf-config --bits)
+
 XCOMM ****************************************************************
 XCOMM AIXArchitecture
 XCOMM ****************************************************************
@@ -41,7 +43,6 @@ INSTALL = cp
 INSTALLFLAGS = 
 INSTLIBFLAGS = 
 #endif
-
 
 
 XCOMM ****************************************************************
@@ -180,12 +181,12 @@ SHRLIBFLAGS = -fPIC
 CDEBUGFLAGS = -O
 FDEBUGFLAGS =  -O
 ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
-CFLAGS = -m32 $(CDEBUGFLAGS) \
+CFLAGS = $(BUILDBITS) $(CDEBUGFLAGS) \
 	-fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
 	-DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ \
 	-Dlinux -DPPC -D__powerpc__ -D__GFORTRAN__ $(MYENDIANFLAG) \
 	-DX_LOCALE $(EXTRADEFINES) $(INCPATH)	
-FFLAGS = -m32 $(FDEBUGFLAGS) -fPIC \
+FFLAGS = $(BUILDBITS) $(FDEBUGFLAGS) -fPIC \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore /* -ftree-vectorize */ \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -D__DARWIN__ -DG77_521_OR_GREATER \
@@ -237,14 +238,14 @@ REQUIREDLIBS = -lg2c -lm -lc -rdynamic
 endif
 #endif
 SHRLIBFLAGS = -fPIC
-CDEBUGFLAGS = -O2 -m32
+CDEBUGFLAGS = -O2 $(BUILDBITS)
 XCOMM ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 ifeq ($(JSFCONFIGFC),gfortran)
 CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(MYENDIANFLAG) \
 	-DGNU_SOURCE -D__GFORTRAN__ -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
-FDEBUGFLAGS =  -O2 -m32
+FDEBUGFLAGS =  -O2 $(BUILDBITS)
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
@@ -258,7 +259,7 @@ CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC $(MYENDIANFLAG) \
 	-DGNU_SOURCE -DX_LOCALE $(EXTRADEFINES) $(INCPATH)
-FDEBUGFLAGS =  -O2 -m32
+FDEBUGFLAGS =  -O2 $(BUILDBITS)
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
         -fno-globals -fugly-init -Wno-globals \

@@ -3,6 +3,7 @@
 #
 
 CC      = gcc
+BUILDBITS = $(shell jsf-config --bits)
 # ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 JSFCONFIGFC = $(shell jsf-config --fc)
 ifeq ($(JSFCONFIGFC),gfortran)
@@ -29,7 +30,7 @@ else
 endif
 
 SHRLIBFLAGS = -fPIC
-CDEBUGFLAGS = -m32 -O2
+CDEBUGFLAGS = $(BUILDBITS) -O2
 INCPATH     = -I.
 # ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 ifeq ($(JSFCONFIGFC),gfortran)
@@ -37,7 +38,7 @@ CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN -D__GFORTRAN__ \
 	-DGNU_SOURCE -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)
-FDEBUGFLAGS =  -O2 -m32
+FDEBUGFLAGS =  -O2 $(BUILDBITS)
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic \
 	-fno-second-underscore \
@@ -50,7 +51,7 @@ CFLAGS = $(CDEBUGFLAGS) \
         -fno-strength-reduce -fomit-frame-pointer $(SHRLIBFLAGS) \
         -DUNIX -DKEK -DJLC -DMACHTEN_PPC -DLITTLE_ENDIAN \
 	-DGNU_SOURCE -DX_LOCALE $(JAVAVMFLAG) $(EXTRADEFINES) $(INCPATH)
-FDEBUGFLAGS =  -m32 -O2
+FDEBUGFLAGS =  $(BUILDBITS) -O2
 FFLAGS = $(FDEBUGFLAGS) \
         -fdollar-ok -fno-backslash -fno-automatic -fno-f90 -fugly-complex \
         -fno-globals -fugly-init -Wno-globals \
