@@ -7,6 +7,7 @@ EXTRADEFINES += -DLITTLE_ENDIAN
 endif
 
 CC      = gcc
+BUILDBITS = $(shell jsf-config --bits)
 ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 FC      = gfortran
 else
@@ -31,8 +32,8 @@ else
 endif
 
 SHRLIBFLAGS = -fPIC
-CDEBUGFLAGS = -O -m32
-FDEBUGFLAGS =  -O -m32
+CDEBUGFLAGS = -O $(BUILDBITS)
+FDEBUGFLAGS =  -O $(BUILDBITS)
 INCPATH     = -I.
 ifneq ($(shell which gfortran 2>&1 | grep -vc 'no gfortran'),0)
 CFLAGS = $(CDEBUGFLAGS) \
@@ -62,7 +63,7 @@ FFLAGS = $(FDEBUGFLAGS) \
 endif
 
 FSRCS         = $(strip $(subst .o,.F,$(FOBJS)))
-ifeq ($($(strip $(subst -m32,,$(FC)))),gfortran)
+ifeq ($($(strip $(subst $(BUILDBITS),,$(FC)))),gfortran)
 GCCMAJVER = $(shell gcc -dumpversion 2>/dev/null | sed -e 's;\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\);\1;')
 GCCMINVER = $(shell gcc -dumpversion 2>/dev/null | sed -e 's;\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\);\2;')
 ifeq ($(GCCMAJVER),4)
