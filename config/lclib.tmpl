@@ -13,6 +13,9 @@ MYENDIANFLAG    = -DITTLE_ENDIAN
 else
 MYENDIANFLAG    = 
 endif
+ifeq (X$(shell uname -m),Xx86_64)
+MYENDIANFLAG    = -DITTLE_ENDIAN
+endif
 
 BUILDBITS = $(shell jsf-config --bits)
 

@@ -5,6 +5,9 @@
 ifeq (X$(shell uname -m),Xi386)
 EXTRADEFINES += -DLITTLE_ENDIAN
 endif
+ifeq (X$(shell uname -m),Xx86_64)
+EXTRADEFINES += -DLITTLE_ENDIAN
+endif
 
 CC      = gcc
 BUILDBITS = $(shell jsf-config --bits)

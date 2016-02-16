@@ -19,6 +19,7 @@ SRCS  = $(patsubst %.o,%.F,$(OBJS))
 
 ALLOBJ  = $(OBJS) 
 
+FNOPTFLAGS         = $(strip $(subst -O,-O0,$(FFLAGS)))
 # -------------------------------------------------
 
 all: lib$(LIBNAME).$(LibSuf)
@@ -35,9 +36,13 @@ tar:
 	(cd ../;   compress  lib.tar)
 	(cd ../;   chmod -R 700 *)
 
+tauola.o: tauola.F
+	$(FC) $(FNOPTFLAGS) -c $<
+
+formf.o: formf.F
+	$(FC) $(FNOPTFLAGS) -c $<
 
 ###
-
 choice.o: parmas.inc
 dcdmas.o: parmas.inc
 inimas.o: parmas.inc
